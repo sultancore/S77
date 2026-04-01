@@ -1,0 +1,1437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="theme-color" content="#F6F0E6">
+<title>Sultan · LSE Graduation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Nunito:wght@300;400;500;600;700;800&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream:   #F6F0E6;
+  --cream2:  #EDE5D5;
+  --cream3:  #E0D4C0;
+  --white:   #FFFFFF;
+  --ink:     #1A1208;
+  --ink2:    #4A3E2A;
+  --ink3:    #8A7A5E;
+  --ink4:    #C0AE92;
+  --orange:  #D95B1A;
+  --orange2: #F27035;
+  --orange3: rgba(217,91,26,.12);
+  --orange4: rgba(217,91,26,.06);
+  --forest:  #2A6644;
+  --forest2: rgba(42,102,68,.12);
+  --red:     #C0392B;
+  --red2:    rgba(192,57,43,.1);
+  --border:  rgba(26,18,8,.08);
+  --border2: rgba(26,18,8,.14);
+  --shadow:  0 2px 16px rgba(26,18,8,.08);
+  --shadow2: 0 1px 6px rgba(26,18,8,.06);
+  --nav-h:   68px;
+  --r:       14px;
+  --r2:      20px;
+  --font-d:  'Oswald', sans-serif;
+  --font-b:  'Nunito', sans-serif;
+  --font-m:  'Courier Prime', monospace;
+}
+
+*,*::before,*::after { margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent; }
+
+html {
+  background: var(--cream);
+  height: 100%;
+  height: -webkit-fill-available;
+}
+body {
+  background: var(--cream);
+  color: var(--ink);
+  font-family: var(--font-b);
+  font-size: 17px;
+  line-height: 1.5;
+  height: 100%;
+  height: -webkit-fill-available;
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+#app {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  height: -webkit-fill-available;
+  height: 100dvh;
+  overflow: hidden;
+  position: relative;
+}
+
+/* ── PAGES ───────────────────────────────── */
+.pages {
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  position: relative;
+}
+
+.page {
+  position: absolute;
+  inset: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: calc(var(--nav-h) + env(safe-area-inset-bottom, 0px) + 16px);
+  opacity: 0;
+  transform: translateY(12px);
+  pointer-events: none;
+  transition: opacity .28s ease, transform .28s ease;
+}
+.page.on { opacity:1; transform:none; pointer-events:auto; }
+
+/* ── NAV ────────────────────────────────── */
+nav {
+  height: calc(var(--nav-h) + env(safe-area-inset-bottom, 0px));
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  background: var(--white);
+  border-top: 1.5px solid var(--border2);
+  display: flex;
+  align-items: stretch;
+  flex-shrink: 0;
+  flex-grow: 0;
+  position: relative;
+  z-index: 200;
+}
+.nb {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  padding: 8px 4px 4px;
+  transition: all .2s;
+  position: relative;
+}
+.nb::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 50%;
+  transform: translateX(-50%) scaleX(0);
+  width: 28px; height: 2.5px;
+  background: var(--orange);
+  border-radius: 0 0 3px 3px;
+  transition: transform .25s ease;
+}
+.nb.on::after { transform: translateX(-50%) scaleX(1); }
+.ni {
+  width: 24px; height: 24px;
+  display: flex; align-items: center; justify-content: center;
+}
+.ni svg {
+  width: 20px; height: 20px;
+  stroke: var(--ink3);
+  fill: none;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: stroke .2s;
+}
+.nl {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .7px;
+  text-transform: uppercase;
+  color: var(--ink3);
+  font-family: var(--font-b);
+  transition: color .2s;
+}
+.nb.on .ni svg { stroke: var(--orange); }
+.nb.on .nl { color: var(--orange); }
+
+/* ── SHARED LAYOUT ───────────────────────── */
+.pad { padding: 16px 16px 0; }
+.card {
+  background: var(--white);
+  border-radius: var(--r2);
+  border: 1.5px solid var(--border);
+  padding: 18px;
+  margin-bottom: 12px;
+  box-shadow: var(--shadow2);
+}
+.card-label {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--ink3);
+  margin-bottom: 14px;
+  font-family: var(--font-b);
+}
+
+/* ── HERO CARD ───────────────────────────── */
+.hero {
+  background: var(--ink);
+  border-radius: var(--r2);
+  margin: 16px 16px 12px;
+  padding: 22px;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  right: -30px; top: -30px;
+  width: 160px; height: 160px;
+  border-radius: 50%;
+  background: var(--orange);
+  opacity: .08;
+}
+.hero::after {
+  content: '';
+  position: absolute;
+  right: 30px; top: 10px;
+  width: 80px; height: 80px;
+  border-radius: 50%;
+  background: var(--orange2);
+  opacity: .06;
+}
+.hero-greeting {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--ink4);
+  margin-bottom: 4px;
+  font-family: var(--font-b);
+}
+.hero-name {
+  font-family: var(--font-d);
+  font-size: 32px;
+  font-weight: 700;
+  color: #F6F0E6;
+  letter-spacing: .5px;
+  line-height: 1;
+  margin-bottom: 18px;
+}
+.hero-name span { color: var(--orange2); }
+
+.hero-row {
+  display: flex;
+  gap: 12px;
+  align-items: stretch;
+}
+.hero-count {
+  flex: 1;
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: 12px;
+  padding: 14px;
+  text-align: center;
+}
+.hero-num {
+  font-family: var(--font-d);
+  font-size: 44px;
+  font-weight: 700;
+  color: var(--orange2);
+  line-height: 1;
+  letter-spacing: -.5px;
+}
+.hero-unit { font-size: 15px; color: var(--ink4); margin-top: 2px; font-family: var(--font-b); font-weight: 600; }
+
+.hero-prog {
+  flex: 1;
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: 12px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.hero-prog-label { font-size: 10px; font-weight: 700; letter-spacing: .8px; text-transform: uppercase; color: var(--ink4); margin-bottom: 8px; font-family: var(--font-b); }
+.bar-track {
+  height: 6px;
+  background: rgba(255,255,255,.1);
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+.bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--orange), var(--orange2));
+  border-radius: 3px;
+  width: 0%;
+  transition: width 1s cubic-bezier(.4,0,.2,1);
+}
+.hero-prog-sub { font-size: 11px; color: rgba(246,240,230,.5); font-family: var(--font-b); }
+
+/* ── QUOTE STRIP ─────────────────────────── */
+.quote-strip {
+  background: var(--orange3);
+  border: 1.5px solid rgba(217,91,26,.2);
+  border-radius: var(--r);
+  padding: 14px 16px;
+  margin: 0 16px 12px;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--orange);
+  line-height: 1.4;
+  font-family: var(--font-b);
+  position: relative;
+  padding-left: 30px;
+}
+.quote-strip::before {
+  content: '"';
+  position: absolute;
+  left: 12px; top: 10px;
+  font-family: var(--font-d);
+  font-size: 24px;
+  color: var(--orange2);
+  line-height: 1;
+}
+
+/* ── SECTION TITLE ───────────────────────── */
+.sec-title {
+  font-family: var(--font-d);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: .3px;
+  margin-bottom: 4px;
+}
+.sec-sub { font-size: 12px; color: var(--ink3); font-weight: 500; margin-bottom: 12px; }
+
+/* ── SUPPLEMENT LIST ─────────────────────── */
+.supp-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+  cursor: pointer;
+  transition: opacity .2s;
+  -webkit-user-select: none;
+  user-select: none;
+}
+.supp-item:last-child { border-bottom: none; padding-bottom: 0; }
+.supp-item:first-child { padding-top: 0; }
+.supp-check {
+  width: 26px; height: 26px;
+  border-radius: 50%;
+  border: 2px solid var(--border2);
+  flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  transition: all .22s cubic-bezier(.34,1.56,.64,1);
+  background: transparent;
+}
+.supp-item.done .supp-check {
+  background: var(--forest);
+  border-color: var(--forest);
+}
+.supp-item.done .supp-check svg { opacity: 1; transform: scale(1); }
+.supp-check svg { opacity:0; transform:scale(.4); transition: all .22s cubic-bezier(.34,1.56,.64,1); width:14px;height:14px;stroke:white;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round; }
+.supp-info { flex: 1; min-width: 0; }
+.supp-name { font-size: 16px; font-weight: 600; color: var(--ink); line-height: 1.3; transition: all .2s; }
+.supp-item.done .supp-name { text-decoration: line-through; color: var(--ink3); }
+.supp-when { font-size: 13px; color: var(--ink3); margin-top: 1px; }
+.supp-dose {
+  font-family: var(--font-m);
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--forest);
+  background: var(--forest2);
+  padding: 3px 8px;
+  border-radius: 6px;
+  flex-shrink: 0;
+}
+
+/* ── WATER TRACKER ───────────────────────── */
+.water-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.water-drops {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  flex: 1;
+}
+.drop {
+  width: 30px; height: 30px;
+  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+  border: 2px solid var(--border2);
+  background: transparent;
+  cursor: pointer;
+  transition: all .2s;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 9px; font-weight: 700; font-family: var(--font-m);
+  color: var(--ink3);
+}
+.drop.fill { background: var(--orange); border-color: var(--orange); color: white; }
+.water-stat {
+  text-align: right;
+  flex-shrink: 0;
+}
+.water-num { font-family: var(--font-d); font-size: 32px; font-weight: 700; color: var(--ink); line-height: 1; }
+.water-of { font-size: 10px; color: var(--ink3); font-weight: 600; }
+.water-btns { display: flex; gap: 6px; margin-top: 10px; }
+.water-btn {
+  flex: 1; padding: 9px; border-radius: 10px;
+  background: var(--cream2); border: 1.5px solid var(--border2);
+  font-family: var(--font-b); font-size: 12px; font-weight: 700;
+  color: var(--ink2); cursor: pointer; transition: all .15s;
+}
+.water-btn:active { transform: scale(.96); background: var(--cream3); }
+
+/* ── WEIGHT INPUT ────────────────────────── */
+.weight-input-row {
+  display: flex; gap: 8px; align-items: center;
+}
+.weight-inp {
+  flex: 1; padding: 12px 14px;
+  border: 1.5px solid var(--border2);
+  border-radius: 12px;
+  font-family: var(--font-d); font-size: 22px; font-weight: 700;
+  color: var(--ink); background: var(--cream);
+  outline: none; text-align: center;
+}
+.weight-inp:focus { border-color: var(--orange); }
+.log-btn {
+  padding: 12px 20px; border-radius: 12px;
+  background: var(--ink); color: #F6F0E6;
+  font-family: var(--font-b); font-size: 13px; font-weight: 700;
+  border: none; cursor: pointer; transition: all .15s;
+  letter-spacing: .3px;
+}
+.log-btn:active { transform: scale(.97); background: var(--orange); }
+.last-weight { font-size: 14px; color: var(--ink3); text-align: center; margin-top: 8px; }
+.streak-badge {
+  display: inline-flex; align-items: center; gap: 5px;
+  background: var(--orange3); border: 1.5px solid rgba(217,91,26,.2);
+  border-radius: 20px; padding: 6px 14px;
+  font-size: 14px; font-weight: 700; color: var(--orange);
+  margin: 8px auto 0; font-family: var(--font-b);
+}
+
+/* ── PLAN TAB ────────────────────────────── */
+.plan-tabs {
+  display: flex; gap: 0;
+  background: var(--cream2);
+  border-radius: var(--r);
+  padding: 4px;
+  margin-bottom: 14px;
+}
+.ptab {
+  flex: 1; padding: 8px 4px; border-radius: 10px;
+  border: none; background: none; cursor: pointer;
+  font-family: var(--font-b); font-size: 13px; font-weight: 700;
+  color: var(--ink3); letter-spacing: .4px; transition: all .2s;
+  text-align: center;
+}
+.ptab.on { background: var(--white); color: var(--ink); box-shadow: var(--shadow2); }
+
+.psec { display: none; }
+.psec.on { display: block; }
+
+.loc-tabs { display: flex; gap: 8px; margin-bottom: 14px; }
+.loc-btn {
+  flex: 1; padding: 9px 8px; border-radius: 10px;
+  border: 1.5px solid var(--border2); background: var(--white);
+  font-family: var(--font-b); font-size: 11px; font-weight: 700;
+  color: var(--ink3); cursor: pointer; transition: all .2s; text-align: center;
+}
+.loc-btn.on { border-color: var(--orange); color: var(--orange); background: var(--orange3); }
+
+/* ── DAY MEAL BLOCK ─────────────────────── */
+.meal-day {
+  background: var(--white);
+  border-radius: var(--r2);
+  border: 1.5px solid var(--border);
+  margin-bottom: 10px;
+  overflow: hidden;
+  box-shadow: var(--shadow2);
+}
+.meal-day-hdr {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 16px;
+  cursor: pointer;
+  -webkit-user-select: none; user-select: none;
+}
+.meal-day-name { font-family: var(--font-d); font-size: 16px; font-weight: 600; color: var(--ink); letter-spacing: .3px; }
+.meal-day-cal { font-family: var(--font-m); font-size: 13px; font-weight: 700; color: var(--ink3); }
+.meal-day-chev {
+  width: 20px; height: 20px; flex-shrink: 0;
+  stroke: var(--ink3); fill: none; stroke-width: 2;
+  stroke-linecap: round; stroke-linejoin: round;
+  transition: transform .25s;
+}
+.meal-day.op .meal-day-chev { transform: rotate(180deg); }
+.meal-body { display: none; border-top: 1px solid var(--border); }
+.meal-day.op .meal-body { display: block; }
+.meal-row {
+  display: flex; gap: 12px; align-items: flex-start;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+}
+.meal-row:last-child { border-bottom: none; }
+.meal-time {
+  font-family: var(--font-m); font-size: 12px; font-weight: 700;
+  color: var(--ink3); min-width: 48px; margin-top: 2px;
+}
+.meal-details { flex: 1; }
+.meal-name { font-size: 15px; font-weight: 700; color: var(--ink); margin-bottom: 2px; }
+.meal-desc { font-size: 13px; color: var(--ink3); line-height: 1.4; }
+.meal-kcal { font-family: var(--font-m); font-size: 12px; color: var(--orange); font-weight: 700; margin-top: 3px; }
+
+/* ── SUPPLEMENT PLAN ─────────────────────── */
+.supp-plan-item {
+  display: flex; gap: 12px; padding: 12px 0;
+  border-bottom: 1px solid var(--border); align-items: flex-start;
+}
+.supp-plan-item:last-child { border-bottom: none; }
+.supp-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--orange); flex-shrink: 0; margin-top: 5px;
+}
+.supp-plan-info { flex: 1; }
+.supp-plan-name { font-size: 15px; font-weight: 700; color: var(--ink); margin-bottom: 2px; }
+.supp-plan-detail { font-size: 13px; color: var(--ink3); }
+.supp-plan-time { font-family: var(--font-m); font-size: 10px; color: var(--forest); font-weight: 700; }
+
+/* ── RULES ───────────────────────────────── */
+.rule-item {
+  display: flex; gap: 14px; align-items: flex-start;
+  padding: 14px 0; border-bottom: 1px solid var(--border);
+}
+.rule-item:last-child { border-bottom: none; }
+.rule-num {
+  font-family: var(--font-d); font-size: 28px; font-weight: 700;
+  color: var(--cream3); line-height: 1; flex-shrink: 0; min-width: 28px;
+}
+.rule-text { font-size: 15px; font-weight: 600; color: var(--ink); line-height: 1.4; }
+.rule-sub { font-size: 13px; color: var(--ink3); margin-top: 2px; }
+
+/* ── SNACK SWAPS ─────────────────────────── */
+.swap-item {
+  display: flex; align-items: center; gap: 8px;
+  padding: 11px 0; border-bottom: 1px solid var(--border);
+}
+.swap-item:last-child { border-bottom: none; }
+.swap-bad { font-size: 14px; color: var(--ink3); text-decoration: line-through; flex: 1; }
+.swap-arrow { color: var(--orange); font-weight: 800; font-size: 13px; flex-shrink: 0; }
+.swap-good { font-size: 14px; font-weight: 700; color: var(--forest); flex: 1; text-align: right; }
+
+/* ── TIMELINE ────────────────────────────── */
+.tl-item {
+  display: flex; gap: 14px; margin-bottom: 4px;
+}
+.tl-left { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; }
+.tl-dot {
+  width: 12px; height: 12px; border-radius: 50%;
+  background: var(--cream3); border: 2px solid var(--border2); flex-shrink: 0;
+  margin-top: 4px;
+}
+.tl-item.active .tl-dot { background: var(--orange); border-color: var(--orange); }
+.tl-item.done .tl-dot { background: var(--forest); border-color: var(--forest); }
+.tl-line { width: 2px; flex: 1; background: var(--border); margin: 3px 0; min-height: 16px; }
+.tl-right { flex: 1; padding-bottom: 16px; }
+.tl-weeks { font-family: var(--font-m); font-size: 12px; font-weight: 700; color: var(--ink3); margin-bottom: 3px; }
+.tl-title { font-size: 15px; font-weight: 700; color: var(--ink); margin-bottom: 2px; }
+.tl-item.active .tl-title { color: var(--orange); }
+.tl-desc { font-size: 13px; color: var(--ink3); line-height: 1.4; }
+.tl-target { font-family: var(--font-d); font-size: 22px; font-weight: 700; color: var(--ink); margin-top: 3px; }
+
+/* ── TRACK TAB ───────────────────────────── */
+.track-date { font-family: var(--font-d); font-size: 18px; font-weight: 600; color: var(--ink); margin-bottom: 14px; letter-spacing: .2px; }
+.tick-item {
+  display: flex; align-items: center; gap: 12px;
+  padding: 11px 0; border-bottom: 1px solid var(--border);
+  cursor: pointer; -webkit-user-select: none; user-select: none;
+  transition: opacity .15s;
+}
+.tick-item:last-child { border-bottom: none; }
+.tick-box {
+  width: 22px; height: 22px; border-radius: 6px;
+  border: 2px solid var(--border2); flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  transition: all .2s;
+}
+.tick-item.done .tick-box { background: var(--forest); border-color: var(--forest); }
+.tick-box svg { opacity:0; transform:scale(.4); transition:all .2s cubic-bezier(.34,1.56,.64,1); width:12px;height:12px;stroke:white;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round; }
+.tick-item.done .tick-box svg { opacity:1; transform:scale(1); }
+.tick-label { font-size: 16px; font-weight: 600; color: var(--ink); flex: 1; }
+.tick-item.done .tick-label { text-decoration: line-through; color: var(--ink3); }
+.tick-cat { font-size: 10px; font-weight: 700; letter-spacing: .5px; text-transform: uppercase; color: var(--ink4); font-family: var(--font-b); }
+.tick-group-label { font-size: 9px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: var(--ink3); margin: 4px 0 4px; padding: 4px 0; }
+
+.track-note {
+  width: 100%; min-height: 80px;
+  border: 1.5px solid var(--border2);
+  border-radius: var(--r); padding: 12px 14px;
+  font-family: var(--font-b); font-size: 13px; color: var(--ink);
+  background: var(--cream); resize: none; outline: none;
+  line-height: 1.5;
+}
+.track-note:focus { border-color: var(--orange); }
+
+/* ── PROGRESS TAB ────────────────────────── */
+.prog-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 10px; margin-bottom: 12px;
+}
+.prog-box {
+  background: var(--white); border-radius: var(--r2);
+  border: 1.5px solid var(--border); padding: 16px;
+  text-align: center; box-shadow: var(--shadow2);
+}
+.prog-big {
+  font-family: var(--font-d); font-size: 36px; font-weight: 700;
+  color: var(--ink); line-height: 1; letter-spacing: -.5px;
+}
+.prog-unit { font-size: 14px; color: var(--ink3); font-family: var(--font-b); font-weight: 600; }
+.prog-delta { font-size: 11px; font-weight: 700; margin-top: 2px; font-family: var(--font-b); }
+.delta-g { color: var(--forest); }
+.delta-b { color: var(--red); }
+.prog-lbl { font-size: 10px; font-weight: 700; letter-spacing: .5px; text-transform: uppercase; color: var(--ink3); margin-top: 4px; font-family: var(--font-b); }
+
+.chart-card {
+  background: var(--white); border-radius: var(--r2);
+  border: 1.5px solid var(--border); padding: 18px;
+  margin-bottom: 12px; box-shadow: var(--shadow2);
+}
+.chart-title { font-family: var(--font-d); font-size: 16px; font-weight: 700; color: var(--ink); margin-bottom: 2px; }
+.chart-sub { font-size: 11px; color: var(--ink3); margin-bottom: 14px; }
+canvas { width: 100%; height: 120px; display: block; }
+
+.log-item { display:flex; justify-content:space-between; align-items:center; padding:10px 0; border-bottom:1px solid var(--border); }
+.log-item:last-child { border-bottom:none; }
+.log-date { font-family:var(--font-m); font-size:11px; color:var(--ink3); font-weight:700; }
+.log-weight { font-family:var(--font-d); font-size:20px; font-weight:700; color:var(--ink); }
+.log-diff { font-size:11px; font-weight:700; margin-left:6px; font-family:var(--font-b); }
+
+.cons-dots { display:flex; gap:8px; justify-content:center; padding:4px 0; }
+.cons-dot { display:flex; flex-direction:column; align-items:center; gap:5px; }
+.cons-circle {
+  width:36px; height:36px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+}
+.cons-day-lbl { font-size:9px; font-weight:800; letter-spacing:.5px; text-transform:uppercase; color:var(--ink3); font-family:var(--font-b); }
+
+.macro-row { display:flex; gap:8px; margin-bottom:12px; }
+.macro-box { flex:1; border-radius:var(--r); padding:12px 8px; text-align:center; }
+.m-protein { background:rgba(42,102,68,.1); }
+.m-carbs { background:rgba(217,91,26,.1); }
+.m-fat { background:rgba(26,18,8,.06); }
+.macro-num { font-family:var(--font-d); font-size:26px; font-weight:700; color:var(--ink); line-height:1; }
+.macro-unit { font-size:12px; color:var(--ink3); font-family:var(--font-b); }
+.macro-lbl { font-size:9px; font-weight:800; letter-spacing:.6px; text-transform:uppercase; margin-top:3px; font-family:var(--font-b); }
+.m-protein .macro-lbl { color:var(--forest); }
+.m-carbs .macro-lbl { color:var(--orange); }
+.m-fat .macro-lbl { color:var(--ink2); }
+
+.kcal-total { text-align:center; font-family:var(--font-d); font-size:30px; font-weight:700; color:var(--ink); }
+.kcal-sub { text-align:center; font-size:11px; color:var(--ink3); font-weight:600; margin-top:2px; }
+
+/* ── TOAST ───────────────────────────────── */
+.toast {
+  position: fixed; bottom: calc(var(--nav-h) + env(safe-area-inset-bottom, 0px) + 12px);
+  left: 50%; transform: translateX(-50%) translateY(10px);
+  background: var(--ink); color: #F6F0E6;
+  padding: 10px 20px; border-radius: 30px;
+  font-size: 13px; font-weight: 600; font-family: var(--font-b);
+  white-space: nowrap; opacity: 0;
+  transition: opacity .25s, transform .25s;
+  z-index: 999; pointer-events: none;
+  box-shadow: 0 4px 20px rgba(26,18,8,.2);
+}
+.toast.on { opacity:1; transform:translateX(-50%) translateY(0); }
+
+.ghost-btn {
+  border: none; background: none; cursor: pointer;
+  font-family: var(--font-b); font-size: 12px; font-weight: 700;
+  color: var(--ink3); padding: 4px 0;
+  text-decoration: underline; text-underline-offset: 2px;
+}
+
+/* ── ALULA GUIDE ─────────────────────────── */
+.alula-phrase {
+  background: var(--forest); color: white;
+  border-radius: var(--r); padding: 14px 16px;
+  font-size: 14px; font-weight: 700; margin-bottom: 10px;
+  font-family: var(--font-b); line-height: 1.5;
+}
+.food-list { display:flex; flex-wrap:wrap; gap:6px; margin-top:8px; }
+.food-tag {
+  background: var(--forest2); color: var(--forest);
+  border-radius: 8px; padding: 6px 12px;
+  font-size: 13px; font-weight: 700; font-family: var(--font-b);
+}
+.food-tag.bad { background: var(--red2); color: var(--red); }
+
+/* ── PAGE HEADERS ────────────────────────── */
+.pg-hdr { padding: 20px 16px 4px; }
+.pg-title { font-family: var(--font-d); font-size: 28px; font-weight: 700; color: var(--ink); letter-spacing: .3px; }
+.pg-sub { font-size: 14px; color: var(--ink3); font-weight: 500; margin-top: 2px; }
+</style>
+</head>
+<body>
+<div id="app">
+
+<!-- ══ PAGES ══════════════════════════════ -->
+<div class="pages">
+
+<!-- PAGE 0: TODAY -->
+<div class="page on" id="p0">
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-greeting" id="greet">Good morning</div>
+  <div class="hero-name">Sultan <span id="days-left">112</span></div>
+  <div class="hero-row">
+    <div class="hero-count">
+      <div class="hero-num" id="days-left2">112</div>
+      <div class="hero-unit">days to LSE</div>
+    </div>
+    <div class="hero-prog">
+      <div class="hero-prog-label">Journey · Day <span id="daynum">1</span></div>
+      <div class="bar-track"><div class="bar-fill" id="prog-fill"></div></div>
+      <div class="hero-prog-sub" id="curr-prog">Goal: 77 kg</div>
+    </div>
+  </div>
+</div>
+
+<!-- QUOTE -->
+<div class="quote-strip" id="qtext">You've been 70 kg before. That version hasn't gone anywhere.</div>
+
+<!-- SUPPLEMENTS -->
+<div class="pad">
+<div class="card">
+  <div class="card-label">Today's Supplements</div>
+  <div id="supp-list"></div>
+</div>
+
+<!-- WATER -->
+<div class="card">
+  <div class="card-label">Hydration</div>
+  <div class="water-row">
+    <div class="water-drops" id="drops"></div>
+    <div class="water-stat">
+      <div class="water-num" id="wml">0</div>
+      <div class="water-of">/ 3000 ml</div>
+    </div>
+  </div>
+  <div class="water-btns">
+    <button class="water-btn" onclick="addWater(250)">+250 ml</button>
+    <button class="water-btn" onclick="addWater(500)">+500 ml</button>
+    <button class="water-btn" onclick="addWater(1000)">+1 L</button>
+    <button class="water-btn" onclick="addWater(-250)">−</button>
+  </div>
+</div>
+
+<!-- WEIGHT LOG -->
+<div class="card">
+  <div class="card-label">Log Weight</div>
+  <div class="weight-input-row">
+    <input class="weight-inp" id="winp" type="number" step="0.1" min="60" max="120" placeholder="86.0" inputmode="decimal">
+    <button class="log-btn" onclick="logWeight()">Log</button>
+  </div>
+  <div class="last-weight" id="wlast"></div>
+  <div style="text-align:center">
+    <div class="streak-badge" id="streak-badge">🔥 <span id="streak">0</span> days</div>
+  </div>
+</div>
+</div><!-- pad -->
+</div><!-- page today -->
+
+<!-- PAGE 1: PLAN -->
+<div class="page" id="p1">
+<div class="pg-hdr">
+  <div class="pg-title">Your Plan</div>
+  <div class="pg-sub">16 weeks · April 1 → July 20, 2026</div>
+</div>
+<div class="pad" style="padding-top:12px">
+<div class="plan-tabs">
+  <button class="ptab on" onclick="ptab(this,'pmeal')">Meals</button>
+  <button class="ptab" onclick="ptab(this,'psupp')">Supps</button>
+  <button class="ptab" onclick="ptab(this,'prules')">Rules</button>
+  <button class="ptab" onclick="ptab(this,'pswap')">Swaps</button>
+  <button class="ptab" onclick="ptab(this,'ptl')">Timeline</button>
+</div>
+
+<!-- MEALS -->
+<div class="psec on" id="pmeal">
+<div class="loc-tabs">
+  <button class="loc-btn on" onclick="locTab(this,'lr')">🏠 Riyadh</button>
+  <button class="loc-btn" onclick="locTab(this,'la')">🏜️ AlUla</button>
+</div>
+
+<div id="lr">
+<div class="meal-day" id="bsun">
+  <div class="meal-day-hdr" onclick="mday('sun')">
+    <div>
+      <div class="meal-day-name">Sunday — Gym Day</div>
+      <div class="meal-day-cal">~1,790 kcal · Saudi Sunrise</div>
+    </div>
+    <svg class="meal-day-chev" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+  </div>
+  <div class="meal-body" id="csun">
+    <div class="meal-row"><div class="meal-time">06:30</div><div class="meal-details"><div class="meal-name">Scrambled Eggs + Oatmeal</div><div class="meal-desc">3 whole eggs, 50g rolled oats, 200ml almond milk, cinnamon</div><div class="meal-kcal">420 kcal · 28g P / 46g C / 14g F</div></div></div>
+    <div class="meal-row"><div class="meal-time">10:00</div><div class="meal-details"><div class="meal-name">Whey Shake + Banana</div><div class="meal-desc">1.5 scoops Healthy Chef WPI vanilla + 1 medium banana</div><div class="meal-kcal">310 kcal · 35g P / 32g C / 4g F</div></div></div>
+    <div class="meal-row"><div class="meal-time">13:00</div><div class="meal-details"><div class="meal-name">Grilled Sirloin + Sweet Potato</div><div class="meal-desc">200g sirloin, 200g sweet potato, large fattoush salad (no croutons)</div><div class="meal-kcal">680 kcal · 52g P / 56g C / 24g F</div></div></div>
+    <div class="meal-row"><div class="meal-time">≤14:30</div><div class="meal-details"><div class="meal-name">Greek Yogurt + 2 Dates</div><div class="meal-desc">200g full-fat Greek yogurt, exactly 2 Medjool dates</div><div class="meal-kcal">380 kcal · 16g P / 56g C / 9g F</div></div></div>
+  </div>
+</div>
+
+<div class="meal-day" id="bthu">
+  <div class="meal-day-hdr" onclick="mday('thu')">
+    <div>
+      <div class="meal-day-name">Thursday — Travel + Gym</div>
+      <div class="meal-day-cal">~1,640 kcal · Travel Fuel</div>
+    </div>
+    <svg class="meal-day-chev" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+  </div>
+  <div class="meal-body" id="cthu">
+    <div class="meal-row"><div class="meal-time">06:30</div><div class="meal-details"><div class="meal-name">Eggs + Labneh</div><div class="meal-desc">3 boiled eggs, 100g labneh, 1 tsp olive oil, cucumber, mint tea</div><div class="meal-kcal">370 kcal · 26g P / 6g C / 27g F</div></div></div>
+    <div class="meal-row"><div class="meal-time">10:00</div><div class="meal-details"><div class="meal-name">Double Whey Shake</div><div class="meal-desc">2 scoops WPI in 400ml water — airport/car friendly</div><div class="meal-kcal">280 kcal · 48g P / 8g C / 4g F</div></div></div>
+    <div class="meal-row"><div class="meal-time">13:00</div><div class="meal-details"><div class="meal-name">Grilled Salmon + Sweet Potato</div><div class="meal-desc">200g salmon fillet, 150g sweet potato, steamed broccoli</div><div class="meal-kcal">620 kcal · 46g P / 38g C / 26g F</div></div></div>
+    <div class="meal-row"><div class="meal-time">≤14:30</div><div class="meal-details"><div class="meal-name">Greek Yogurt</div><div class="meal-desc">200g full-fat Greek yogurt + berries if available</div><div class="meal-kcal">370 kcal · 16g P / 52g C / 10g F</div></div></div>
+  </div>
+</div>
+
+<div class="meal-day" id="bsat">
+  <div class="meal-day-hdr" onclick="mday('sat')">
+    <div>
+      <div class="meal-day-name">Saturday ⭐ — Heavy Gym</div>
+      <div class="meal-day-cal">~1,750 kcal · Secret Treat</div>
+    </div>
+    <svg class="meal-day-chev" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+  </div>
+  <div class="meal-body" id="csat">
+    <div class="meal-row"><div class="meal-time">06:30</div><div class="meal-details"><div class="meal-name">Smoked Salmon Eggs</div><div class="meal-desc">3 eggs scrambled with 50g smoked salmon, cherry tomatoes, chives</div><div class="meal-kcal">390 kcal · 34g P / 4g C / 26g F</div></div></div>
+    <div class="meal-row"><div class="meal-time">10:00</div><div class="meal-details"><div class="meal-name">Whey + Berry Shake</div><div class="meal-desc">1.5 scoops WPI, 100g frozen mixed berries, 200ml almond milk</div><div class="meal-kcal">300 kcal · 34g P / 22g C / 5g F</div></div></div>
+    <div class="meal-row"><div class="meal-time">13:00</div><div class="meal-details"><div class="meal-name">Deconstructed Shawarma Bowl</div><div class="meal-desc">200g grilled chicken (shawarma spice), 150g brown rice, hummus, tabbouleh, pickles</div><div class="meal-kcal">720 kcal · 52g P / 72g C / 18g F</div></div></div>
+    <div class="meal-row"><div class="meal-time">≤14:30</div><div class="meal-details"><div class="meal-name">Protein "Ice Cream"</div><div class="meal-desc">200g frozen banana blended with 1 scoop WPI + almond butter</div><div class="meal-kcal">340 kcal · 26g P / 38g C / 8g F</div></div></div>
+  </div>
+</div>
+
+<div class="meal-day" id="bfri">
+  <div class="meal-day-hdr" onclick="mday('fri')">
+    <div>
+      <div class="meal-day-name">Friday — Heavy Gym</div>
+      <div class="meal-day-cal">~1,740 kcal · Fuel Up</div>
+    </div>
+    <svg class="meal-day-chev" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+  </div>
+  <div class="meal-body" id="cfri">
+    <div class="meal-row"><div class="meal-time">06:30</div><div class="meal-details"><div class="meal-name">Scrambled Eggs + Oatmeal</div><div class="meal-desc">3 whole eggs, 50g oats, 200ml almond milk, 1 tsp honey, cinnamon</div><div class="meal-kcal">430 kcal · 28g P / 48g C / 14g F</div></div></div>
+    <div class="meal-row"><div class="meal-time">10:00</div><div class="meal-details"><div class="meal-name">Whey + Banana Shake</div><div class="meal-desc">1.5 scoops WPI, 1 banana, 200ml almond milk — pre-gym fuel</div><div class="meal-kcal">310 kcal · 35g P / 32g C / 4g F</div></div></div>
+    <div class="meal-row"><div class="meal-time">13:00</div><div class="meal-details"><div class="meal-name">Grilled Chicken + Sweet Potato</div><div class="meal-desc">200g chicken breast, 200g sweet potato, green salad, tahini dressing</div><div class="meal-kcal">650 kcal · 52g P / 52g C / 18g F</div></div></div>
+    <div class="meal-row"><div class="meal-time">≤14:30</div><div class="meal-details"><div class="meal-name">Greek Yogurt + 2 Dates</div><div class="meal-desc">200g full-fat Greek yogurt, exactly 2 Medjool dates</div><div class="meal-kcal">350 kcal · 16g P / 48g C / 9g F</div></div></div>
+  </div>
+</div>
+
+</div><!-- lr -->
+
+<div id="la" style="display:none">
+<div style="margin-bottom:10px">
+  <div class="alula-phrase">Magic Phrase: "Grilled, sauce on the side, salad instead of fries."</div>
+</div>
+
+<div class="card" style="margin-bottom:10px">
+  <div class="card-label">Always Order</div>
+  <div class="food-list">
+    <span class="food-tag">Grilled fish</span><span class="food-tag">Grilled chicken</span><span class="food-tag">Kabab</span><span class="food-tag">Lentil soup</span><span class="food-tag">Fattoush</span><span class="food-tag">Hummus</span><span class="food-tag">Labneh</span><span class="food-tag">Eggs any style</span><span class="food-tag">Brown rice (ask)</span><span class="food-tag">Grilled veg</span>
+  </div>
+</div>
+
+<div class="card" style="margin-bottom:10px">
+  <div class="card-label">Always Skip</div>
+  <div class="food-list">
+    <span class="food-tag bad">Fried anything</span><span class="food-tag bad">Creamy sauces</span><span class="food-tag bad">White bread basket</span><span class="food-tag bad">Pastries</span><span class="food-tag bad">Saudi rice + ghee</span>
+  </div>
+</div>
+
+<div class="meal-day" id="bmon">
+  <div class="meal-day-hdr" onclick="mday('mon')">
+    <div><div class="meal-day-name">Monday ⭐ — Mediterranean</div><div class="meal-day-cal">~1,540 kcal</div></div>
+    <svg class="meal-day-chev" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+  </div>
+  <div class="meal-body" id="cmon">
+    <div class="meal-row"><div class="meal-time">06:30</div><div class="meal-details"><div class="meal-name">Labneh + Eggs</div><div class="meal-desc">100g labneh, 2 boiled eggs, tomato, cucumber, olive oil drizzle, zaatar</div><div class="meal-kcal">320 kcal · 22g P / 8g C / 22g F</div></div></div>
+    <div class="meal-row"><div class="meal-time">10:00</div><div class="meal-details"><div class="meal-name">Whey Shake</div><div class="meal-desc">1.5 scoops WPI in water — pack shaker from Riyadh</div><div class="meal-kcal">195 kcal · 35g P / 5g C / 3g F</div></div></div>
+    <div class="meal-row"><div class="meal-time">13:00</div><div class="meal-details"><div class="meal-name">Grilled Seabass + Freekeh</div><div class="meal-desc">250g seabass, 150g freekeh, grilled asparagus, lemon</div><div class="meal-kcal">620 kcal · 52g P / 48g C / 18g F</div></div></div>
+    <div class="meal-row"><div class="meal-time">≤14:30</div><div class="meal-details"><div class="meal-name">Yogurt + Dates</div><div class="meal-desc">150g plain yogurt + 2 Medjool dates</div><div class="meal-kcal">280 kcal · 9g P / 46g C / 6g F</div></div></div>
+  </div>
+</div>
+
+<div class="meal-day" id="bwed">
+  <div class="meal-day-hdr" onclick="mday('wed')">
+    <div><div class="meal-day-name">Wednesday — Clean Machine</div><div class="meal-day-cal">~1,650 kcal</div></div>
+    <svg class="meal-day-chev" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+  </div>
+  <div class="meal-body" id="cwed">
+    <div class="meal-row"><div class="meal-time">06:30</div><div class="meal-details"><div class="meal-name">Boiled Eggs + Oatmeal</div><div class="meal-desc">3 boiled eggs, 40g oats, cinnamon, black coffee</div><div class="meal-kcal">380 kcal · 26g P / 38g C / 14g F</div></div></div>
+    <div class="meal-row"><div class="meal-time">10:00</div><div class="meal-details"><div class="meal-name">Whey Shake</div><div class="meal-desc">1.5 scoops WPI in water</div><div class="meal-kcal">195 kcal · 35g P / 5g C / 3g F</div></div></div>
+    <div class="meal-row"><div class="meal-time">13:00</div><div class="meal-details"><div class="meal-name">Grilled Chicken + Rice</div><div class="meal-desc">200g chicken breast, 150g brown rice, salad, lemon, olive oil</div><div class="meal-kcal">670 kcal · 52g P / 64g C / 16g F</div></div></div>
+    <div class="meal-row"><div class="meal-time">≤14:30</div><div class="meal-details"><div class="meal-name">Yogurt + Fruit</div><div class="meal-desc">150g plain yogurt + 1 apple or orange</div><div class="meal-kcal">220 kcal · 8g P / 38g C / 4g F</div></div></div>
+  </div>
+</div>
+
+<div class="meal-day" id="btue">
+  <div class="meal-day-hdr" onclick="mday('tue')">
+    <div><div class="meal-day-name">Tuesday — Atlantic</div><div class="meal-day-cal">~1,605 kcal</div></div>
+    <svg class="meal-day-chev" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+  </div>
+  <div class="meal-body" id="ctue">
+    <div class="meal-row"><div class="meal-time">06:30</div><div class="meal-details"><div class="meal-name">Omelette</div><div class="meal-desc">3-egg omelette with mushrooms, spinach, feta — ask hotel kitchen</div><div class="meal-kcal">340 kcal · 26g P / 6g C / 24g F</div></div></div>
+    <div class="meal-row"><div class="meal-time">10:00</div><div class="meal-details"><div class="meal-name">Whey Shake</div><div class="meal-desc">1.5 scoops WPI in water — shaker packed from Riyadh</div><div class="meal-kcal">195 kcal · 35g P / 5g C / 3g F</div></div></div>
+    <div class="meal-row"><div class="meal-time">13:00</div><div class="meal-details"><div class="meal-name">Grilled Prawns + Brown Rice</div><div class="meal-desc">200g grilled prawns, 150g brown rice (ask), grilled veg, lemon</div><div class="meal-kcal">580 kcal · 46g P / 52g C / 14g F</div></div></div>
+    <div class="meal-row"><div class="meal-time">≤14:30</div><div class="meal-details"><div class="meal-name">Yogurt + 2 Dates</div><div class="meal-desc">150g plain yogurt + 2 Medjool dates + cinnamon</div><div class="meal-kcal">280 kcal · 9g P / 46g C / 6g F</div></div></div>
+  </div>
+</div>
+
+</div><!-- la -->
+</div><!-- pmeal -->
+
+<!-- SUPPLEMENTS -->
+<div class="psec" id="psupp">
+<div class="card">
+  <div class="card-label">Morning (with breakfast)</div>
+  <div class="supp-plan-item"><div class="supp-dot"></div><div class="supp-plan-info"><div class="supp-plan-name">Creatine Monohydrate</div><div class="supp-plan-detail">ON brand · already owned ✅</div></div><div class="supp-plan-time">5 g</div></div>
+  <div class="supp-plan-item"><div class="supp-dot"></div><div class="supp-plan-info"><div class="supp-plan-name">D3 5000 IU + K2 MK-7</div><div class="supp-plan-detail">FutureBiotics · ordered ✅</div></div><div class="supp-plan-time">1 cap</div></div>
+  <div class="supp-plan-item"><div class="supp-dot"></div><div class="supp-plan-info"><div class="supp-plan-name">Vitamin C Buffered</div><div class="supp-plan-detail">Solaray · already owned ✅</div></div><div class="supp-plan-time">500 mg</div></div>
+  <div class="supp-plan-item"><div class="supp-dot"></div><div class="supp-plan-info"><div class="supp-plan-name">Probiotic 20 Billion</div><div class="supp-plan-detail">H&B · already owned ✅</div></div><div class="supp-plan-time">1 cap</div></div>
+  <div class="supp-plan-item" style="border-bottom:none"><div class="supp-dot"></div><div class="supp-plan-info"><div class="supp-plan-name">Tru Niagen (NR/NAD+)</div><div class="supp-plan-detail">Already owned ✅</div></div><div class="supp-plan-time">300 mg</div></div>
+</div>
+<div class="card">
+  <div class="card-label">Mid-Morning</div>
+  <div class="supp-plan-item" style="border-bottom:none"><div class="supp-dot"></div><div class="supp-plan-info"><div class="supp-plan-name">Whey Protein WPI (Vanilla)</div><div class="supp-plan-detail">Healthy Chef · already owned ✅</div></div><div class="supp-plan-time">1.5 sc</div></div>
+</div>
+<div class="card">
+  <div class="card-label">With Lunch</div>
+  <div class="supp-plan-item" style="border-bottom:none"><div class="supp-dot"></div><div class="supp-plan-info"><div class="supp-plan-name">Nordic Naturals Omega-3</div><div class="supp-plan-detail">Ultimate Omega · ordered ×2 ✅</div></div><div class="supp-plan-time">2 softgels</div></div>
+</div>
+<div class="card">
+  <div class="card-label">Bedtime (45 min before sleep)</div>
+  <div class="supp-plan-item"><div class="supp-dot"></div><div class="supp-plan-info"><div class="supp-plan-name">Magnesium Glycinate</div><div class="supp-plan-detail">Doctor's Best · already owned ✅</div></div><div class="supp-plan-time">400 mg</div></div>
+  <div class="supp-plan-item"><div class="supp-dot"></div><div class="supp-plan-info"><div class="supp-plan-name">L-Theanine</div><div class="supp-plan-detail">Vitamin Shoppe · already owned ✅</div></div><div class="supp-plan-time">200 mg</div></div>
+  <div class="supp-plan-item" style="border-bottom:none"><div class="supp-dot"></div><div class="supp-plan-info"><div class="supp-plan-name">Glycine Powder</div><div class="supp-plan-detail">Vegavero · warm water · already owned ✅</div></div><div class="supp-plan-time">3 g</div></div>
+</div>
+</div><!-- psupp -->
+
+<!-- RULES -->
+<div class="psec" id="prules">
+<div class="card">
+  <div class="rule-item"><div class="rule-num">01</div><div><div class="rule-text">2:30 PM closes like prayer times</div><div class="rule-sub">Non-negotiable. No exceptions. Window shut.</div></div></div>
+  <div class="rule-item"><div class="rule-num">02</div><div><div class="rule-text">AlUla = fuel, not entertainment</div><div class="rule-sub">Hotel restaurant is a refuelling station, not a reward.</div></div></div>
+  <div class="rule-item"><div class="rule-num">03</div><div><div class="rule-text">Whoop on, always</div><div class="rule-sub">Real-time scoreboard. Watch HRV climb from 17ms.</div></div></div>
+  <div class="rule-item"><div class="rule-num">04</div><div><div class="rule-text">Two dates, not the bowl</div><div class="rule-sub">Pick exactly two. Move the bowl to the other end of the table.</div></div></div>
+  <div class="rule-item" style="border-bottom:none"><div class="rule-num">05</div><div><div class="rule-text">Poor sleep = cut carbs, not add food</div><div class="rule-sub">When you sleep badly, stress hormones (cortisol) create a fake hunger signal. Your body is NOT truly hungry — it's stressed. Response: drink 500ml water immediately, then remove ~30g carbs from your meals that day (skip the oats or reduce rice). Do not compensate with more food.</div></div></div>
+</div>
+</div>
+
+<!-- SNACK SWAPS -->
+<div class="psec" id="pswap">
+<div class="card">
+  <div class="swap-item"><div class="swap-bad">Date bowl (whole)</div><div class="swap-arrow">→</div><div class="swap-good">Exactly 2 Medjool (~130 kcal)</div></div>
+  <div class="swap-item"><div class="swap-bad">Random protein bar</div><div class="swap-arrow">→</div><div class="swap-good">Grenade Carb Killa / Quest Bar</div></div>
+  <div class="swap-item"><div class="swap-bad">Unportioned nuts</div><div class="swap-arrow">→</div><div class="swap-good">Pre-weighed 15g zip bags (~90 kcal)</div></div>
+  <div class="swap-item"><div class="swap-bad">Late-night snacking</div><div class="swap-arrow">→</div><div class="swap-good">Chamomile or mint tea (0 kcal)</div></div>
+  <div class="swap-item"><div class="swap-bad">Sweet craving</div><div class="swap-arrow">→</div><div class="swap-good">Frozen banana + cinnamon (~90 kcal)</div></div>
+  <div class="swap-item" style="border-bottom:none"><div class="swap-bad">Savoury craving</div><div class="swap-arrow">→</div><div class="swap-good">Cucumber + labneh + olive oil (~65 kcal)</div></div>
+</div>
+</div>
+
+<!-- TIMELINE -->
+<div class="psec" id="ptl">
+<div class="pad" style="padding:0">
+  <div class="tl-item done" id="tl1">
+    <div class="tl-left"><div class="tl-dot"></div><div class="tl-line"></div></div>
+    <div class="tl-right">
+      <div class="tl-weeks">WEEKS 1–2 · Apr 1–13</div>
+      <div class="tl-title">The Flush</div>
+      <div class="tl-desc">Water and glycogen release. Body adapts to eTRE.</div>
+      <div class="tl-target">~83–84 kg</div>
+    </div>
+  </div>
+  <div class="tl-item" id="tl2">
+    <div class="tl-left"><div class="tl-dot"></div><div class="tl-line"></div></div>
+    <div class="tl-right">
+      <div class="tl-weeks">WEEKS 3–6 · Apr 14–May 11</div>
+      <div class="tl-title">True Fat Loss</div>
+      <div class="tl-desc">0.5–1 kg/week. Muscle memory kicks in. Energy up.</div>
+      <div class="tl-target">~80–82 kg</div>
+    </div>
+  </div>
+  <div class="tl-item" id="tl3">
+    <div class="tl-left"><div class="tl-dot"></div><div class="tl-line"></div></div>
+    <div class="tl-right">
+      <div class="tl-weeks">WEEKS 7–10 · May 12–Jun 8</div>
+      <div class="tl-title">Plateau Zone</div>
+      <div class="tl-desc">If stalls 10+ days: −20g carbs + extra AlUla walk.</div>
+      <div class="tl-target">~78–80 kg</div>
+    </div>
+  </div>
+  <div class="tl-item" id="tl4">
+    <div class="tl-left"><div class="tl-dot"></div></div>
+    <div class="tl-right">
+      <div class="tl-weeks">WEEKS 11–16 · Jun 9–Jul 20</div>
+      <div class="tl-title">Transformation ✈️</div>
+      <div class="tl-desc">0.5–0.75 kg/week. Face, waist, chest most visible.</div>
+      <div class="tl-target">~77 kg at LSE 🎓</div>
+    </div>
+  </div>
+</div>
+</div><!-- ptl -->
+
+</div><!-- plan pad -->
+</div><!-- page plan -->
+
+<!-- PAGE 2: TRACK -->
+<div class="page" id="p2">
+<div class="pg-hdr">
+  <div class="pg-title">Track Today</div>
+  <div class="pg-sub" id="tdate"></div>
+</div>
+<div class="pad" style="padding-top:12px">
+
+<div class="card">
+  <div class="card-label">Meals</div>
+  <div class="tick-group-label">Check off each meal</div>
+  <div class="tick-item" onclick="tick(this,'m1')" data-key="m1"><div class="tick-box"><svg viewBox="0 0 14 14"><polyline points="2 7 6 11 12 3"/></svg></div><div class="tick-label">Breakfast (6:30–7:30 AM)</div></div>
+  <div class="tick-item" onclick="tick(this,'m2')" data-key="m2"><div class="tick-box"><svg viewBox="0 0 14 14"><polyline points="2 7 6 11 12 3"/></svg></div><div class="tick-label">Mid-morning shake (10:00 AM)</div></div>
+  <div class="tick-item" onclick="tick(this,'m3')" data-key="m3"><div class="tick-box"><svg viewBox="0 0 14 14"><polyline points="2 7 6 11 12 3"/></svg></div><div class="tick-label">Lunch (1:00–2:00 PM)</div></div>
+  <div class="tick-item" onclick="tick(this,'m4')" data-key="m4"><div class="tick-box"><svg viewBox="0 0 14 14"><polyline points="2 7 6 11 12 3"/></svg></div><div class="tick-label">Window closed by 2:30 PM ✊</div></div>
+</div>
+
+<div class="card">
+  <div class="card-label">Supplements</div>
+  <div class="tick-item" onclick="tick(this,'s1')" data-key="s1"><div class="tick-box"><svg viewBox="0 0 14 14"><polyline points="2 7 6 11 12 3"/></svg></div><div class="tick-label">Morning stack (D3, C, Creatine, Probio)</div></div>
+  <div class="tick-item" onclick="tick(this,'s2')" data-key="s2"><div class="tick-box"><svg viewBox="0 0 14 14"><polyline points="2 7 6 11 12 3"/></svg></div><div class="tick-label">Omega-3 with lunch</div></div>
+  <div class="tick-item" onclick="tick(this,'s3')" data-key="s3"><div class="tick-box"><svg viewBox="0 0 14 14"><polyline points="2 7 6 11 12 3"/></svg></div><div class="tick-label">Bedtime stack (Mag, L-Theanine, Glycine)</div></div>
+</div>
+
+<div class="card">
+  <div class="card-label">Habits</div>
+  <div class="tick-item" onclick="tick(this,'h1')" data-key="h1"><div class="tick-box"><svg viewBox="0 0 14 14"><polyline points="2 7 6 11 12 3"/></svg></div><div class="tick-label">Fajr 500 ml water ✓</div></div>
+  <div class="tick-item" onclick="tick(this,'h2')" data-key="h2"><div class="tick-box"><svg viewBox="0 0 14 14"><polyline points="2 7 6 11 12 3"/></svg></div><div class="tick-label">Gym / 30-min walk</div></div>
+  <div class="tick-item" onclick="tick(this,'h3')" data-key="h3"><div class="tick-box"><svg viewBox="0 0 14 14"><polyline points="2 7 6 11 12 3"/></svg></div><div class="tick-label">Whoop on wrist all day</div></div>
+  <div class="tick-item" onclick="tick(this,'h4')" data-key="h4"><div class="tick-box"><svg viewBox="0 0 14 14"><polyline points="2 7 6 11 12 3"/></svg></div><div class="tick-label">Phone out of bedroom by 10:30 PM</div></div>
+  <div class="tick-item" onclick="tick(this,'h5')" data-key="h5"><div class="tick-box"><svg viewBox="0 0 14 14"><polyline points="2 7 6 11 12 3"/></svg></div><div class="tick-label">No coffee after 12:00 PM ☕</div></div>
+</div>
+
+<div class="card">
+  <div class="card-label">Notes</div>
+  <textarea class="track-note" id="tnote" placeholder="How did today feel? Anything to note..."></textarea>
+  <div style="text-align:right;margin-top:8px">
+    <button class="ghost-btn" onclick="saveNote()">Save</button>
+  </div>
+</div>
+
+</div><!-- pad -->
+</div><!-- page track -->
+
+<!-- PAGE 3: PROGRESS -->
+<div class="page" id="p3">
+<div class="pg-hdr">
+  <div class="pg-title">Progress</div>
+  <div class="pg-sub">86 kg → 77 kg · April 1 to July 20</div>
+</div>
+<div class="pad" style="padding-top:12px">
+
+<div class="prog-grid">
+  <div class="prog-box"><div class="prog-big">86<span class="prog-unit">kg</span></div><div class="prog-lbl">Start</div></div>
+  <div class="prog-box"><div class="prog-big" id="pcur">–<span class="prog-unit">kg</span></div><div class="prog-delta" id="pdelta"></div><div class="prog-lbl">Current</div></div>
+  <div class="prog-box"><div class="prog-big">77<span class="prog-unit">kg</span></div><div class="prog-lbl">Goal</div></div>
+  <div class="prog-box"><div class="prog-big" id="prem">9<span class="prog-unit">kg</span></div><div class="prog-lbl">To Go</div></div>
+</div>
+
+<div class="chart-card">
+  <div class="chart-title">Weight Journey</div>
+  <div class="chart-sub" id="cr2">Log weight on the Today tab to start</div>
+  <canvas id="wc"></canvas>
+  <div style="display:flex;gap:16px;margin-top:8px">
+    <div style="display:flex;align-items:center;gap:5px;font-size:10px;color:var(--ink3)"><div style="width:14px;height:2px;background:var(--orange);border-radius:1px"></div>Your weight</div>
+    <div style="display:flex;align-items:center;gap:5px;font-size:10px;color:var(--ink3)"><div style="width:14px;height:1px;border-top:2px dashed var(--forest)"></div>Goal 77 kg</div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-label">Weight Log</div>
+  <div id="wlog"><div style="text-align:center;padding:16px;color:var(--ink3);font-size:13px">No entries yet. Log on the Today tab.</div></div>
+  <div style="text-align:right;margin-top:8px"><button class="ghost-btn" onclick="clearWL()">Clear log</button></div>
+</div>
+
+<div class="card">
+  <div class="card-label">7-Day Consistency</div>
+  <div style="text-align:center;padding:8px 0 10px">
+    <div style="font-family:var(--font-d);font-size:56px;font-weight:700;color:var(--orange);line-height:1" id="cscore">–</div>
+    <div style="font-size:11px;color:var(--ink3);margin-top:4px;font-weight:600" id="clabel">days tracked</div>
+  </div>
+  <div class="cons-dots" id="cdots"></div>
+</div>
+
+<div class="card">
+  <div class="card-label">Daily Macro Targets</div>
+  <div class="macro-row">
+    <div class="macro-box m-protein"><div class="macro-num">155<span class="macro-unit">g</span></div><div class="macro-lbl">Protein</div></div>
+    <div class="macro-box m-carbs"><div class="macro-num">155<span class="macro-unit">g</span></div><div class="macro-lbl">Carbs</div></div>
+    <div class="macro-box m-fat"><div class="macro-num">57<span class="macro-unit">g</span></div><div class="macro-lbl">Fat</div></div>
+  </div>
+  <div class="kcal-total">1,750 <span style="font-size:16px;color:var(--ink3);font-family:var(--font-b);font-weight:600">kcal /day</span></div>
+  <div class="kcal-sub">−561 deficit · TDEE 2,311 kcal</div>
+</div>
+
+</div><!-- pad -->
+</div><!-- page progress -->
+
+</div><!-- pages -->
+
+<!-- NAV -->
+<nav>
+  <button class="nb on" onclick="gp(0,this)">
+    <div class="ni"><svg viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+    <span class="nl">Today</span>
+  </button>
+  <button class="nb" onclick="gp(1,this)">
+    <div class="ni"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
+    <span class="nl">Plan</span>
+  </button>
+  <button class="nb" onclick="gp(2,this)">
+    <div class="ni"><svg viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
+    <span class="nl">Track</span>
+  </button>
+  <button class="nb" onclick="gp(3,this)">
+    <div class="ni"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+    <span class="nl">Progress</span>
+  </button>
+</nav>
+
+</div><!-- app -->
+
+<div class="toast" id="toast"></div>
+
+<script>
+const END=new Date('2026-07-20'), TOTAL=112, SW=86, GW=77;
+const QUOTES=[
+  "You've been 70 kg before. That version hasn't gone anywhere.",
+  "Muscle memory is real. Your body knows this territory.",
+  "2:30 PM. Not around 3. Exactly 2:30.",
+  "The plan is the medicine — food, training, sleep, consistency.",
+  "Two dates. Not the bowl. Two.",
+  "In AlUla you're fuelling a machine, not entertaining yourself.",
+  "Your RHR of 53 bpm is an athlete's heart. The engine is there.",
+  "Protein first. Always. Every single meal.",
+  "Bad sleep = lower carbs. Not more food.",
+  "July 20th at LSE. You've done harder things.",
+  "Consistency at 80% beats perfection at 0%.",
+  "500ml immediately after Fajr. Before anything else.",
+  "Watch HRV climb from 17ms. The numbers will show it first.",
+  "The last kilos are the most visible: face, waist, chest.",
+  "Each day you show up is compound interest in July.",
+  "Fajr is a gift. It starts your day before everyone else.",
+];
+const SUPPS=[
+  {id:'cr',n:'Creatine Monohydrate',d:'5g',w:'With breakfast'},
+  {id:'d3',n:'D3 5000 IU + K2 MK-7',d:'1 cap',w:'With breakfast'},
+  {id:'vc',n:'Vitamin C Buffered',d:'500mg',w:'With breakfast'},
+  {id:'pr',n:'Probiotic 20B',d:'1 cap',w:'With breakfast'},
+  {id:'wh',n:'Whey WPI',d:'1.5 scoops',w:'Mid-morning'},
+  {id:'om',n:'Omega-3 Nordic Naturals',d:'2 softgels',w:'With lunch'},
+  {id:'mg',n:'Magnesium Glycinate',d:'400mg',w:'45 min before bed'},
+  {id:'lt',n:'L-Theanine + Glycine',d:'200mg+3g',w:'45 min before bed'},
+];
+
+/* STORAGE */
+const td=()=>{const d=new Date();return`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`};
+const ld=(k,d)=>{try{const v=localStorage.getItem(k);return v!==null?JSON.parse(v):d}catch{return d}};
+const sv=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch{}};
+const tk=s=>`s_${td()}_${s}`;
+
+/* NAV */
+function gp(i,btn){
+  document.querySelectorAll('.page').forEach((p,j)=>p.classList.toggle('on',j===i));
+  document.querySelectorAll('.nb').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  if(i===3)setTimeout(renderProg,80);
+}
+
+/* HERO */
+function initHero(){
+  const h=new Date().getHours();
+  document.getElementById('greet').textContent=h<12?'Good morning':h<17?'Good afternoon':'Good evening';
+  const now=new Date();now.setHours(0,0,0,0);
+  const end=new Date(END);end.setHours(0,0,0,0);
+  const dl=Math.max(0,Math.round((end-now)/86400000));
+  const dn=Math.max(1,TOTAL-dl+1);
+  const pct=Math.min(100,Math.round(((TOTAL-dl)/TOTAL)*100));
+  document.getElementById('days-left').textContent=dl;
+  document.getElementById('days-left2').textContent=dl;
+  document.getElementById('daynum').textContent=dn;
+  document.getElementById('qtext').textContent=QUOTES[dn%QUOTES.length];
+  document.getElementById('tdate').textContent=new Date().toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'});
+  setTimeout(()=>{document.getElementById('prog-fill').style.width=pct+'%'},500);
+  const ws=ld('s_weights',[]);
+  const lw=ws.length?ws[ws.length-1].w:null;
+  if(lw){
+    document.getElementById('curr-prog').textContent=`Current: ${lw} kg`;
+    document.getElementById('wlast').textContent=`Last logged: ${lw} kg`;
+  }
+  // Timeline active
+  const now2=new Date();
+  const start=new Date('2026-04-01');
+  const wk=Math.ceil((now2-start)/(7*86400000));
+  document.querySelectorAll('[id^="tl"]').forEach(el=>el.classList.remove('active','done'));
+  if(wk<=2)document.getElementById('tl1').classList.add('active');
+  else if(wk<=6){document.getElementById('tl1').classList.add('done');document.getElementById('tl2').classList.add('active');}
+  else if(wk<=10){['tl1','tl2'].forEach(id=>document.getElementById(id).classList.add('done'));document.getElementById('tl3').classList.add('active');}
+  else{['tl1','tl2','tl3'].forEach(id=>document.getElementById(id).classList.add('done'));document.getElementById('tl4').classList.add('active');}
+}
+
+/* SUPPLEMENTS */
+function renderSupps(){
+  const done=ld(tk('supps'),{});
+  const el=document.getElementById('supp-list');el.innerHTML='';
+  SUPPS.forEach(s=>{
+    const div=document.createElement('div');
+    div.className='supp-item'+(done[s.id]?' done':'');
+    div.innerHTML=`<div class="supp-check"><svg viewBox="0 0 14 14"><polyline points="2 7 6 11 12 3"/></svg></div><div class="supp-info"><div class="supp-name">${s.n}</div><div class="supp-when">${s.w}</div></div><div class="supp-dose">${s.d}</div>`;
+    div.onclick=()=>{
+      const d2=ld(tk('supps'),{});
+      d2[s.id]=!d2[s.id];
+      sv(tk('supps'),d2);
+      div.classList.toggle('done',!!d2[s.id]);
+      toast(d2[s.id]?`${s.n} ✓`:'Unchecked');
+    };
+    el.appendChild(div);
+  });
+}
+
+/* WATER */
+function renderWater(){
+  const v=ld(tk('water'),0);
+  const ml=Math.max(0,Math.min(3000,v));
+  document.getElementById('wml').textContent=ml;
+  const el=document.getElementById('drops');el.innerHTML='';
+  const steps=[250,500,750,1000,1250,1500,1750,2000,2250,2500,2750,3000];
+  steps.forEach((s,i)=>{
+    const d=document.createElement('div');
+    d.className='drop'+(ml>=s?' fill':'');
+    d.textContent=i===11?'3L':'';
+    el.appendChild(d);
+  });
+}
+function addWater(n){
+  const v=ld(tk('water'),0);
+  sv(tk('water'),Math.max(0,Math.min(3500,v+n)));
+  renderWater();
+  if(n>0)toast(`+${n}ml 💧`);
+}
+
+/* WEIGHT */
+function logWeight(){
+  const inp=document.getElementById('winp');
+  const v=parseFloat(inp.value);
+  if(!v||v<60||v>120){toast('Enter a valid weight (60–120 kg)');return;}
+  const ws=ld('s_weights',[]);
+  const today=td();
+  const idx=ws.findIndex(w=>w.d===today);
+  if(idx>=0)ws[idx].w=v;else ws.push({d:today,w:v});
+  ws.sort((a,b)=>a.d.localeCompare(b.d));
+  sv('s_weights',ws);
+  inp.value='';
+  document.getElementById('wlast').textContent=`Last logged: ${v} kg`;
+  document.getElementById('curr-prog').textContent=`Current: ${v} kg`;
+  updStreak();
+  toast(`${v} kg logged ✓`);
+}
+
+function updStreak(){
+  const ws=ld('s_weights',[]);
+  let streak=0;const d=new Date();d.setHours(0,0,0,0);
+  for(let i=0;i<30;i++){
+    const k=`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+    if(ws.some(w=>w.d===k)||ld(`s_${k}_supps`,null)!==null)streak++;
+    else if(i>0)break;
+    d.setDate(d.getDate()-1);
+  }
+  document.getElementById('streak').textContent=streak;
+}
+
+/* TICKS (track tab) */
+function restoreTicks(){
+  document.querySelectorAll('.tick-item[data-key]').forEach(el=>{
+    const v=ld(tk(el.dataset.key),false);
+    el.classList.toggle('done',v);
+  });
+}
+function tick(el,k){
+  const v=!el.classList.contains('done');
+  el.classList.toggle('done',v);
+  sv(tk(k),v);
+}
+
+/* NOTE */
+function restoreNote(){
+  const n=ld(tk('note'),'');
+  document.getElementById('tnote').value=n;
+}
+function saveNote(){
+  sv(tk('note'),document.getElementById('tnote').value);
+  toast('Note saved ✓');
+}
+
+/* PLAN TABS */
+function ptab(btn,id){
+  document.querySelectorAll('.ptab').forEach(b=>b.classList.remove('on'));
+  document.querySelectorAll('.psec').forEach(s=>s.classList.remove('on'));
+  btn.classList.add('on');
+  document.getElementById(id).classList.add('on');
+}
+function locTab(btn,id){
+  document.querySelectorAll('.loc-btn').forEach(b=>b.classList.remove('on'));
+  document.getElementById('lr').style.display='none';
+  document.getElementById('la').style.display='none';
+  btn.classList.add('on');
+  document.getElementById(id).style.display='block';
+}
+function mday(id){
+  const b=document.getElementById('b'+id);
+  b.classList.toggle('op');
+}
+
+/* PROGRESS */
+function renderProg(){
+  const ws=ld('s_weights',[]);
+  if(!ws.length){
+    document.getElementById('pcur').innerHTML='–<span class="prog-unit">kg</span>';
+    document.getElementById('pdelta').innerHTML='';
+    document.getElementById('prem').innerHTML='9<span class="prog-unit">kg</span>';
+    document.getElementById('cr2').textContent='Log weight on the Today tab to start';
+    renderWLog([]);drawChart([]);renderCons();return;
+  }
+  const last=ws[ws.length-1];
+  const diff=(last.w-SW).toFixed(1);
+  const rem=Math.max(0,last.w-GW).toFixed(1);
+  document.getElementById('pcur').innerHTML=`${last.w}<span class="prog-unit">kg</span>`;
+  const dn=parseFloat(diff);
+  document.getElementById('pdelta').innerHTML=`<span class="${dn<=0?'delta-g':'delta-b'}">${dn>0?'+':''}${diff} kg</span>`;
+  document.getElementById('prem').innerHTML=`${rem}<span class="prog-unit">kg</span>`;
+  document.getElementById('cr2').textContent=`${ws[0].d.slice(5)} → ${last.d.slice(5)}`;
+  renderWLog(ws);drawChart(ws);renderCons();
+}
+function renderWLog(ws){
+  const el=document.getElementById('wlog');
+  if(!ws.length){el.innerHTML='<div style="text-align:center;padding:16px;color:var(--ink3);font-size:13px">No entries yet. Log on the Today tab.</div>';return;}
+  el.innerHTML=[...ws].reverse().slice(0,10).map((w,i,a)=>{
+    const p=a[i+1];const diff=p?(w.w-p.w).toFixed(1):null;
+    const dc=diff?(parseFloat(diff)<=0?'delta-g':'delta-b'):'';
+    return`<div class="log-item"><span class="log-date">${w.d}</span><div><span class="log-weight">${w.w} kg</span>${diff?`<span class="log-diff ${dc}">${parseFloat(diff)>0?'+':''}${diff}</span>`:''}</div></div>`;
+  }).join('');
+}
+function clearWL(){if(confirm('Clear all weight logs?')){sv('s_weights',[]);renderProg();toast('Log cleared');}}
+
+function drawChart(ws){
+  const canvas=document.getElementById('wc');
+  const ctx=canvas.getContext('2d');
+  const dpr=window.devicePixelRatio||1;
+  const rect=canvas.getBoundingClientRect();
+  const W=(rect.width||300)*dpr, H=120*dpr;
+  canvas.width=W;canvas.height=H;
+  ctx.scale(dpr,dpr);
+  const w=W/dpr,h=H/dpr;
+  ctx.clearRect(0,0,w,h);
+  if(!ws.length||ws.length<2){
+    ctx.fillStyle='rgba(26,18,8,0.2)';
+    ctx.font=`11px 'Nunito', sans-serif`;
+    ctx.textAlign='center';
+    ctx.fillText('Log 2+ entries to see your chart',w/2,h/2);
+    return;
+  }
+  const pad={t:8,r:12,b:22,l:32};
+  const cw=w-pad.l-pad.r,ch=h-pad.t-pad.b;
+  const allW=ws.map(d=>d.w);
+  const minW=Math.min(...allW,GW)-1.5,maxW=Math.max(...allW,SW)+1.5;
+  const rng=maxW-minW;
+  const xo=i=>pad.l+(i/(ws.length-1))*cw;
+  const yo=v=>pad.t+ch-((v-minW)/rng)*ch;
+  // Grid
+  [Math.ceil(minW),Math.round((minW+maxW)/2),Math.floor(maxW)].forEach(v=>{
+    ctx.strokeStyle='rgba(26,18,8,0.07)';ctx.lineWidth=1;
+    ctx.beginPath();ctx.moveTo(pad.l,yo(v));ctx.lineTo(w-pad.r,yo(v));ctx.stroke();
+    ctx.fillStyle='rgba(26,18,8,0.3)';
+    ctx.font=`8px 'Courier Prime', monospace`;ctx.textAlign='right';
+    ctx.fillText(v.toFixed(0),pad.l-4,yo(v)+3);
+  });
+  // Goal line
+  ctx.strokeStyle='rgba(42,102,68,.35)';ctx.setLineDash([4,4]);ctx.lineWidth=1.2;
+  ctx.beginPath();ctx.moveTo(pad.l,yo(GW));ctx.lineTo(w-pad.r,yo(GW));ctx.stroke();
+  ctx.setLineDash([]);
+  // Area
+  const grad=ctx.createLinearGradient(0,pad.t,0,h-pad.b);
+  grad.addColorStop(0,'rgba(217,91,26,.18)');
+  grad.addColorStop(1,'rgba(217,91,26,0)');
+  ctx.beginPath();ctx.moveTo(xo(0),yo(ws[0].w));
+  ws.forEach((d,i)=>ctx.lineTo(xo(i),yo(d.w)));
+  ctx.lineTo(xo(ws.length-1),h-pad.b);ctx.lineTo(xo(0),h-pad.b);
+  ctx.closePath();ctx.fillStyle=grad;ctx.fill();
+  // Line
+  ctx.beginPath();ctx.strokeStyle='#D95B1A';ctx.lineWidth=2.2;ctx.lineJoin='round';ctx.lineCap='round';
+  ws.forEach((d,i)=>i===0?ctx.moveTo(xo(i),yo(d.w)):ctx.lineTo(xo(i),yo(d.w)));
+  ctx.stroke();
+  // Dots
+  ws.forEach((d,i)=>{
+    ctx.beginPath();ctx.arc(xo(i),yo(d.w),3.5,0,Math.PI*2);
+    ctx.fillStyle='#D95B1A';ctx.fill();
+    ctx.strokeStyle='#F6F0E6';ctx.lineWidth=1.5;ctx.stroke();
+  });
+  const last=ws[ws.length-1];
+  const lx=xo(ws.length-1),ly=yo(last.w);
+  ctx.fillStyle='#D95B1A';
+  ctx.font=`bold 10px 'Nunito', sans-serif`;ctx.textAlign=lx>w-56?'right':'left';
+  ctx.fillText(last.w+' kg',lx+(lx>w-56?-8:8),ly-7);
+}
+function renderCons(){
+  const ws=ld('s_weights',[]);const days=ws.length;
+  document.getElementById('cscore').textContent=days;
+  document.getElementById('clabel').textContent=days===1?'day tracked':'days tracked';
+  const el=document.getElementById('cdots');el.innerHTML='';
+  for(let i=6;i>=0;i--){
+    const d=new Date();d.setDate(d.getDate()-i);
+    const k=`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+    const active=ws.some(w=>w.d===k)||ld(`s_${k}_supps`,null)!==null;
+    const day=d.toLocaleDateString('en-US',{weekday:'short'}).slice(0,2);
+    const div=document.createElement('div');div.className='cons-dot';
+    div.innerHTML=`<div class="cons-circle" style="background:${active?'var(--forest)':'var(--cream2)'};border:2px solid ${active?'rgba(42,102,68,.4)':'var(--border2)'}">
+      ${active?'<svg width="12" height="12" viewBox="0 0 14 14" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 7 6 11 12 3"/></svg>':''}
+    </div><div class="cons-day-lbl">${day}</div>`;
+    el.appendChild(div);
+  }
+}
+
+/* TOAST */
+let tt;
+function toast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('on');
+  clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('on'),2200);
+}
+
+/* INIT */
+window.addEventListener('DOMContentLoaded',()=>{
+  initHero();renderSupps();renderWater();restoreTicks();restoreNote();updStreak();
+});
+setInterval(initHero,60000);
+window.addEventListener('resize',()=>{
+  if(document.getElementById('p3').classList.contains('on'))renderProg();
+});
+</script>
+</body>
+</html>
