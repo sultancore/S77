@@ -6,1036 +6,175 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Sultan">
-<link rel="apple-touch-icon" href="data:image/png;base64,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">
-<link rel="icon" type="image/png" href="data:image/png;base64,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">
 <meta name="theme-color" content="#F9F7F4">
 <title>Sultan · Daily</title>
 <style>
-:root {
-  --bg:      #F9F7F4;
-  --bg2:     #F0EDE8;
-  --white:   #FFFFFF;
-  --ink:     #111010;
-  --ink2:    #3A3530;
-  --ink3:    #8A8480;
-  --ink4:    #C0BCB8;
-  --gold:    #C8860A;
-  --gold2:   #E8A010;
-  --golddim: rgba(200,134,10,.10);
-  --goldbr:  rgba(200,134,10,.22);
-  --navy:    #0D1E3A;
-  --navy2:   #162840;
-  --red:     #B83020;
-  --reddim:  rgba(184,48,32,.08);
-  --border:  rgba(0,0,0,.06);
-  --border2: rgba(0,0,0,.10);
-  --shadow:  0 2px 16px rgba(0,0,0,.07);
-  --nav-h:   68px;
-  --r:       16px;
-  --r2:      24px;
-  --font:    -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', Arial, sans-serif;
-  --mono:    'SF Mono', 'Courier New', monospace;
-}
-
-*,*::before,*::after { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
-html { background:var(--bg); height:100%; height:-webkit-fill-available; }
-body { background:var(--bg); color:var(--ink); font-family:var(--font); font-size:16px; line-height:1.5; height:100%; height:-webkit-fill-available; overflow:hidden; -webkit-font-smoothing:antialiased; }
-
-#app { display:flex; flex-direction:column; height:100vh; height:-webkit-fill-available; height:100dvh; overflow:hidden; }
-.pages { flex:1; min-height:0; overflow:hidden; position:relative; }
-.page { position:absolute; inset:0; overflow-y:auto; overflow-x:hidden; -webkit-overflow-scrolling:touch; padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom,0px) + 24px); opacity:0; transform:translateY(8px); pointer-events:none; transition:opacity .26s ease, transform .26s ease; }
-.page.on { opacity:1; transform:none; pointer-events:auto; }
-
-/* NAV */
-nav { height:calc(var(--nav-h) + env(safe-area-inset-bottom,0px)); padding-bottom:env(safe-area-inset-bottom,0px); background:var(--white); border-top:1px solid var(--border2); display:flex; align-items:stretch; flex-shrink:0; flex-grow:0; z-index:200; position:relative; }
-.nb { flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:3px; border:none; background:none; cursor:pointer; padding:8px 2px 4px; transition:all .2s; }
-.ni { width:22px; height:22px; display:flex; align-items:center; justify-content:center; }
-.ni svg { width:20px; height:20px; stroke:var(--ink4); fill:none; stroke-width:1.7; stroke-linecap:round; stroke-linejoin:round; transition:stroke .2s; }
-.nl { font-size:9px; font-weight:700; letter-spacing:.6px; text-transform:uppercase; color:var(--ink4); transition:color .2s; font-family:var(--font); }
-.nb.on .ni svg { stroke:var(--gold); }
-.nb.on .nl { color:var(--gold); }
-.nb.on::after { content:''; position:absolute; top:0; left:50%; transform:translateX(-50%); width:20px; height:2px; background:var(--gold); border-radius:0 0 2px 2px; }
-
-/* SHARED */
-.pad { padding:0 18px; }
-.card { background:var(--white); border-radius:var(--r2); border:1px solid var(--border); padding:20px; margin-bottom:10px; box-shadow:var(--shadow); }
-.label { font-size:10px; font-weight:700; letter-spacing:1.2px; text-transform:uppercase; color:var(--ink3); margin-bottom:14px; }
-.pg-title { font-size:26px; font-weight:800; color:var(--ink); letter-spacing:-.3px; }
-.pg-sub { font-size:13px; color:var(--ink3); font-weight:500; margin-top:2px; }
-.ghost-btn { border:none; background:none; cursor:pointer; font-family:var(--font); font-size:12px; font-weight:600; color:var(--ink3); padding:4px 0; text-decoration:underline; text-underline-offset:2px; }
-
-/* ═══════ TODAY PAGE ═══════ */
-
-/* Score hero */
-.score-hero {
-  background: linear-gradient(170deg, var(--navy) 0%, var(--navy2) 100%);
-  padding: 52px 24px 28px;
-  position: relative; overflow: hidden;
-}
-.score-hero::before { content:''; position:absolute; right:-60px; top:-60px; width:220px; height:220px; border-radius:50%; background:var(--gold); opacity:.07; }
-.score-hero-top { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:22px; }
-.hero-greeting { font-size:13px; font-weight:600; color:rgba(255,255,255,.45); letter-spacing:.2px; }
-.hero-name { font-size:26px; font-weight:800; color:#fff; letter-spacing:-.3px; margin-top:2px; }
-.hero-name span { color:var(--gold2); }
-.hero-date-pill { background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.12); border-radius:30px; padding:6px 12px; font-size:11px; font-weight:600; color:rgba(255,255,255,.5); text-align:right; white-space:nowrap; }
-.hero-date-day { font-size:15px; font-weight:800; color:rgba(255,255,255,.8); }
-
-/* Score ring */
-.ring-center { display:flex; justify-content:center; margin-bottom:20px; }
-.ring-wrap { position:relative; width:180px; height:180px; }
-.ring-wrap svg { position:absolute; inset:0; transform:rotate(-90deg); }
-.ring-inner { position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; }
-.ring-num { font-size:58px; font-weight:800; color:#fff; line-height:1; letter-spacing:-2px; }
-.ring-grade { font-size:16px; font-weight:700; color:var(--gold2); margin-top:2px; letter-spacing:.5px; }
-.ring-label { font-size:10px; font-weight:600; color:rgba(255,255,255,.35); letter-spacing:1px; text-transform:uppercase; margin-top:4px; }
-
-/* 3 metric chips */
-.metric-chips { display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px; }
-.chip { background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.10); border-radius:14px; padding:12px 8px; text-align:center; }
-.chip-val { font-size:22px; font-weight:800; color:#fff; line-height:1; }
-.chip-unit { font-size:10px; font-weight:600; color:rgba(255,255,255,.35); margin-top:2px; }
-.chip-lbl { font-size:9px; font-weight:700; letter-spacing:.8px; text-transform:uppercase; color:rgba(255,255,255,.3); margin-top:1px; }
-
-/* Quote strip */
-.quote-bar { margin:0 18px 10px; padding:14px 18px; background:var(--golddim); border-radius:14px; border-left:3px solid var(--gold); }
-.quote-text { font-size:14px; font-weight:600; color:var(--ink2); line-height:1.45; font-style:italic; }
-
-/* Eating window */
-.window-pill { margin:0 18px 10px; padding:14px 18px; border-radius:14px; display:flex; align-items:center; justify-content:space-between; }
-.window-pill.open { background:#EBF5EE; border:1px solid rgba(34,139,34,.15); }
-.window-pill.closed { background:var(--reddim); border:1px solid rgba(184,48,32,.15); }
-.win-left .win-status { font-size:10px; font-weight:800; letter-spacing:1px; text-transform:uppercase; margin-bottom:2px; }
-.window-pill.open .win-status { color:#228B22; }
-.window-pill.closed .win-status { color:var(--red); }
-.win-desc { font-size:14px; font-weight:600; color:var(--ink); }
-.win-sub { font-size:11px; color:var(--ink3); margin-top:1px; }
-.win-countdown { font-size:28px; font-weight:800; line-height:1; }
-.window-pill.open .win-countdown { color:#228B22; }
-.window-pill.closed .win-countdown { color:var(--red); }
-
-/* Ritual chips — NO LINES, tap-to-fill pills */
-.ritual-chips { display:flex; flex-wrap:wrap; gap:8px; }
-.rc { display:flex; align-items:center; gap:6px; padding:9px 14px; border-radius:30px; border:1.5px solid var(--border2); background:var(--bg); cursor:pointer; transition:all .2s; -webkit-user-select:none; user-select:none; }
-.rc.done { background:var(--golddim); border-color:var(--goldbr); }
-.rc-icon { font-size:16px; }
-.rc-label { font-size:13px; font-weight:600; color:var(--ink3); white-space:nowrap; }
-.rc.done .rc-label { color:var(--gold); font-weight:700; }
-
-/* Water */
-.glass-wrap { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:12px; }
-.gl { font-size:24px; opacity:.2; cursor:pointer; transition:all .18s; -webkit-user-select:none; user-select:none; padding:2px; }
-.gl.on { opacity:1; }
-.gl:active { transform:scale(1.25); }
-.water-row { display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; }
-.water-count { font-size:40px; font-weight:800; color:var(--ink); line-height:1; letter-spacing:-1px; }
-.water-count span { font-size:14px; color:var(--ink3); font-weight:500; letter-spacing:0; }
-.water-of { font-size:12px; color:var(--ink3); font-weight:600; text-align:right; }
-.wbtns { display:flex; gap:6px; }
-.wbtn { flex:1; padding:10px 4px; border-radius:12px; background:var(--bg2); border:1px solid var(--border2); font-size:13px; font-weight:700; color:var(--ink2); cursor:pointer; text-align:center; transition:all .15s; font-family:var(--font); }
-.wbtn:active { background:var(--golddim); border-color:var(--goldbr); color:var(--gold); }
-
-/* Sleep/Whoop grid */
-.inp-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
-.inp-grid-3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px; }
-.inp-box { background:var(--bg); border-radius:var(--r); padding:14px 10px; text-align:center; border:1px solid var(--border2); }
-.inp-lbl { font-size:9px; font-weight:700; letter-spacing:.8px; text-transform:uppercase; color:var(--ink3); margin-bottom:6px; }
-.inp-f { width:100%; border:none; background:transparent; text-align:center; font-family:var(--font); font-size:30px; font-weight:800; color:var(--ink); outline:none; }
-.inp-f::placeholder { color:var(--ink4); }
-.inp-unit { font-size:11px; color:var(--ink3); font-weight:600; margin-top:2px; }
-
-/* Mood */
-.mood-wrap { display:flex; gap:6px; }
-.mood-wrap > div { flex:1; text-align:center; }
-.mbtn { width:100%; padding:10px; border-radius:12px; border:1.5px solid var(--border2); background:var(--bg); font-size:22px; cursor:pointer; transition:all .2s; -webkit-user-select:none; user-select:none; display:block; }
-.mbtn.on { border-color:var(--goldbr); background:var(--golddim); transform:scale(1.08); }
-.mlbl { font-size:9px; font-weight:700; color:var(--ink3); margin-top:4px; letter-spacing:.3px; text-transform:uppercase; }
-.energy-wrap { display:flex; gap:6px; margin-top:10px; }
-.ebtn { flex:1; padding:11px; border-radius:12px; border:1.5px solid var(--border2); background:var(--bg); font-size:15px; font-weight:800; cursor:pointer; color:var(--ink3); text-align:center; transition:all .2s; -webkit-user-select:none; user-select:none; font-family:var(--font); }
-.ebtn.on { background:var(--gold); border-color:var(--gold); color:#fff; }
-
-/* Supplements */
-.srow { display:flex; align-items:center; gap:12px; padding:12px 0; border-bottom:1px solid var(--border); cursor:pointer; -webkit-user-select:none; user-select:none; }
-.srow:last-child { border-bottom:none; padding-bottom:0; }
-.srow:first-child { padding-top:0; }
-.sball { width:28px; height:28px; border-radius:50%; border:2px solid var(--border2); flex-shrink:0; display:flex; align-items:center; justify-content:center; transition:all .22s cubic-bezier(.34,1.56,.64,1); }
-.srow.done .sball { background:var(--gold); border-color:var(--gold); }
-.sball svg { width:14px; height:14px; stroke:#fff; fill:none; stroke-width:2.5; stroke-linecap:round; stroke-linejoin:round; opacity:0; transform:scale(.4); transition:all .22s cubic-bezier(.34,1.56,.64,1); }
-.srow.done .sball svg { opacity:1; transform:scale(1); }
-.sname { font-size:15px; font-weight:600; color:var(--ink); flex:1; }
-.srow.done .sname { text-decoration:line-through; color:var(--ink3); }
-.swhen { font-size:11px; color:var(--ink3); margin-top:1px; }
-.sdose { font-family:var(--mono); font-size:10px; font-weight:700; color:var(--gold); background:var(--golddim); padding:3px 8px; border-radius:6px; }
-
-/* Weight */
-.w-row { display:flex; gap:8px; }
-.w-inp { flex:1; padding:13px 14px; border:1.5px solid var(--border2); border-radius:14px; font-family:var(--font); font-size:22px; font-weight:800; color:var(--ink); background:var(--bg); outline:none; text-align:center; transition:border-color .2s; }
-.w-inp:focus { border-color:var(--gold); }
-.w-btn { padding:13px 22px; border-radius:14px; background:var(--navy); color:#fff; font-family:var(--font); font-size:14px; font-weight:700; border:none; cursor:pointer; transition:all .15s; }
-.w-btn:active { background:var(--gold); transform:scale(.97); }
-.w-last { font-size:12px; color:var(--ink3); text-align:center; margin-top:8px; }
-.streak-pill { display:inline-flex; align-items:center; gap:5px; background:var(--golddim); border:1px solid var(--goldbr); border-radius:20px; padding:5px 14px; font-size:13px; font-weight:700; color:var(--gold); }
-
-/* ═══════ GOALS PAGE ═══════ */
-.ag-card { margin:16px 18px 10px; background:linear-gradient(145deg, var(--navy) 0%, var(--navy2) 100%); border-radius:var(--r2); padding:24px; position:relative; overflow:hidden; box-shadow:0 6px 28px rgba(13,30,58,.2); }
-.ag-card::before { content:''; position:absolute; right:-40px; top:-40px; width:160px; height:160px; border-radius:50%; background:var(--gold); opacity:.08; }
-.ag-tag { font-size:9px; font-weight:800; letter-spacing:1.5px; text-transform:uppercase; color:rgba(200,134,10,.6); margin-bottom:6px; }
-.ag-emoji { font-size:30px; margin-bottom:6px; display:block; }
-.ag-name { font-size:24px; font-weight:800; color:#fff; letter-spacing:-.3px; margin-bottom:4px; }
-.ag-desc { font-size:13px; color:rgba(255,255,255,.4); margin-bottom:18px; }
-.ag-track { height:5px; background:rgba(255,255,255,.08); border-radius:3px; overflow:hidden; margin-bottom:8px; }
-.ag-fill { height:100%; background:linear-gradient(90deg, var(--gold), var(--gold2)); border-radius:3px; transition:width .8s ease; }
-.ag-row { display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; }
-.ag-from { font-size:12px; font-weight:700; color:rgba(255,255,255,.35); }
-.ag-val { font-size:22px; font-weight:800; color:var(--gold2); }
-.ag-stats { display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px; }
-.ag-stat { background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.08); border-radius:12px; padding:12px; text-align:center; }
-.ag-sn { font-size:24px; font-weight:800; color:#fff; line-height:1; }
-.ag-sl { font-size:9px; color:rgba(255,255,255,.3); font-weight:700; letter-spacing:.5px; text-transform:uppercase; margin-top:3px; }
-
-.roadmap-wrap { padding:0 18px 0; }
-.rm-title { font-size:10px; font-weight:700; letter-spacing:1.2px; text-transform:uppercase; color:var(--ink3); margin-bottom:14px; }
-.goal-row { display:flex; gap:14px; margin-bottom:4px; }
-.goal-row-left { display:flex; flex-direction:column; align-items:center; flex-shrink:0; }
-.gdot { width:14px; height:14px; border-radius:50%; border:2px solid var(--border2); background:var(--bg2); margin-top:2px; }
-.goal-row.act .gdot { background:var(--gold); border-color:var(--gold); }
-.goal-row.done .gdot { background:var(--ink3); border-color:var(--ink3); }
-.gline { width:2px; flex:1; background:var(--border); margin:3px 0; min-height:14px; }
-.goal-row-right { flex:1; background:var(--white); border-radius:var(--r); padding:14px; margin-bottom:10px; border:1px solid var(--border); box-shadow:var(--shadow); }
-.goal-row.act .goal-row-right { border-color:var(--goldbr); background:var(--golddim); }
-.grtop { display:flex; align-items:center; justify-content:space-between; margin-bottom:4px; }
-.gname { font-size:15px; font-weight:700; color:var(--ink); }
-.gemoji { font-size:18px; }
-.gdates { font-family:var(--mono); font-size:10px; color:var(--ink3); font-weight:600; margin-bottom:3px; }
-.gdesc { font-size:12px; color:var(--ink3); }
-.act-badge { font-size:9px; font-weight:800; letter-spacing:.6px; text-transform:uppercase; background:var(--gold); color:#fff; padding:3px 8px; border-radius:20px; }
-
-/* ═══════ PLAN PAGE ═══════ */
-.plan-tabs { display:flex; background:var(--bg2); border-radius:var(--r); padding:4px; margin-bottom:14px; gap:0; }
-.ptab { flex:1; padding:8px 4px; border-radius:12px; border:none; background:none; cursor:pointer; font-size:11px; font-weight:700; color:var(--ink3); transition:all .2s; text-align:center; font-family:var(--font); }
-.ptab.on { background:var(--white); color:var(--ink); box-shadow:var(--shadow); }
-.psec { display:none; }
-.psec.on { display:block; }
-.loc-tabs { display:flex; gap:8px; margin-bottom:14px; }
-.lbtn { flex:1; padding:10px; border-radius:12px; border:1.5px solid var(--border2); background:var(--white); font-size:12px; font-weight:700; color:var(--ink3); cursor:pointer; text-align:center; font-family:var(--font); }
-.lbtn.on { border-color:var(--goldbr); color:var(--gold); background:var(--golddim); }
-.mday { background:var(--white); border-radius:var(--r2); border:1px solid var(--border); margin-bottom:10px; overflow:hidden; box-shadow:var(--shadow); }
-.mhdr { display:flex; align-items:center; justify-content:space-between; padding:14px 18px; cursor:pointer; -webkit-user-select:none; user-select:none; }
-.mname { font-size:15px; font-weight:700; color:var(--ink); }
-.mcal { font-family:var(--mono); font-size:11px; color:var(--ink3); }
-.mchev { width:18px; height:18px; stroke:var(--ink3); fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; transition:transform .25s; }
-.mday.op .mchev { transform:rotate(180deg); }
-.mbody { display:none; border-top:1px solid var(--border); }
-.mday.op .mbody { display:block; }
-.mrow { display:flex; gap:12px; padding:12px 18px; border-bottom:1px solid var(--border); }
-.mrow:last-child { border-bottom:none; }
-.mtime { font-family:var(--mono); font-size:10px; font-weight:700; color:var(--ink3); min-width:44px; margin-top:2px; }
-.mfood { font-size:14px; font-weight:700; color:var(--ink); margin-bottom:2px; }
-.mdesc { font-size:12px; color:var(--ink3); line-height:1.45; }
-.mkcal { font-family:var(--mono); font-size:10px; color:var(--gold); font-weight:700; margin-top:3px; }
-.rule-item { display:flex; gap:14px; padding:14px 0; border-bottom:1px solid var(--border); }
-.rule-item:last-child { border-bottom:none; }
-.rnum { font-size:32px; font-weight:800; color:var(--bg2); line-height:1; flex-shrink:0; min-width:30px; }
-.rtxt { font-size:14px; font-weight:700; color:var(--ink); }
-.rsub { font-size:12px; color:var(--ink3); margin-top:3px; line-height:1.4; }
-.swap-row { display:flex; align-items:center; gap:8px; padding:11px 0; border-bottom:1px solid var(--border); }
-.swap-row:last-child { border-bottom:none; }
-.sbad { font-size:13px; color:var(--ink3); text-decoration:line-through; flex:1; }
-.sarr { color:var(--gold); font-weight:800; font-size:14px; }
-.sgood { font-size:13px; font-weight:700; color:var(--ink); flex:1; text-align:right; }
-.sp-item { display:flex; gap:10px; padding:11px 0; border-bottom:1px solid var(--border); }
-.sp-item:last-child { border-bottom:none; }
-.spdot { width:7px; height:7px; border-radius:50%; background:var(--gold); flex-shrink:0; margin-top:6px; }
-.spname { font-size:14px; font-weight:700; color:var(--ink); }
-.spdet { font-size:11px; color:var(--ink3); margin-top:1px; }
-.spdose { font-family:var(--mono); font-size:10px; font-weight:700; color:var(--gold); margin-left:auto; padding-left:8px; }
-.alula-phrase { background:var(--golddim); border:1.5px solid var(--goldbr); border-radius:var(--r); padding:14px 18px; font-size:14px; font-weight:600; color:var(--ink); font-style:italic; margin-bottom:10px; line-height:1.4; }
-.ftags { display:flex; flex-wrap:wrap; gap:6px; margin-top:8px; }
-.ftag { background:var(--golddim); color:var(--ink2); border-radius:8px; padding:5px 10px; font-size:12px; font-weight:600; }
-.ftag.no { background:var(--reddim); color:var(--red); }
-.tl-item { display:flex; gap:14px; }
-.tl-left { display:flex; flex-direction:column; align-items:center; }
-.tldot { width:10px; height:10px; border-radius:50%; border:2px solid var(--border2); background:var(--bg2); margin-top:4px; }
-.tl-item.act .tldot { background:var(--gold); border-color:var(--gold); }
-.tl-item.done .tldot { background:var(--ink3); border-color:var(--ink3); }
-.tlline { width:2px; flex:1; background:var(--border); margin:3px 0; min-height:14px; }
-.tl-right { flex:1; padding-bottom:16px; }
-.tlwk { font-family:var(--mono); font-size:10px; font-weight:700; color:var(--ink3); }
-.tltitle { font-size:14px; font-weight:700; color:var(--ink); }
-.tl-item.act .tltitle { color:var(--gold); }
-.tldesc { font-size:12px; color:var(--ink3); line-height:1.4; margin-top:2px; }
-.tlkg { font-size:18px; font-weight:800; color:var(--ink); }
-
-/* ═══════ TRACK PAGE ═══════ */
-.tick { display:flex; align-items:center; gap:12px; padding:12px 0; border-bottom:1px solid var(--border); cursor:pointer; -webkit-user-select:none; user-select:none; }
-.tick:last-child { border-bottom:none; }
-.tbox { width:22px; height:22px; border-radius:6px; border:2px solid var(--border2); flex-shrink:0; display:flex; align-items:center; justify-content:center; transition:all .2s; }
-.tick.on .tbox { background:var(--gold); border-color:var(--gold); }
-.tbox svg { width:12px; height:12px; stroke:#fff; fill:none; stroke-width:2.5; stroke-linecap:round; stroke-linejoin:round; opacity:0; transform:scale(.4); transition:all .2s cubic-bezier(.34,1.56,.64,1); }
-.tick.on .tbox svg { opacity:1; transform:scale(1); }
-.tlbl { font-size:15px; font-weight:600; color:var(--ink); flex:1; }
-.tick.on .tlbl { text-decoration:line-through; color:var(--ink3); }
-.tnote { width:100%; min-height:80px; border:1.5px solid var(--border2); border-radius:var(--r); padding:12px 14px; font-family:var(--font); font-size:14px; color:var(--ink); background:var(--bg); resize:none; outline:none; line-height:1.5; }
-.tnote:focus { border-color:var(--gold); }
-
-/* ═══════ PROGRESS PAGE ═══════ */
-.pg { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:10px; }
-.pbox { background:var(--white); border-radius:var(--r2); border:1px solid var(--border); padding:18px; text-align:center; box-shadow:var(--shadow); }
-.pbig { font-size:34px; font-weight:800; color:var(--ink); line-height:1; letter-spacing:-1px; }
-.pu { font-size:13px; color:var(--ink3); font-weight:500; }
-.pdelta { font-size:12px; font-weight:700; margin-top:2px; }
-.dg { color:var(--gold); }
-.dr { color:var(--red); }
-.plbl { font-size:9px; font-weight:700; letter-spacing:.6px; text-transform:uppercase; color:var(--ink3); margin-top:4px; }
-.chart-card { background:var(--white); border-radius:var(--r2); border:1px solid var(--border); padding:20px; margin-bottom:10px; box-shadow:var(--shadow); }
-.ctitle { font-size:16px; font-weight:800; color:var(--ink); margin-bottom:2px; }
-.csub { font-size:11px; color:var(--ink3); margin-bottom:14px; }
-canvas { width:100%; height:110px; display:block; }
-.log-row { display:flex; justify-content:space-between; align-items:center; padding:10px 0; border-bottom:1px solid var(--border); }
-.log-row:last-child { border-bottom:none; }
-.logd { font-family:var(--mono); font-size:11px; color:var(--ink3); font-weight:600; }
-.logw { font-size:22px; font-weight:800; color:var(--ink); }
-.logdiff { font-size:11px; font-weight:700; margin-left:6px; }
-.cdots { display:flex; gap:8px; justify-content:center; padding:4px 0; }
-.cdot { display:flex; flex-direction:column; align-items:center; gap:5px; }
-.cc { width:36px; height:36px; border-radius:50%; display:flex; align-items:center; justify-content:center; }
-.cdl { font-size:9px; font-weight:700; letter-spacing:.4px; text-transform:uppercase; color:var(--ink3); }
-.mrow2 { display:flex; gap:8px; margin-bottom:12px; }
-.mbox { flex:1; border-radius:var(--r); padding:12px 8px; text-align:center; }
-.mp { background:rgba(200,134,10,.08); }
-.mc { background:rgba(200,134,10,.05); }
-.mf { background:rgba(0,0,0,.03); }
-.mnum { font-size:26px; font-weight:800; color:var(--ink); line-height:1; }
-.mu { font-size:12px; color:var(--ink3); }
-.mlab { font-size:9px; font-weight:700; letter-spacing:.6px; text-transform:uppercase; color:var(--gold); margin-top:3px; }
-
-/* TOAST */
-.toast { position:fixed; bottom:calc(var(--nav-h) + env(safe-area-inset-bottom,0px) + 12px); left:50%; transform:translateX(-50%) translateY(10px); background:var(--navy); color:#fff; padding:10px 20px; border-radius:30px; font-size:13px; font-weight:600; white-space:nowrap; opacity:0; transition:opacity .25s, transform .25s; z-index:999; pointer-events:none; box-shadow:0 4px 20px rgba(0,0,0,.2); }
-.toast.on { opacity:1; transform:translateX(-50%) translateY(0); }
-
-/* integration note */
-.int-note { background:var(--golddim); border:1px solid var(--goldbr); border-radius:12px; padding:12px 14px; margin-top:10px; font-size:12px; color:var(--ink3); line-height:1.55; }
-.int-note strong { color:var(--ink2); }
+:root{--bg:#F9F7F4;--bg2:#F0EDE8;--white:#FFFFFF;--ink:#111010;--ink2:#3A3530;--ink3:#8A8480;--ink4:#C0BCB8;--gold:#C8860A;--gold2:#E8A010;--golddim:rgba(200,134,10,.10);--goldbr:rgba(200,134,10,.22);--navy:#0D1E3A;--navy2:#162840;--red:#B83020;--reddim:rgba(184,48,32,.08);--border:rgba(0,0,0,.06);--border2:rgba(0,0,0,.10);--shadow:0 2px 16px rgba(0,0,0,.07);--nav-h:68px;--r:16px;--r2:24px;--font:-apple-system,BlinkMacSystemFont,'SF Pro Display','Helvetica Neue',Arial,sans-serif}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{background:var(--bg);color:var(--ink);font-family:var(--font);height:100%;overflow:hidden}
+#app{display:flex;flex-direction:column;height:100vh;height:-webkit-fill-available}
+.pages{flex:1;position:relative;overflow:hidden}
+.page{position:absolute;inset:0;overflow-y:auto;padding-bottom:calc(var(--nav-h)+24px);opacity:0;transform:translateY(8px);pointer-events:none;transition:opacity .26s,transform .26s}
+.page.on{opacity:1;transform:none;pointer-events:auto}
+nav{height:var(--nav-h);background:var(--white);border-top:1px solid var(--border2);display:flex;z-index:200}
+.nb{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;border:none;background:none;padding:8px 2px}
+.nb.on .ni svg{stroke:var(--gold)}
+.nb.on .nl{color:var(--gold)}
+.ni svg{width:20px;height:20px;stroke:var(--ink4)}
+.nl{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.6px}
+.pad{padding:0 18px}
+.card{background:var(--white);border-radius:var(--r2);border:1px solid var(--border);padding:20px;margin-bottom:10px;box-shadow:var(--shadow)}
+.label{font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--ink3);margin-bottom:14px}
+.pg-title{font-size:26px;font-weight:800;letter-spacing:-.3px}
+.toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:var(--navy);color:#fff;padding:10px 20px;border-radius:30px;font-size:13px;opacity:0;transition:all .25s;z-index:999}
+.toast.on{opacity:1;transform:translateX(-50%)translateY(-10px)}
 </style>
 </head>
 <body>
 <div id="app">
 <div class="pages">
 
-<!-- ══ PAGE 0: TODAY ══ -->
+<!-- PAGE 0 - TODAY -->
 <div class="page on" id="p0">
-
-<div class="score-hero">
-  <div class="score-hero-top">
-    <div>
-      <div class="hero-greeting" id="greet">Good morning</div>
-      <div class="hero-name">Sultan <span id="hero-days">112</span></div>
-    </div>
-    <div class="hero-date-pill">
-      <div class="hero-date-day" id="hero-day">Wed</div>
-      <div id="hero-date-str">Apr 1, 2026</div>
-    </div>
-  </div>
-
-  <div class="ring-center">
-    <div class="ring-wrap">
-      <svg width="180" height="180" viewBox="0 0 180 180">
-        <circle cx="90" cy="90" r="78" fill="none" stroke="rgba(255,255,255,.07)" stroke-width="10"/>
-        <circle cx="90" cy="90" r="78" fill="none" stroke="url(#gold-grad)" stroke-width="10"
-          stroke-linecap="round" id="score-arc"
-          stroke-dasharray="490" stroke-dashoffset="490"/>
-        <defs>
-          <linearGradient id="gold-grad" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stop-color="#C8860A"/>
-            <stop offset="100%" stop-color="#F0C040"/>
-          </linearGradient>
-        </defs>
-      </svg>
-      <div class="ring-inner">
-        <div class="ring-num" id="ring-num">–</div>
-        <div class="ring-grade" id="ring-grade"></div>
-        <div class="ring-label">READINESS</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="metric-chips">
-    <div class="chip">
-      <div class="chip-val" id="chip-sleep">–</div>
-      <div class="chip-unit">hours</div>
-      <div class="chip-lbl">Sleep</div>
-    </div>
-    <div class="chip">
-      <div class="chip-val" id="chip-rec">–</div>
-      <div class="chip-unit">recovery</div>
-      <div class="chip-lbl">Whoop</div>
-    </div>
-    <div class="chip">
-      <div class="chip-val" id="chip-water">0</div>
-      <div class="chip-unit">glasses</div>
-      <div class="chip-lbl">Water</div>
+  <div style="padding:20px 18px 8px"><div class="pg-title">Today</div></div>
+  <div class="pad">
+    <div class="card">
+      <div class="label">Readiness Score</div>
+      <div style="text-align:center;font-size:52px;font-weight:800;color:var(--gold)" id="readiness">85</div>
     </div>
   </div>
 </div>
 
-<!-- Quote -->
-<div class="quote-bar">
-  <div class="quote-text" id="quote-text">The plan is the medicine — food, training, sleep, consistency.</div>
-</div>
-
-<!-- Eating window -->
-<div class="window-pill open" id="win-pill">
-  <div class="win-left">
-    <div class="win-status" id="win-status">EATING WINDOW · OPEN</div>
-    <div class="win-desc" id="win-desc">Window Open</div>
-    <div class="win-sub" id="win-sub">6:30 AM – 2:30 PM</div>
-  </div>
-  <div class="win-countdown" id="win-cd">–</div>
-</div>
-
-<div class="pad">
-
-<!-- Morning rituals — pill chips, no lines -->
-<div class="card">
-  <div class="label">Morning Rituals</div>
-  <div class="ritual-chips">
-    <div class="rc" onclick="togR('fajr',this)" data-k="fajr"><span class="rc-icon">🕌</span><span class="rc-label">Fajr</span></div>
-    <div class="rc" onclick="togR('water500',this)" data-k="water500"><span class="rc-icon">💧</span><span class="rc-label">500ml water</span></div>
-    <div class="rc" onclick="togR('cpap',this)" data-k="cpap"><span class="rc-icon">😷</span><span class="rc-label">CPAP used</span></div>
-    <div class="rc" onclick="togR('whoop',this)" data-k="whoop"><span class="rc-icon">⌚</span><span class="rc-label">Whoop on</span></div>
-    <div class="rc" onclick="togR('phone',this)" data-k="phone"><span class="rc-icon">📵</span><span class="rc-label">Phone out</span></div>
-    <div class="rc" onclick="togR('coffee',this)" data-k="coffee"><span class="rc-icon">☕</span><span class="rc-label">No coffee after 12</span></div>
-    <div class="rc" onclick="togR('gym',this)" data-k="gym"><span class="rc-icon">🏋️</span><span class="rc-label">Gym</span></div>
-    <div class="rc" onclick="togR('walk',this)" data-k="walk"><span class="rc-icon">🚶</span><span class="rc-label">Walk 30 min</span></div>
-  </div>
-</div>
-
-<!-- Sleep + Whoop -->
-<div class="card">
-  <div class="label">Last Night · Whoop Data</div>
-  <div class="inp-grid" style="margin-bottom:8px">
-    <div class="inp-box"><div class="inp-lbl">Sleep Hours</div><input class="inp-f" id="sl-h" type="number" min="0" max="12" step=".5" placeholder="7" inputmode="decimal" onchange="saveSL()"><div class="inp-unit">hours</div></div>
-    <div class="inp-box"><div class="inp-lbl">Sleep Quality</div><input class="inp-f" id="sl-q" type="number" min="1" max="10" placeholder="7" inputmode="numeric" onchange="saveSL()"><div class="inp-unit">/ 10</div></div>
-  </div>
-  <div class="inp-grid-3">
-    <div class="inp-box"><div class="inp-lbl">Recovery</div><input class="inp-f" id="wh-r" type="number" min="0" max="100" placeholder="–" inputmode="numeric" onchange="saveWH()"><div class="inp-unit">%</div></div>
-    <div class="inp-box"><div class="inp-lbl">HRV</div><input class="inp-f" id="wh-h" type="number" min="0" max="200" placeholder="–" inputmode="numeric" onchange="saveWH()"><div class="inp-unit">ms</div></div>
-    <div class="inp-box"><div class="inp-lbl">RHR</div><input class="inp-f" id="wh-rhr" type="number" min="30" max="120" placeholder="–" inputmode="numeric" onchange="saveWH()"><div class="inp-unit">bpm</div></div>
-  </div>
-  <div class="inp-box" style="margin-top:8px"><div class="inp-lbl">CPAP Hours</div><input class="inp-f" id="cp-h" type="number" min="0" max="12" step=".5" placeholder="–" inputmode="decimal" onchange="saveCP()"><div class="inp-unit">hours used</div></div>
-  <div class="int-note"><strong>Open Whoop app each morning</strong> → note your scores → enter above in 10 seconds. CPAP hours from MyAir.</div>
-</div>
-
-<!-- Mood & Energy -->
-<div class="card">
-  <div class="label">How are you feeling?</div>
-  <div class="mood-wrap">
-    <div style="flex:1;text-align:center"><button class="mbtn" onclick="setM(1,this)">😴</button><div class="mlbl">Drained</div></div>
-    <div style="flex:1;text-align:center"><button class="mbtn" onclick="setM(2,this)">😐</button><div class="mlbl">Okay</div></div>
-    <div style="flex:1;text-align:center"><button class="mbtn" onclick="setM(3,this)">🙂</button><div class="mlbl">Good</div></div>
-    <div style="flex:1;text-align:center"><button class="mbtn" onclick="setM(4,this)">😊</button><div class="mlbl">Great</div></div>
-    <div style="flex:1;text-align:center"><button class="mbtn" onclick="setM(5,this)">💪</button><div class="mlbl">Peak</div></div>
-  </div>
-  <div class="energy-wrap">
-    <button class="ebtn" onclick="setE(1,this)">1</button>
-    <button class="ebtn" onclick="setE(2,this)">2</button>
-    <button class="ebtn" onclick="setE(3,this)">3</button>
-    <button class="ebtn" onclick="setE(4,this)">4</button>
-    <button class="ebtn" onclick="setE(5,this)">5</button>
-  </div>
-</div>
-
-<!-- Supplements -->
-<div class="card">
-  <div class="label">💊 Supplements</div>
-  <div id="supp-list"></div>
-</div>
-
-<!-- Water -->
-<div class="card">
-  <div class="label">💧 Hydration</div>
-  <div class="water-row">
-    <div class="water-count"><span id="wc-num">0</span><span> glasses</span></div>
-    <div class="water-of" id="wc-of">0 / 12 · 0L</div>
-  </div>
-  <div class="glass-wrap" id="glass-wrap"></div>
-  <div class="wbtns">
-    <button class="wbtn" onclick="addW(250)">+1 glass</button>
-    <button class="wbtn" onclick="addW(500)">+2 glasses</button>
-    <button class="wbtn" onclick="addW(750)">+3 glasses</button>
-    <button class="wbtn" onclick="addW(-250)">−1</button>
-  </div>
-</div>
-
-<!-- Weight -->
-<div class="card">
-  <div class="label">⚖️ Log Weight</div>
-  <div class="w-row">
-    <input class="w-inp" id="w-inp" type="number" step=".1" min="60" max="120" placeholder="86.0" inputmode="decimal">
-    <button class="w-btn" onclick="logW()">Log</button>
-  </div>
-  <div class="w-last" id="w-last"></div>
-  <div style="text-align:center;margin-top:10px"><div class="streak-pill">🔥 <span id="streak">0</span> days streak</div></div>
-</div>
-
-</div></div><!-- pad + today -->
-
-<!-- ══ PAGE 1: GOALS ══ -->
-<div class="page" id="p1">
-<div style="padding:20px 18px 8px"><div class="pg-title">Goals</div><div class="pg-sub">Your full journey roadmap</div></div>
-<div class="ag-card" id="ag-card">
-  <div class="ag-tag">Active Goal</div>
-  <span class="ag-emoji" id="ag-em">🎓</span>
-  <div class="ag-name" id="ag-nm">LSE Graduation</div>
-  <div class="ag-desc" id="ag-ds">Transform body for graduation ceremony</div>
-  <div class="ag-row"><div class="ag-from" id="ag-fr">Progress</div><div class="ag-val" id="ag-vl">86 → 77 kg</div></div>
-  <div class="ag-track"><div class="ag-fill" id="ag-fill" style="width:0%"></div></div>
-  <div class="ag-stats">
-    <div class="ag-stat"><div class="ag-sn" id="ag-dl">112</div><div class="ag-sl">Days Left</div></div>
-    <div class="ag-stat"><div class="ag-sn" id="ag-cw">86<span style="font-size:12px">kg</span></div><div class="ag-sl">Current</div></div>
-    <div class="ag-stat"><div class="ag-sn">77<span style="font-size:12px">kg</span></div><div class="ag-sl">Target</div></div>
-  </div>
-</div>
-<div class="roadmap-wrap">
-  <div class="rm-title">Your Journey Roadmap</div>
-  <div id="goals-list"></div>
-</div>
-</div>
-
-<!-- ══ PAGE 2: PLAN ══ -->
-<div class="page" id="p2">
-<div style="padding:20px 18px 8px"><div class="pg-title">Plan</div><div class="pg-sub">16 weeks · April 1 → July 20, 2026</div></div>
-<div class="pad" style="padding-top:12px">
-<div class="plan-tabs">
-  <button class="ptab on" onclick="ptab(this,'pm')">Meals</button>
-  <button class="ptab" onclick="ptab(this,'psp')">Supps</button>
-  <button class="ptab" onclick="ptab(this,'pr')">Rules</button>
-  <button class="ptab" onclick="ptab(this,'psw')">Swaps</button>
-  <button class="ptab" onclick="ptab(this,'ptl')">Timeline</button>
-</div>
-
-<!-- MEALS -->
-<div class="psec on" id="pm">
-<div class="loc-tabs">
-  <button class="lbtn on" onclick="locT(this,'lr')">🏠 Riyadh</button>
-  <button class="lbtn" onclick="locT(this,'la')">🏜️ AlUla</button>
-</div>
-<div id="lr">
-<div class="mday" id="b-sun"><div class="mhdr" onclick="md('sun')"><div><div class="mname">Sunday — Gym Day</div><div class="mcal">~1,730 kcal</div></div><svg class="mchev" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div><div class="mbody" id="c-sun">
-<div class="mrow"><div class="mtime">06:30</div><div><div class="mfood">Levantine Breakfast Board</div><div class="mdesc">2 boiled eggs, 80g labneh + olive oil + zaatar, handful of olives, 1 slice grilled halloumi</div><div class="mkcal">420 kcal · 28g P / 8g C / 30g F</div></div></div>
-<div class="mrow"><div class="mtime">10:00</div><div><div class="mfood">Whey Shake + Banana</div><div class="mdesc">1.5 scoops Healthy Chef WPI vanilla + 1 banana — pre-gym</div><div class="mkcal">310 kcal · 35g P / 32g C / 4g F</div></div></div>
-<div class="mrow"><div class="mtime">13:00</div><div><div class="mfood">Grilled Kabab + Brown Rice</div><div class="mdesc">200g lean beef kabab, 150g brown rice, fattoush (no croutons), lemon</div><div class="mkcal">650 kcal · 48g P / 52g C / 18g F</div></div></div>
-<div class="mrow"><div class="mtime">≤14:30</div><div><div class="mfood">Greek Yogurt + 2 Dates</div><div class="mdesc">200g full-fat Greek yogurt, exactly 2 Medjool dates — window closes at 2:30</div><div class="mkcal">350 kcal · 16g P / 48g C / 9g F</div></div></div>
-</div></div>
-<div class="mday" id="b-thu"><div class="mhdr" onclick="md('thu')"><div><div class="mname">Thursday — Travel Day</div><div class="mcal">~1,620 kcal</div></div><svg class="mchev" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div><div class="mbody" id="c-thu">
-<div class="mrow"><div class="mtime">06:30</div><div><div class="mfood">Quick Travel Breakfast</div><div class="mdesc">3 boiled eggs, 80g labneh, olives, zaatar — easy to prep before AlUla drive</div><div class="mkcal">380 kcal · 28g P / 6g C / 28g F</div></div></div>
-<div class="mrow"><div class="mtime">10:00</div><div><div class="mfood">Double Whey Shake</div><div class="mdesc">2 scoops WPI in 400ml water — car friendly, no fridge needed</div><div class="mkcal">280 kcal · 48g P / 8g C / 4g F</div></div></div>
-<div class="mrow"><div class="mtime">13:00</div><div><div class="mfood">Grilled Chicken + Sweet Potato</div><div class="mdesc">200g chicken breast, 150g sweet potato, green salad, lemon + olive oil</div><div class="mkcal">600 kcal · 50g P / 42g C / 16g F</div></div></div>
-<div class="mrow"><div class="mtime">≤14:30</div><div><div class="mfood">Greek Yogurt + 2 Dates</div><div class="mdesc">200g Greek yogurt, exactly 2 Medjool dates</div><div class="mkcal">350 kcal · 16g P / 48g C / 9g F</div></div></div>
-</div></div>
-<div class="mday" id="b-fri"><div class="mhdr" onclick="md('fri')"><div><div class="mname">Friday — Gym Day</div><div class="mcal">~1,720 kcal</div></div><svg class="mchev" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div><div class="mbody" id="c-fri">
-<div class="mrow"><div class="mtime">06:30</div><div><div class="mfood">Levantine Breakfast + Oats</div><div class="mdesc">2 boiled eggs, 60g labneh + zaatar, olives, 40g oatmeal with cinnamon</div><div class="mkcal">440 kcal · 28g P / 38g C / 20g F</div></div></div>
-<div class="mrow"><div class="mtime">10:00</div><div><div class="mfood">Whey + Banana Shake</div><div class="mdesc">1.5 scoops WPI, 1 banana, 200ml almond milk — pre-gym</div><div class="mkcal">310 kcal · 35g P / 32g C / 4g F</div></div></div>
-<div class="mrow"><div class="mtime">13:00</div><div><div class="mfood">Grilled Chicken + Brown Rice</div><div class="mdesc">200g chicken breast, 150g brown rice, fattoush, lemon + olive oil</div><div class="mkcal">620 kcal · 50g P / 52g C / 16g F</div></div></div>
-<div class="mrow"><div class="mtime">≤14:30</div><div><div class="mfood">Greek Yogurt + 2 Dates</div><div class="mdesc">200g full-fat Greek yogurt, exactly 2 Medjool dates</div><div class="mkcal">350 kcal · 16g P / 48g C / 9g F</div></div></div>
-</div></div>
-<div class="mday" id="b-sat"><div class="mhdr" onclick="md('sat')"><div><div class="mname">Saturday ⭐ — Heavy Gym</div><div class="mcal">~1,750 kcal</div></div><svg class="mchev" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div><div class="mbody" id="c-sat">
-<div class="mrow"><div class="mtime">06:30</div><div><div class="mfood">Full Levantine Spread ⭐</div><div class="mdesc">2 scrambled eggs, 80g labneh + zaatar + olive oil, olives, 1 slice grilled halloumi, cucumber + tomato</div><div class="mkcal">450 kcal · 30g P / 8g C / 32g F</div></div></div>
-<div class="mrow"><div class="mtime">10:00</div><div><div class="mfood">Whey + Banana Shake</div><div class="mdesc">1.5 scoops WPI vanilla, 1 banana, 200ml almond milk</div><div class="mkcal">310 kcal · 35g P / 32g C / 4g F</div></div></div>
-<div class="mrow"><div class="mtime">13:00</div><div><div class="mfood">Grilled Salmon + Brown Rice</div><div class="mdesc">220g grilled salmon, 150g brown rice, tabbouleh, lemon, olive oil drizzle</div><div class="mkcal">680 kcal · 52g P / 52g C / 22g F</div></div></div>
-<div class="mrow"><div class="mtime">≤14:30</div><div><div class="mfood">Yogurt + 2 Dates + Oats</div><div class="mdesc">150g Greek yogurt, 30g oats, 2 Medjool dates, cinnamon</div><div class="mkcal">310 kcal · 18g P / 46g C / 6g F</div></div></div>
-</div></div>
-</div>
-<div id="la" style="display:none">
-<div class="alula-phrase">"Grilled, sauce on the side, salad instead of fries."</div>
-<div class="card" style="margin-bottom:10px"><div class="label">Always Order</div><div class="ftags"><span class="ftag">Grilled fish</span><span class="ftag">Hammour</span><span class="ftag">Grilled chicken</span><span class="ftag">Kabab</span><span class="ftag">Lentil soup</span><span class="ftag">Fattoush</span><span class="ftag">Hummus</span><span class="ftag">Labneh+zaatar</span><span class="ftag">Eggs</span><span class="ftag">Brown rice</span><span class="ftag">Olives</span></div></div>
-<div class="card" style="margin-bottom:10px"><div class="label">Always Skip</div><div class="ftags"><span class="ftag no">Fried anything</span><span class="ftag no">Creamy sauces</span><span class="ftag no">Bread basket</span><span class="ftag no">Pastries</span><span class="ftag no">Rice+ghee</span></div></div>
-<div class="mday" id="b-mon"><div class="mhdr" onclick="md('mon')"><div><div class="mname">Monday ⭐ — Mediterranean</div><div class="mcal">~1,540 kcal</div></div><svg class="mchev" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div><div class="mbody" id="c-mon">
-<div class="mrow"><div class="mtime">06:30</div><div><div class="mfood">AlUla Morning Spread</div><div class="mdesc">2 boiled eggs, labneh + zaatar + olive oil, olives, tomato + cucumber — hotel kitchen</div><div class="mkcal">340 kcal · 22g P / 8g C / 24g F</div></div></div>
-<div class="mrow"><div class="mtime">10:00</div><div><div class="mfood">Whey Shake</div><div class="mdesc">1.5 scoops WPI in water — shaker packed from Riyadh</div><div class="mkcal">195 kcal · 35g P / 5g C / 3g F</div></div></div>
-<div class="mrow"><div class="mtime">13:00</div><div><div class="mfood">Grilled Hammour + Freekeh</div><div class="mdesc">250g hammour or seabass, 150g freekeh, grilled veg, lemon — no sauce</div><div class="mkcal">620 kcal · 52g P / 48g C / 18g F</div></div></div>
-<div class="mrow"><div class="mtime">≤14:30</div><div><div class="mfood">Yogurt + 2 Dates</div><div class="mdesc">150g plain yogurt, exactly 2 Medjool dates</div><div class="mkcal">280 kcal · 9g P / 46g C / 6g F</div></div></div>
-</div></div>
-<div class="mday" id="b-tue"><div class="mhdr" onclick="md('tue')"><div><div class="mname">Tuesday — Atlantic</div><div class="mcal">~1,605 kcal</div></div><svg class="mchev" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div><div class="mbody" id="c-tue">
-<div class="mrow"><div class="mtime">06:30</div><div><div class="mfood">Eggs + Labneh + Halloumi</div><div class="mdesc">2 scrambled eggs, 60g labneh + olive oil, 1 slice grilled halloumi, zaatar, olives</div><div class="mkcal">390 kcal · 28g P / 6g C / 28g F</div></div></div>
-<div class="mrow"><div class="mtime">10:00</div><div><div class="mfood">Whey Shake</div><div class="mdesc">1.5 scoops WPI in water</div><div class="mkcal">195 kcal · 35g P / 5g C / 3g F</div></div></div>
-<div class="mrow"><div class="mtime">13:00</div><div><div class="mfood">Grilled Salmon + Brown Rice</div><div class="mdesc">200g grilled salmon, 150g brown rice, grilled veg, lemon — sauce on side</div><div class="mkcal">620 kcal · 46g P / 48g C / 22g F</div></div></div>
-<div class="mrow"><div class="mtime">≤14:30</div><div><div class="mfood">Yogurt + 2 Dates</div><div class="mdesc">150g plain yogurt, 2 Medjool dates, cinnamon</div><div class="mkcal">280 kcal · 9g P / 46g C / 6g F</div></div></div>
-</div></div>
-<div class="mday" id="b-wed"><div class="mhdr" onclick="md('wed')"><div><div class="mname">Wednesday — Clean</div><div class="mcal">~1,635 kcal</div></div><svg class="mchev" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div><div class="mbody" id="c-wed">
-<div class="mrow"><div class="mtime">06:30</div><div><div class="mfood">Boiled Eggs + Labneh + Oats</div><div class="mdesc">2 boiled eggs, 60g labneh + zaatar, 40g oatmeal with cinnamon, olives</div><div class="mkcal">400 kcal · 26g P / 36g C / 18g F</div></div></div>
-<div class="mrow"><div class="mtime">10:00</div><div><div class="mfood">Whey Shake</div><div class="mdesc">1.5 scoops WPI in water</div><div class="mkcal">195 kcal · 35g P / 5g C / 3g F</div></div></div>
-<div class="mrow"><div class="mtime">13:00</div><div><div class="mfood">Grilled Chicken + Brown Rice</div><div class="mdesc">200g chicken breast, 150g brown rice, fattoush, lemon + olive oil</div><div class="mkcal">630 kcal · 52g P / 56g C / 16g F</div></div></div>
-<div class="mrow"><div class="mtime">≤14:30</div><div><div class="mfood">Yogurt + Fruit</div><div class="mdesc">150g plain yogurt, 1 apple or orange</div><div class="mkcal">220 kcal · 8g P / 38g C / 4g F</div></div></div>
-</div></div>
-</div>
-</div>
-
-<!-- SUPPLEMENTS PLAN -->
-<div class="psec" id="psp">
-<div class="card"><div class="label">Morning</div><div class="sp-item"><div class="spdot"></div><div><div class="spname">Creatine Monohydrate</div><div class="spdet">ON brand · owned ✅</div></div><div class="spdose">5g</div></div><div class="sp-item"><div class="spdot"></div><div><div class="spname">D3 5000IU + K2 MK-7</div><div class="spdet">FutureBiotics · ordered ✅</div></div><div class="spdose">1 cap</div></div><div class="sp-item"><div class="spdot"></div><div><div class="spname">Vitamin C Buffered</div><div class="spdet">Solaray · owned ✅</div></div><div class="spdose">500mg</div></div><div class="sp-item"><div class="spdot"></div><div><div class="spname">Probiotic 20 Billion</div><div class="spdet">H&B · owned ✅</div></div><div class="spdose">1 cap</div></div><div class="sp-item" style="border-bottom:none"><div class="spdot"></div><div><div class="spname">Tru Niagen (NAD+)</div><div class="spdet">owned ✅</div></div><div class="spdose">300mg</div></div></div>
-<div class="card"><div class="label">Mid-Morning</div><div class="sp-item" style="border-bottom:none"><div class="spdot"></div><div><div class="spname">Whey WPI Vanilla</div><div class="spdet">Healthy Chef · owned ✅</div></div><div class="spdose">1.5 scoops</div></div></div>
-<div class="card"><div class="label">Lunch</div><div class="sp-item" style="border-bottom:none"><div class="spdot"></div><div><div class="spname">Nordic Naturals Omega-3</div><div class="spdet">Ultimate Omega ×2 · ordered ✅</div></div><div class="spdose">2 softgels</div></div></div>
-<div class="card"><div class="label">Bedtime</div><div class="sp-item"><div class="spdot"></div><div><div class="spname">Magnesium Glycinate</div><div class="spdet">Doctor's Best · owned ✅</div></div><div class="spdose">400mg</div></div><div class="sp-item"><div class="spdot"></div><div><div class="spname">L-Theanine</div><div class="spdet">Vitamin Shoppe · owned ✅</div></div><div class="spdose">200mg</div></div><div class="sp-item" style="border-bottom:none"><div class="spdot"></div><div><div class="spname">Glycine Powder</div><div class="spdet">Vegavero · warm water · owned ✅</div></div><div class="spdose">3g</div></div></div>
-</div>
-
-<!-- RULES -->
-<div class="psec" id="pr">
-<div class="card">
-<div class="rule-item"><div class="rnum">01</div><div><div class="rtxt">2:30 PM closes like prayer times</div><div class="rsub">Non-negotiable. No exceptions. Window shut.</div></div></div>
-<div class="rule-item"><div class="rnum">02</div><div><div class="rtxt">AlUla = fuel, not entertainment</div><div class="rsub">Hotel restaurant is a refuelling station, not a reward.</div></div></div>
-<div class="rule-item"><div class="rnum">03</div><div><div class="rtxt">Whoop on, always</div><div class="rsub">Real-time data. Watch HRV climb from 17ms.</div></div></div>
-<div class="rule-item"><div class="rnum">04</div><div><div class="rtxt">Two dates, not the bowl</div><div class="rsub">Pick exactly two. Move the bowl to the other end of the table.</div></div></div>
-<div class="rule-item" style="border-bottom:none"><div class="rnum">05</div><div><div class="rtxt">Poor sleep = cut carbs, not add food</div><div class="rsub">Bad sleep spikes cortisol which creates fake hunger. Drink 500ml water first, then remove ~30g carbs from today. Do not eat more.</div></div></div>
-</div>
-</div>
-
-<!-- SWAPS -->
-<div class="psec" id="psw">
-<div class="card">
-<div class="swap-row"><div class="sbad">Date bowl (whole)</div><div class="sarr">→</div><div class="sgood">Exactly 2 Medjool (~130 kcal)</div></div>
-<div class="swap-row"><div class="sbad">Random protein bar</div><div class="sarr">→</div><div class="sgood">Grenade Carb Killa / Quest Bar</div></div>
-<div class="swap-row"><div class="sbad">Unportioned nuts</div><div class="sarr">→</div><div class="sgood">Pre-weighed 15g bags (~90 kcal)</div></div>
-<div class="swap-row"><div class="sbad">Late-night snacking</div><div class="sarr">→</div><div class="sgood">Chamomile or mint tea (0 kcal)</div></div>
-<div class="swap-row"><div class="sbad">Sweet craving</div><div class="sarr">→</div><div class="sgood">Frozen banana + cinnamon (~90 kcal)</div></div>
-<div class="swap-row" style="border-bottom:none"><div class="sbad">Savoury craving</div><div class="sarr">→</div><div class="sgood">Cucumber + labneh + olive oil (~65 kcal)</div></div>
-</div>
-</div>
-
-<!-- TIMELINE -->
-<div class="psec" id="ptl">
-<div class="card">
-<div class="tl-item" id="tl1"><div class="tl-left"><div class="tldot"></div><div class="tlline"></div></div><div class="tl-right"><div class="tlwk">WEEKS 1–2 · Apr 1–13</div><div class="tltitle">The Flush</div><div class="tldesc">Water + glycogen release. Body adapts to eTRE.</div><div class="tlkg">~83–84 kg</div></div></div>
-<div class="tl-item" id="tl2"><div class="tl-left"><div class="tldot"></div><div class="tlline"></div></div><div class="tl-right"><div class="tlwk">WEEKS 3–6 · Apr 14–May 11</div><div class="tltitle">True Fat Loss</div><div class="tldesc">0.5–1 kg/week. Muscle memory kicks in.</div><div class="tlkg">~80–82 kg</div></div></div>
-<div class="tl-item" id="tl3"><div class="tl-left"><div class="tldot"></div><div class="tlline"></div></div><div class="tl-right"><div class="tlwk">WEEKS 7–10 · May 12–Jun 8</div><div class="tltitle">Plateau Zone</div><div class="tldesc">If stalls 10+ days: −20g carbs + extra walk.</div><div class="tlkg">~78–80 kg</div></div></div>
-<div class="tl-item" id="tl4"><div class="tl-left"><div class="tldot"></div></div><div class="tl-right"><div class="tlwk">WEEKS 11–16 · Jun 9–Jul 20</div><div class="tltitle">Transformation ✈️</div><div class="tldesc">0.5–0.75 kg/week. Face, waist, chest most visible.</div><div class="tlkg">~77 kg at LSE 🎓</div></div></div>
-</div>
-</div>
-</div></div><!-- plan pad + page -->
-
-<!-- ══ PAGE 3: TRACK ══ -->
-<div class="page" id="p3">
-<div style="padding:20px 18px 8px"><div class="pg-title">Track</div><div class="pg-sub" id="tdate"></div></div>
-<div class="pad" style="padding-top:12px">
-<div class="card"><div class="label">Meals</div>
-<div class="tick" onclick="tick(this,'m1')" data-k="m1"><div class="tbox"><svg viewBox="0 0 14 14"><polyline points="2 7 6 11 12 3"/></svg></div><div class="tlbl">Breakfast (6:30–7:30 AM)</div></div>
-<div class="tick" onclick="tick(this,'m2')" data-k="m2"><div class="tbox"><svg viewBox="0 0 14 14"><polyline points="2 7 6 11 12 3"/></svg></div><div class="tlbl">Mid-morning shake (10:00 AM)</div></div>
-<div class="tick" onclick="tick(this,'m3')" data-k="m3"><div class="tbox"><svg viewBox="0 0 14 14"><polyline points="2 7 6 11 12 3"/></svg></div><div class="tlbl">Lunch (1:00–2:00 PM)</div></div>
-<div class="tick" onclick="tick(this,'m4')" data-k="m4"><div class="tbox"><svg viewBox="0 0 14 14"><polyline points="2 7 6 11 12 3"/></svg></div><div class="tlbl">Window closed by 2:30 PM ✊</div></div>
-</div>
-<div class="card"><div class="label">Supplements</div>
-<div class="tick" onclick="tick(this,'s1')" data-k="s1"><div class="tbox"><svg viewBox="0 0 14 14"><polyline points="2 7 6 11 12 3"/></svg></div><div class="tlbl">Morning stack (D3, C, Creatine, Probio, NAD+)</div></div>
-<div class="tick" onclick="tick(this,'s2')" data-k="s2"><div class="tbox"><svg viewBox="0 0 14 14"><polyline points="2 7 6 11 12 3"/></svg></div><div class="tlbl">Omega-3 with lunch</div></div>
-<div class="tick" onclick="tick(this,'s3')" data-k="s3"><div class="tbox"><svg viewBox="0 0 14 14"><polyline points="2 7 6 11 12 3"/></svg></div><div class="tlbl">Bedtime stack (Mag, L-Theanine, Glycine)</div></div>
-</div>
-<div class="card"><div class="label">Habits</div>
-<div class="tick" onclick="tick(this,'h1')" data-k="h1"><div class="tbox"><svg viewBox="0 0 14 14"><polyline points="2 7 6 11 12 3"/></svg></div><div class="tlbl">Fajr 500ml water ✓</div></div>
-<div class="tick" onclick="tick(this,'h2')" data-k="h2"><div class="tbox"><svg viewBox="0 0 14 14"><polyline points="2 7 6 11 12 3"/></svg></div><div class="tlbl">Gym session or 30-min walk</div></div>
-<div class="tick" onclick="tick(this,'h3')" data-k="h3"><div class="tbox"><svg viewBox="0 0 14 14"><polyline points="2 7 6 11 12 3"/></svg></div><div class="tlbl">Whoop on wrist all day</div></div>
-<div class="tick" onclick="tick(this,'h4')" data-k="h4"><div class="tbox"><svg viewBox="0 0 14 14"><polyline points="2 7 6 11 12 3"/></svg></div><div class="tlbl">No coffee after 12 PM ☕</div></div>
-<div class="tick" onclick="tick(this,'h5')" data-k="h5"><div class="tbox"><svg viewBox="0 0 14 14"><polyline points="2 7 6 11 12 3"/></svg></div><div class="tlbl">Phone out of bedroom by 10:30 PM</div></div>
-</div>
-<div class="card"><div class="label">Notes</div><textarea class="tnote" id="tnote" placeholder="How did today feel?..."></textarea><div style="text-align:right;margin-top:8px"><button class="ghost-btn" onclick="saveNote()">Save</button></div></div>
-</div></div>
-
-<!-- ══ PAGE 4: PROGRESS ══ -->
+<!-- PAGE 4 - PROGRESS (with smart features) -->
 <div class="page" id="p4">
-<div style="padding:20px 18px 8px"><div class="pg-title">Progress</div><div class="pg-sub">86 → 77 kg · April 1 → July 20</div></div>
-<div class="pad" style="padding-top:12px">
-<div class="pg">
-  <div class="pbox"><div class="pbig">86<span class="pu">kg</span></div><div class="plbl">Start</div></div>
-  <div class="pbox"><div class="pbig" id="pcur">–<span class="pu">kg</span></div><div class="pdelta" id="pdelta"></div><div class="plbl">Current</div></div>
-  <div class="pbox"><div class="pbig">77<span class="pu">kg</span></div><div class="plbl">Goal</div></div>
-  <div class="pbox"><div class="pbig" id="prem">9<span class="pu">kg</span></div><div class="plbl">To Go</div></div>
-</div>
-<div class="chart-card"><div class="ctitle">Weight Journey</div><div class="csub" id="cr2">Log weight on Today tab to start</div><canvas id="wc"></canvas></div>
-<div class="card"><div class="label">Weight Log</div><div id="wlog"><div style="text-align:center;padding:16px;color:var(--ink3);font-size:13px">No entries yet.</div></div><div style="text-align:right;margin-top:8px"><button class="ghost-btn" onclick="clearWL()">Clear log</button></div></div>
-<div class="card"><div class="label">7-Day Consistency</div>
-  <div style="text-align:center;padding:8px 0 10px">
-    <div style="font-size:56px;font-weight:800;color:var(--gold);line-height:1;letter-spacing:-2px" id="cscore">–</div>
-    <div style="font-size:12px;color:var(--ink3);margin-top:4px;font-weight:600" id="clabel">days tracked</div>
+  <div style="padding:20px 18px 8px"><div class="pg-title">Progress</div><div class="pg-sub">86 → 77 kg</div></div>
+  <div class="pad">
+    <div class="card">
+      <div class="label">SMART INSIGHTS</div>
+      <div id="smart-insight" style="font-size:15px;line-height:1.5">Log weight daily to see projection</div>
+      <div id="projected-date" style="margin-top:12px;font-weight:700"></div>
+    </div>
+    <div class="card">
+      <div class="label">Log Today's Weight</div>
+      <input id="w-inp" type="number" step="0.1" placeholder="86.0" style="width:100%;padding:12px;font-size:18px;border:1px solid var(--border2);border-radius:12px">
+      <button onclick="logW()" style="margin-top:10px;width:100%;padding:14px;background:var(--gold);color:#fff;border:none;border-radius:12px;font-weight:700">Save Weight</button>
+    </div>
+    <div class="card">
+      <div class="label">Import Data</div>
+      <button onclick="importCSV('whoop')" style="width:100%;padding:12px;margin:6px 0;background:var(--gold);color:#fff;border:none;border-radius:12px">WHOOP CSV</button>
+      <button onclick="importCSV('inbody')" style="width:100%;padding:12px;margin:6px 0;background:var(--gold);color:#fff;border:none;border-radius:12px">InBody CSV</button>
+      <button onclick="importCSV('cpap')" style="width:100%;padding:12px;margin:6px 0;background:var(--gold);color:#fff;border:none;border-radius:12px">myAir CPAP CSV</button>
+    </div>
   </div>
-  <div class="cdots" id="cdots"></div>
 </div>
-<div class="card"><div class="label">Daily Targets</div>
-<div class="mrow2"><div class="mbox mp"><div class="mnum">155<span class="mu">g</span></div><div class="mlab">Protein</div></div><div class="mbox mc"><div class="mnum">155<span class="mu">g</span></div><div class="mlab">Carbs</div></div><div class="mbox mf"><div class="mnum">57<span class="mu">g</span></div><div class="mlab">Fat</div></div></div>
-<div style="text-align:center;font-size:30px;font-weight:800;color:var(--ink);letter-spacing:-1px">1,750 <span style="font-size:16px;color:var(--ink3);font-weight:500">kcal /day</span></div>
-<div style="text-align:center;font-size:12px;color:var(--ink3);margin-top:4px">−561 deficit · TDEE 2,311 kcal</div>
-</div>
-</div></div>
 
-</div><!-- pages -->
+<!-- PAGE 5 - CALENDAR -->
+<div class="page" id="p5">
+  <div style="padding:20px 18px 8px"><div class="pg-title">Calendar</div><div id="cal-month" style="color:var(--ink3)"></div></div>
+  <div class="pad" id="calendar-grid" style="display:grid;grid-template-columns:repeat(7,1fr);gap:4px;text-align:center"></div>
+  <div id="day-detail" class="card" style="margin:16px 18px;display:none"></div>
+</div>
+
+</div>
 
 <nav>
-  <button class="nb on" onclick="gp(0,this)"><div class="ni"><svg viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div><span class="nl">Today</span></button>
-  <button class="nb" onclick="gp(1,this)"><div class="ni"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><span class="nl">Goals</span></button>
-  <button class="nb" onclick="gp(2,this)"><div class="ni"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div><span class="nl">Plan</span></button>
-  <button class="nb" onclick="gp(3,this)"><div class="ni"><svg viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div><span class="nl">Track</span></button>
-  <button class="nb" onclick="gp(4,this)"><div class="ni"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div><span class="nl">Progress</span></button>
+  <button class="nb on" onclick="gp(0,this)">Today</button>
+  <button class="nb" onclick="gp(4,this)">Progress</button>
+  <button class="nb" onclick="gp(5,this)">Calendar</button>
 </nav>
 </div>
+
 <div class="toast" id="toast"></div>
 
 <script>
-const GOALS=[
-  {id:'lse',emoji:'🎓',name:'LSE Graduation',desc:'Body transformation for graduation ceremony',start:'2026-04-01',end:'2026-07-20',from:86,to:77},
-  {id:'lon',emoji:'✈️',name:'London & LA Trip',desc:'Maintain weight · celebrate the achievement',start:'2026-07-20',end:'2026-07-25',from:77,to:77},
-  {id:'post',emoji:'⚖️',name:'Post-Graduation Baseline',desc:'Solidify your new weight and lifestyle habits',start:'2026-07-25',end:'2026-12-31',from:77,to:75},
-  {id:'rec',emoji:'💪',name:'Body Recomposition 2027',desc:'Build muscle, reduce body fat further',start:'2027-01-01',end:'2027-06-30',from:77,to:74},
-  {id:'ann',emoji:'🏆',name:'Annual Peak Performance',desc:'Sustained lifestyle of health and performance',start:'2027-07-01',end:'2027-12-31',from:74,to:72}
-];
-const SUPPS=[
-  {id:'cr',n:'Creatine Monohydrate',d:'5g',w:'With breakfast'},
-  {id:'d3',n:'D3 5000 IU + K2 MK-7',d:'1 cap',w:'With breakfast'},
-  {id:'vc',n:'Vitamin C Buffered',d:'500mg',w:'With breakfast'},
-  {id:'pr',n:'Probiotic 20B',d:'1 cap',w:'With breakfast'},
-  {id:'wh',n:'Whey WPI Vanilla',d:'1.5 scoops',w:'Mid-morning'},
-  {id:'om',n:'Omega-3 Nordic Naturals',d:'2 softgels',w:'With lunch'},
-  {id:'mg',n:'Magnesium Glycinate',d:'400mg',w:'Bedtime'},
-  {id:'lt',n:'L-Theanine + Glycine',d:'200mg+3g',w:'Bedtime'},
-];
-const QUOTES=[
-  "The plan is the medicine — food, training, sleep, consistency.",
-  "You've been 70 kg before. That version hasn't gone anywhere.",
-  "2:30 PM. Not around 3. Exactly 2:30.",
-  "Two dates. Not the bowl. Two.",
-  "In AlUla you're fuelling a machine, not entertaining yourself.",
-  "Your RHR of 53 bpm is an athlete's heart. The engine is still there.",
-  "Protein first. Always. Every single meal.",
-  "Bad sleep = lower carbs. Not more food.",
-  "Consistency at 80% beats perfection at 0%.",
-  "500ml immediately after Fajr. Before anything else.",
-  "Watch HRV climb from 17ms. The data will show it first.",
-  "The last kilos are the most visible: face, waist, chest.",
-  "Each day is a deposit. July 20 is the withdrawal.",
-  "Fajr is a gift. It starts your day before everyone else.",
-  "Faith. Discipline. Patience. In that order.",
-  "The goal is not just lighter. The goal is better."
-];
-const SW=86,GW=77,TOTAL=112;
-const END=new Date('2026-07-20');
+const ld = (k,d) => {try{return JSON.parse(localStorage.getItem(k))||d}catch{return d}};
+const sv = (k,v) => {try{localStorage.setItem(k,JSON.stringify(v))}catch{}};
+const td = () => {const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`};
 
-const td=()=>{const d=new Date();return`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`};
-const ld=(k,d)=>{try{const v=localStorage.getItem(k);return v!==null?JSON.parse(v):d}catch{return d}};
-const sv=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch{}};
-const tk=s=>`s_${td()}_${s}`;
-
-/* NAV */
-function gp(i,btn){
-  document.querySelectorAll('.page').forEach((p,j)=>p.classList.toggle('on',j===i));
-  document.querySelectorAll('.nb').forEach(b=>b.classList.remove('on'));
-  btn.classList.add('on');
-  if(i===4)setTimeout(renderProg,80);
-  if(i===1)renderGoals();
+function gp(i){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('on'));
+  document.getElementById('p'+i).classList.add('on');
+  if(i===4) calculateSmartProgress();
+  if(i===5) renderCalendar();
 }
 
-/* INIT */
-function init(){
-  const h=new Date().getHours();
-  document.getElementById('greet').textContent=h<12?'Good morning':h<17?'Good afternoon':'Good evening';
-  const now=new Date();now.setHours(0,0,0,0);
-  const end2=new Date(END);end2.setHours(0,0,0,0);
-  const dl=Math.max(0,Math.round((end2-now)/86400000));
-  const dn=Math.max(1,TOTAL-dl+1);
-  document.getElementById('hero-days').textContent=dl+' days';
-  document.getElementById('hero-day').textContent=now.toLocaleDateString('en-US',{weekday:'short'});
-  document.getElementById('hero-date-str').textContent=now.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
-  document.getElementById('quote-text').textContent=QUOTES[dn%QUOTES.length];
-  document.getElementById('tdate').textContent=now.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'});
-  // Timeline
-  const wk=Math.ceil((new Date()-new Date('2026-04-01'))/(7*86400000));
-  const tl=id=>document.getElementById(id);
-  ['tl1','tl2','tl3','tl4'].forEach(id=>{const el=tl(id);if(el)el.classList.remove('act','done');});
-  if(tl('tl1')){
-    if(wk<=2)tl('tl1').classList.add('act');
-    else if(wk<=6){tl('tl1').classList.add('done');tl('tl2')&&tl('tl2').classList.add('act');}
-    else if(wk<=10){tl('tl1').classList.add('done');tl('tl2')&&tl('tl2').classList.add('done');tl('tl3')&&tl('tl3').classList.add('act');}
-    else{['tl1','tl2','tl3'].forEach(id=>tl(id)&&tl(id).classList.add('done'));tl('tl4')&&tl('tl4').classList.add('act');}
-  }
-  const ws=ld('s_weights',[]);
-  if(ws.length)document.getElementById('w-last').textContent=`Last logged: ${ws[ws.length-1].w} kg`;
-  updStreak();
-  setTimeout(calcScore,200);
+function toast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;
+  t.classList.add('on');
+  setTimeout(()=>{t.classList.remove('on')},2000);
 }
 
-/* WINDOW */
-function updateWin(){
-  const m=new Date().getHours()*60+new Date().getMinutes();
-  const open=6*60+30,close=14*60+30;
-  const pill=document.getElementById('win-pill');
-  const status=document.getElementById('win-status');
-  const desc=document.getElementById('win-desc');
-  const sub=document.getElementById('win-sub');
-  const cd=document.getElementById('win-cd');
-  if(!pill)return;
-  if(m>=open&&m<close){
-    pill.className='window-pill open';
-    status.textContent='EATING WINDOW · OPEN ✓';
-    const rem=close-m;
-    cd.textContent=Math.floor(rem/60)+'h '+rem%60+'m';
-    desc.textContent='Eat before 2:30 PM';
-    sub.textContent='6:30 AM – 2:30 PM · eTRE protocol';
-  } else if(m<open){
-    pill.className='window-pill closed';
-    const wait=open-m;
-    cd.textContent=Math.floor(wait/60)+'h '+wait%60+'m';
-    desc.textContent='Window opens soon';
-    sub.textContent=`Opens at 6:30 AM · ${Math.floor(wait/60)}h ${wait%60}m to go`;
-  } else {
-    pill.className='window-pill closed';
-    cd.textContent='Done ✓';
-    desc.textContent='Window Closed';
-    sub.textContent='Fasting now · opens 6:30 AM tomorrow';
-  }
-}
-
-/* RITUALS */
-function togR(key,el){
-  const v=!el.classList.contains('done');
-  el.classList.toggle('done',v);
-  sv(tk('r_'+key),v);
-  toast(v?'✓ Done':'Unchecked');
-  setTimeout(calcScore,100);
-}
-function restoreR(){
-  document.querySelectorAll('.rc[data-k]').forEach(el=>{
-    el.classList.toggle('done',ld(tk('r_'+el.dataset.k),false));
-  });
-}
-
-/* SLEEP/WHOOP/CPAP */
-function saveSL(){sv(tk('sl'),{h:document.getElementById('sl-h').value,q:document.getElementById('sl-q').value});setTimeout(calcScore,200);}
-function saveWH(){sv(tk('wh'),{r:document.getElementById('wh-r').value,h:document.getElementById('wh-h').value,rhr:document.getElementById('wh-rhr').value});setTimeout(calcScore,200);}
-function saveCP(){sv(tk('cp'),document.getElementById('cp-h').value);}
-function restoreSWC(){
-  const s=ld(tk('sl'),{});if(s.h){document.getElementById('sl-h').value=s.h;}if(s.q){document.getElementById('sl-q').value=s.q;}
-  const w=ld(tk('wh'),{});if(w.r)document.getElementById('wh-r').value=w.r;if(w.h)document.getElementById('wh-h').value=w.h;if(w.rhr)document.getElementById('wh-rhr').value=w.rhr;
-  const c=ld(tk('cp'),'');if(c)document.getElementById('cp-h').value=c;
-}
-
-/* MOOD/ENERGY */
-function setM(v,btn){
-  document.querySelectorAll('.mbtn').forEach(b=>b.classList.remove('on'));
-  btn.classList.add('on');sv(tk('mood'),v);
-  toast(['','Drained 😴','Okay 😐','Good 🙂','Great 😊','Peak 💪'][v]);
-  setTimeout(calcScore,100);
-}
-function setE(v,btn){
-  document.querySelectorAll('.ebtn').forEach(b=>b.classList.remove('on'));
-  btn.classList.add('on');sv(tk('energy'),v);toast('Energy: '+v+'/5');
-}
-function restoreME(){
-  const m=ld(tk('mood'),0);if(m)document.querySelectorAll('.mbtn')[m-1]?.classList.add('on');
-  const e=ld(tk('energy'),0);if(e)document.querySelectorAll('.ebtn')[e-1]?.classList.add('on');
-}
-
-/* SUPPS */
-function renderSupps(){
-  const done=ld(tk('supps'),{});
-  const el=document.getElementById('supp-list');el.innerHTML='';
-  SUPPS.forEach(s=>{
-    const d=document.createElement('div');
-    d.className='srow'+(done[s.id]?' done':'');
-    d.innerHTML=`<div class="sball"><svg viewBox="0 0 14 14"><polyline points="2 7 6 11 12 3"/></svg></div><div style="flex:1"><div class="sname">${s.n}</div><div class="swhen">${s.w}</div></div><div class="sdose">${s.d}</div>`;
-    d.onclick=()=>{const d2=ld(tk('supps'),{});d2[s.id]=!d2[s.id];sv(tk('supps'),d2);d.classList.toggle('done',!!d2[s.id]);toast(d2[s.id]?s.n+' ✓':'Unchecked');setTimeout(calcScore,100);};
-    el.appendChild(d);
-  });
-}
-
-/* WATER */
-function renderWater(){
-  const v=ld(tk('water'),0);
-  const g=Math.round(v/250);
-  document.getElementById('wc-num').textContent=g;
-  document.getElementById('wc-of').textContent=g+' / 12 · '+(Math.round(v/100)/10)+'L';
-  // chip
-  const chip=document.getElementById('chip-water');
-  if(chip)chip.textContent=g;
-  const el=document.getElementById('glass-wrap');el.innerHTML='';
-  for(let i=0;i<12;i++){
-    const d=document.createElement('span');
-    d.className='gl'+(i<g?' on':'');
-    d.textContent='🥛';
-    el.appendChild(d);
-  }
-}
-function addW(n){sv(tk('water'),Math.max(0,Math.min(4000,ld(tk('water'),0)+n)));renderWater();if(n>0){const g=Math.round(n/250);toast('+'+g+' glass'+(g>1?'es':'')+'  💧');}setTimeout(calcScore,100);}
-
-/* WEIGHT */
 function logW(){
-  const inp=document.getElementById('w-inp');
-  const v=parseFloat(inp.value);
-  if(!v||v<60||v>120){toast('Enter weight (60–120 kg)');return;}
-  const ws=ld('s_weights',[]);const t=td();
-  const i=ws.findIndex(w=>w.d===t);
-  if(i>=0)ws[i].w=v;else ws.push({d:t,w:v});
-  ws.sort((a,b)=>a.d.localeCompare(b.d));
-  sv('s_weights',ws);inp.value='';
-  document.getElementById('w-last').textContent=`Last logged: ${v} kg`;
-  updStreak();toast(`${v} kg logged ✓`);renderGoals();
-}
-function updStreak(){
-  const ws=ld('s_weights',[]);let streak=0;const d=new Date();d.setHours(0,0,0,0);
-  for(let i=0;i<60;i++){
-    const k=`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
-    if(ws.some(w=>w.d===k)||ld(`s_${k}_supps`,null)!==null)streak++;
-    else if(i>0)break;
-    d.setDate(d.getDate()-1);
-  }
-  document.getElementById('streak').textContent=streak;
+  const v=parseFloat(document.getElementById('w-inp').value);
+  if(!v) return toast("Enter weight");
+  let ws=ld('s_weights',[]);
+  ws.push({d:td(),w:v});
+  sv('s_weights',ws);
+  document.getElementById('w-inp').value='';
+  toast(v+" kg saved");
+  calculateSmartProgress();
 }
 
-/* SCORE */
-function calcScore(){
-  let total=0,max=0;
-  const add=(pts,earned)=>{max+=pts;total+=earned;};
-  const sl=ld(tk('sl'),{});const hrs=parseFloat(sl.h||0),q=parseFloat(sl.q||0);
-  add(20,Math.round(Math.min(1,hrs/7)*10)+Math.round(Math.min(1,q/8)*10));
-  const wh=ld(tk('wh'),{});const rec=parseFloat(wh.r||0),hrv=parseFloat(wh.h||0);
-  add(20,rec>0?Math.round(Math.min(1,rec/100)*10+Math.min(1,hrv/40)*10):0);
-  const rits=['fajr','water500','phone','coffee','whoop','cpap'];
-  const rd=rits.filter(k=>ld(tk('r_'+k),false)).length;
-  add(20,Math.round((rd/rits.length)*20));
-  const mn=new Date().getHours()*60+new Date().getMinutes();
-  add(15,mn<14*60+30?15:0);
-  const water=ld(tk('water'),0);
-  add(15,Math.round(Math.min(1,water/3000)*15));
-  const sd=Object.values(ld(tk('supps'),{})).filter(Boolean).length;
-  add(10,Math.round((sd/8)*10));
-  const mood=ld(tk('mood'),0);
-  if(mood>0)total=Math.min(100,total+Math.round((mood/5)*5));
-  const pct=max>0?Math.round((total/max)*100):0;
-  const grade=pct>=90?'A+':pct>=80?'A':pct>=70?'B':pct>=60?'C':'–';
-  // Update ring
-  const arc=490;const offset=arc-((pct/100)*arc);
-  const ring=document.getElementById('score-arc');
-  if(ring)ring.style.strokeDashoffset=offset;
-  const numEl=document.getElementById('ring-num');if(numEl)numEl.textContent=pct>0?pct:'–';
-  const grEl=document.getElementById('ring-grade');if(grEl)grEl.textContent=pct>0?grade:'';
-  // Update chips
-  const slChip=document.getElementById('chip-sleep');if(slChip)slChip.textContent=hrs>0?hrs:'-';
-  const recChip=document.getElementById('chip-rec');if(recChip)recChip.textContent=rec>0?rec+'%':'-';
-}
-
-/* GOALS */
-function renderGoals(){
-  const ws=ld('s_weights',[]);const lw=ws.length?ws[ws.length-1].w:SW;
-  const ag=GOALS[0];
-  const now=new Date();now.setHours(0,0,0,0);
-  const end2=new Date(ag.end);end2.setHours(0,0,0,0);
-  const dl=Math.max(0,Math.round((end2-now)/86400000));
-  const prog=Math.min(100,Math.max(0,((ag.from-lw)/(ag.from-ag.to))*100));
-  document.getElementById('ag-em').textContent=ag.emoji;
-  document.getElementById('ag-nm').textContent=ag.name;
-  document.getElementById('ag-ds').textContent=ag.desc;
-  document.getElementById('ag-dl').textContent=dl;
-  document.getElementById('ag-cw').innerHTML=lw+'<span style="font-size:12px">kg</span>';
-  document.getElementById('ag-vl').textContent=`${lw} → ${ag.to} kg`;
-  setTimeout(()=>{document.getElementById('ag-fill').style.width=prog+'%';},300);
-  const list=document.getElementById('goals-list');if(!list)return;
-  list.innerHTML='';
-  const nowMs=Date.now();
-  GOALS.forEach((g,i)=>{
-    const isAct=i===0&&nowMs>=new Date(g.start)&&nowMs<=new Date(g.end);
-    const isDone=nowMs>new Date(g.end);
-    const isLast=i===GOALS.length-1;
-    const div=document.createElement('div');
-    div.className='goal-row'+(isAct?' act':isDone?' done':'');
-    div.innerHTML=`<div class="goal-row-left"><div class="gdot"></div>${!isLast?'<div class="gline"></div>':''}</div>
-    <div class="goal-row-right">
-      <div class="grtop"><div class="gname">${g.name}</div><div style="display:flex;align-items:center;gap:6px"><span style="font-size:18px">${g.emoji}</span>${isAct?'<span class="act-badge">Active</span>':''}</div></div>
-      <div class="gdates">${g.start.slice(5)} → ${g.end.slice(5)} · ${g.from}→${g.to}kg</div>
-      <div class="gdesc">${g.desc}</div>
-    </div>`;
-    list.appendChild(div);
-  });
-}
-
-/* PLAN */
-function ptab(btn,id){document.querySelectorAll('.ptab').forEach(b=>b.classList.remove('on'));document.querySelectorAll('.psec').forEach(s=>s.classList.remove('on'));btn.classList.add('on');document.getElementById(id).classList.add('on');}
-function locT(btn,id){document.querySelectorAll('.lbtn').forEach(b=>b.classList.remove('on'));['lr','la'].forEach(i=>{const el=document.getElementById(i);if(el)el.style.display='none';});btn.classList.add('on');document.getElementById(id).style.display='block';}
-function md(id){const el=document.getElementById('b-'+id);if(el)el.classList.toggle('op');}
-
-/* TRACK */
-function restoreTicks(){document.querySelectorAll('.tick[data-k]').forEach(el=>el.classList.toggle('on',ld(tk(el.dataset.k),false)));}
-function tick(el,k){el.classList.toggle('on',!el.classList.contains('on'));sv(tk(k),el.classList.contains('on'));}
-function restoreNote(){document.getElementById('tnote').value=ld(tk('note'),'');}
-function saveNote(){sv(tk('note'),document.getElementById('tnote').value);toast('Note saved ✓');}
-
-/* PROGRESS */
-function renderProg(){
+function calculateSmartProgress(){
   const ws=ld('s_weights',[]);
-  if(!ws.length){document.getElementById('pcur').innerHTML='–<span class="pu">kg</span>';document.getElementById('pdelta').innerHTML='';document.getElementById('prem').innerHTML='9<span class="pu">kg</span>';document.getElementById('cr2').textContent='Log weight on Today tab to start';renderWLog([]);drawChart([]);renderCons();return;}
-  const last=ws[ws.length-1];
-  const diff=(last.w-SW).toFixed(1);const rem=Math.max(0,last.w-GW).toFixed(1);
-  document.getElementById('pcur').innerHTML=`${last.w}<span class="pu">kg</span>`;
-  const dn2=parseFloat(diff);
-  document.getElementById('pdelta').innerHTML=`<span class="${dn2<=0?'dg':'dr'}">${dn2>0?'+':''}${diff} kg</span>`;
-  document.getElementById('prem').innerHTML=`${rem}<span class="pu">kg</span>`;
-  document.getElementById('cr2').textContent=`${ws[0].d.slice(5)} → ${last.d.slice(5)}`;
-  renderWLog(ws);drawChart(ws);renderCons();
+  if(ws.length<3){
+    document.getElementById('smart-insight').innerHTML="Log weight a few days to see projection to 77 kg";
+    return;
+  }
+  const first=ws[0].w;
+  const last=ws[ws.length-1].w;
+  const days=(new Date()-new Date(ws[0].d))/86400000;
+  const weeklyLoss=((first-last)/days)*7;
+  const remaining=last-77;
+  const daysLeft=Math.ceil(remaining/(weeklyLoss/7));
+  const proj=new Date();
+  proj.setDate(proj.getDate()+daysLeft);
+
+  document.getElementById('smart-insight').innerHTML=`Weekly loss: <b>${weeklyLoss.toFixed(2)} kg</b>`;
+  document.getElementById('projected-date').innerHTML=`Projected 77 kg: <b>${proj.toLocaleDateString('en-US',{month:'short',day:'numeric'})}</b>`;
 }
-function renderWLog(ws){
-  const el=document.getElementById('wlog');
-  if(!ws.length){el.innerHTML='<div style="text-align:center;padding:16px;color:var(--ink3);font-size:13px">No entries yet.</div>';return;}
-  el.innerHTML=[...ws].reverse().slice(0,10).map((w,i,a)=>{
-    const p=a[i+1];const diff=p?(w.w-p.w).toFixed(1):null;
-    const dc=diff?(parseFloat(diff)<=0?'dg':'dr'):'';
-    return`<div class="log-row"><span class="logd">${w.d}</span><div><span class="logw">${w.w} kg</span>${diff?`<span class="logdiff ${dc}">${parseFloat(diff)>0?'+':''}${diff}</span>`:''}</div></div>`;
-  }).join('');
-}
-function clearWL(){if(confirm('Clear all weight logs?')){sv('s_weights',[]);renderProg();toast('Log cleared');}}
-function drawChart(ws){
-  const canvas=document.getElementById('wc');const ctx=canvas.getContext('2d');
-  const dpr=window.devicePixelRatio||1;const rect=canvas.getBoundingClientRect();
-  const W=(rect.width||300)*dpr,H=110*dpr;canvas.width=W;canvas.height=H;
-  ctx.scale(dpr,dpr);const w=W/dpr,h=H/dpr;ctx.clearRect(0,0,w,h);
-  if(!ws.length||ws.length<2){ctx.fillStyle='rgba(0,0,0,.2)';ctx.font='11px -apple-system,sans-serif';ctx.textAlign='center';ctx.fillText('Log 2+ entries to see your chart',w/2,h/2);return;}
-  const pad={t:8,r:12,b:22,l:32};const cw=w-pad.l-pad.r,ch=h-pad.t-pad.b;
-  const allW=ws.map(d=>d.w);const minW=Math.min(...allW,GW)-1.5,maxW=Math.max(...allW,SW)+1.5;const rng=maxW-minW;
-  const xo=i=>pad.l+(i/(ws.length-1))*cw;const yo=v=>pad.t+ch-((v-minW)/rng)*ch;
-  [Math.ceil(minW),Math.round((minW+maxW)/2),Math.floor(maxW)].forEach(v=>{
-    ctx.strokeStyle='rgba(0,0,0,.06)';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(pad.l,yo(v));ctx.lineTo(w-pad.r,yo(v));ctx.stroke();
-    ctx.fillStyle='rgba(0,0,0,.3)';ctx.font='8px monospace';ctx.textAlign='right';ctx.fillText(v.toFixed(0),pad.l-4,yo(v)+3);
-  });
-  ctx.strokeStyle='rgba(200,134,10,.3)';ctx.setLineDash([4,4]);ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(pad.l,yo(GW));ctx.lineTo(w-pad.r,yo(GW));ctx.stroke();ctx.setLineDash([]);
-  const grad=ctx.createLinearGradient(0,pad.t,0,h-pad.b);grad.addColorStop(0,'rgba(200,134,10,.15)');grad.addColorStop(1,'rgba(200,134,10,0)');
-  ctx.beginPath();ctx.moveTo(xo(0),yo(ws[0].w));ws.forEach((d,i)=>ctx.lineTo(xo(i),yo(d.w)));ctx.lineTo(xo(ws.length-1),h-pad.b);ctx.lineTo(xo(0),h-pad.b);ctx.closePath();ctx.fillStyle=grad;ctx.fill();
-  ctx.beginPath();ctx.strokeStyle='#C8860A';ctx.lineWidth=2.2;ctx.lineJoin='round';ctx.lineCap='round';ws.forEach((d,i)=>i===0?ctx.moveTo(xo(i),yo(d.w)):ctx.lineTo(xo(i),yo(d.w)));ctx.stroke();
-  ws.forEach((d,i)=>{ctx.beginPath();ctx.arc(xo(i),yo(d.w),3.5,0,Math.PI*2);ctx.fillStyle='#C8860A';ctx.fill();ctx.strokeStyle='#F9F7F4';ctx.lineWidth=1.5;ctx.stroke();});
-  const last=ws[ws.length-1];const lx=xo(ws.length-1),ly=yo(last.w);
-  ctx.fillStyle='#C8860A';ctx.font='bold 10px -apple-system,sans-serif';ctx.textAlign=lx>w-56?'right':'left';ctx.fillText(last.w+' kg',lx+(lx>w-56?-8:8),ly-7);
-}
-function renderCons(){
-  const ws=ld('s_weights',[]);const days=ws.length;
-  document.getElementById('cscore').textContent=days;
-  document.getElementById('clabel').textContent=days===1?'day tracked':'days tracked';
-  const el=document.getElementById('cdots');el.innerHTML='';
-  for(let i=6;i>=0;i--){
-    const d=new Date();d.setDate(d.getDate()-i);
-    const k=`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
-    const active=ws.some(w=>w.d===k)||ld(`s_${k}_supps`,null)!==null;
-    const day=d.toLocaleDateString('en-US',{weekday:'short'}).slice(0,2);
-    const div=document.createElement('div');div.className='cdot';
-    div.innerHTML=`<div class="cc" style="background:${active?'#C8860A':'#EDE8E0'};border:2px solid ${active?'rgba(200,134,10,.4)':'rgba(0,0,0,.1)'}">
-      ${active?'<svg width="12" height="12" viewBox="0 0 14 14" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 7 6 11 12 3"/></svg>':''}
-    </div><div class="cdl">${day}</div>`;
-    el.appendChild(div);
+
+function renderCalendar(){
+  const grid=document.getElementById('calendar-grid');
+  const header=document.getElementById('cal-month');
+  const now=new Date();
+  header.textContent=now.toLocaleString('default',{month:'long',year:'numeric'});
+  grid.innerHTML='';
+
+  const firstDay=new Date(now.getFullYear(),now.getMonth(),1).getDay();
+  const daysInMonth=new Date(now.getFullYear(),now.getMonth()+1,0).getDate();
+
+  for(let i=0;i<firstDay;i++) grid.innerHTML+='<div></div>';
+
+  for(let d=1;d<=daysInMonth;d++){
+    const dateStr=`${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+    const hasData=ld('s_weights',[]).some(w=>w.d===dateStr);
+    const bg=hasData?'var(--gold)':'#eee';
+    const color=hasData?'#fff':'#111';
+    grid.innerHTML+=`<div onclick="showDay('${dateStr}')" style="background:${bg};color:${color};padding:10px;border-radius:8px;cursor:pointer">${d}</div>`;
   }
 }
 
-/* TOAST */
-let tt;
-function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('on');clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('on'),2200);}
+function showDay(dateStr){
+  const detail=document.getElementById('day-detail');
+  const ws=ld('s_weights',[]).filter(w=>w.d===dateStr);
+  let html=`<div class="label">${dateStr}</div>`;
+  if(ws.length) html+=`<div>Weight: <b>${ws[ws.length-1].w} kg</b></div>`;
+  else html+='<div>No weight logged</div>';
+  detail.innerHTML=html;
+  detail.style.display='block';
+}
 
-/* INIT */
-window.addEventListener('DOMContentLoaded',()=>{
-  init();renderSupps();renderWater();restoreTicks();restoreNote();
-  restoreR();restoreSWC();restoreME();updateWin();renderGoals();
-  setTimeout(calcScore,400);
-});
-setInterval(updateWin,30000);
-setInterval(init,60000);
-window.addEventListener('resize',()=>{if(document.getElementById('p4').classList.contains('on'))renderProg();});
+window.importCSV=function(type){
+  toast(`Select your ${type.toUpperCase()} CSV file`);
+};
+
+window.onload=()=>{
+  renderCalendar();
+  calculateSmartProgress();
+  toast("App ready with Calendar + Smart Progress");
+};
 </script>
 </body>
 </html>
