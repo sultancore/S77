@@ -377,79 +377,6 @@ function renderPrediction(ws){
 }
 
 
-/* ── DAY MODE ── */
-const MODE_DATA = {
-  gym: {
-    btn:'gym-on',
-    title:'🏋️ Gym Mode — Build · Fuel · Perform',
-    titleClass:'gym',
-    body:'Pre-workout primer at 6:30 AM (½ WPI + banana). Train. Post-workout meal within 30 min. Protein anchor at every meal.',
-    carb:'~180g quality carbs today',
-    carbClass:'gym',
-    ctxClass:'gym',
-    quote:'Protein first. Carbs to fuel. Every rep is a deposit.'
-  },
-  rest: {
-    btn:'rest-on',
-    title:'🌿 Rest Mode — Recover · Burn · Reset',
-    titleClass:'rest',
-    body:'Strict 6:30 AM – 2:30 PM window. Walk 30 min. Fewer carbs today — your body will burn more fat. Protein anchor every meal.',
-    carb:'~120g quality carbs today',
-    carbClass:'rest',
-    ctxClass:'rest',
-    quote:'Rest days are when fat is lost. The window is your weapon.'
-  },
-  nomad: {
-    btn:'nomad-on',
-    title:'✈️ Nomad Mode — Adapt · Execute · Win',
-    titleClass:'nomad',
-    body:'Protein anchor at every meal — eggs, grilled protein, Greek yogurt, or a Born Winner bar. Window best effort. You operate anywhere.',
-    carb:'Quality carbs where available',
-    carbClass:'nomad',
-    ctxClass:'nomad',
-    quote:'Nomads are lean by nature. You adapt. You execute. You win.'
-  }
-};
-
-function setMode(mode) {
-  sv(tk('daymode'), mode);
-  renderMode(mode);
-  const q = MODE_DATA[mode].quote;
-  const qt = document.getElementById('quote-text');
-  if(qt) qt.textContent = q;
-  toast(mode === 'gym' ? '🏋️ Gym Mode activated' : mode === 'rest' ? '🌿 Rest Mode activated' : '✈️ Nomad Mode activated');
-}
-
-function renderMode(mode) {
-  // Clear all button states
-  ['gym','rest','nomad'].forEach(m => {
-    const b = document.getElementById('mbtn-' + m);
-    if(b) b.className = 'mbtn';
-  });
-  // Set active button
-  const active = document.getElementById('mbtn-' + mode);
-  if(active && MODE_DATA[mode]) active.classList.add(MODE_DATA[mode].btn);
-
-  // Show context banner
-  const ctx = document.getElementById('mode-ctx');
-  const title = document.getElementById('mctx-title');
-  const body = document.getElementById('mctx-body');
-  const carb = document.getElementById('mctx-carb');
-  if(!ctx || !MODE_DATA[mode]) return;
-  const d = MODE_DATA[mode];
-  ctx.className = 'mode-ctx show ' + d.ctxClass;
-  title.className = 'mctx-title ' + d.titleClass;
-  title.textContent = d.title;
-  body.textContent = d.body;
-  carb.className = 'mctx-carb ' + d.carbClass;
-  carb.textContent = d.carb;
-}
-
-function restoreMode() {
-  const saved = ld(tk('daymode'), null);
-  if(saved && MODE_DATA[saved]) renderMode(saved);
-}
-
 /* TOAST */
 .toast { position:fixed; bottom:calc(var(--nav-h) + env(safe-area-inset-bottom,0px) + 12px); left:50%; transform:translateX(-50%) translateY(10px); background:var(--navy); color:#fff; padding:10px 20px; border-radius:30px; font-size:13px; font-weight:600; white-space:nowrap; opacity:0; transition:opacity .25s, transform .25s; z-index:999; pointer-events:none; box-shadow:0 4px 20px rgba(0,0,0,.2); }
 .toast.on { opacity:1; transform:translateX(-50%) translateY(0); }
@@ -1826,6 +1753,39 @@ function renderCons(){
     </div><div class="cdl">${day}</div>`;
     el.appendChild(div);
   }
+}
+
+/* ── DAY MODE ── */
+const MODE_DATA = {
+  gym:{btn:'gym-on',title:'🏋️ Gym Mode — Build · Fuel · Perform',titleClass:'gym',body:'Pre-workout primer at 6:30 AM (½ WPI + banana). Train. Post-workout meal within 30 min. Protein anchor at every meal.',carb:'~180g quality carbs today',carbClass:'gym',ctxClass:'gym',quote:'Protein first. Carbs to fuel. Every rep is a deposit.'},
+  rest:{btn:'rest-on',title:'🌿 Rest Mode — Recover · Burn · Reset',titleClass:'rest',body:'Strict 6:30 AM – 2:30 PM window. Walk 30 min. Fewer carbs today — your body burns more fat. Protein anchor every meal.',carb:'~120g quality carbs today',carbClass:'rest',ctxClass:'rest',quote:'Rest days are when fat is lost. The window is your weapon.'},
+  nomad:{btn:'nomad-on',title:'✈️ Nomad Mode — Adapt · Execute · Win',titleClass:'nomad',body:'Protein anchor at every meal — eggs, grilled protein, Greek yogurt, or a Born Winner bar. Window best effort. You operate anywhere.',carb:'Quality carbs where available',carbClass:'nomad',ctxClass:'nomad',quote:'Nomads are lean by nature. You adapt. You execute. You win.'}
+};
+function setMode(mode){
+  sv(tk('daymode'),mode);
+  renderMode(mode);
+  const d=MODE_DATA[mode];if(!d)return;
+  const qt=document.getElementById('quote-text');if(qt)qt.textContent=d.quote;
+  toast(mode==='gym'?'🏋️ Gym Mode':mode==='rest'?'🌿 Rest Mode':'✈️ Nomad Mode');
+}
+function renderMode(mode){
+  ['gym','rest','nomad'].forEach(m=>{const b=document.getElementById('mbtn-'+m);if(b)b.className='mbtn';});
+  const active=document.getElementById('mbtn-'+mode);
+  if(active&&MODE_DATA[mode])active.classList.add(MODE_DATA[mode].btn);
+  const ctx=document.getElementById('mode-ctx');
+  const title=document.getElementById('mctx-title');
+  const body=document.getElementById('mctx-body');
+  const carb=document.getElementById('mctx-carb');
+  if(!ctx||!MODE_DATA[mode])return;
+  const d=MODE_DATA[mode];
+  ctx.className='mode-ctx show '+d.ctxClass;
+  title.className='mctx-title '+d.titleClass;title.textContent=d.title;
+  body.textContent=d.body;
+  carb.className='mctx-carb '+d.carbClass;carb.textContent=d.carb;
+}
+function restoreMode(){
+  const saved=ld(tk('daymode'),null);
+  if(saved&&MODE_DATA[saved])renderMode(saved);
 }
 
 /* TOAST */
