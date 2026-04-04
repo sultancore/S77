@@ -376,6 +376,80 @@ function renderPrediction(ws){
   }
 }
 
+
+/* ── DAY MODE ── */
+const MODE_DATA = {
+  gym: {
+    btn:'gym-on',
+    title:'🏋️ Gym Mode — Build · Fuel · Perform',
+    titleClass:'gym',
+    body:'Pre-workout primer at 6:30 AM (½ WPI + banana). Train. Post-workout meal within 30 min. Protein anchor at every meal.',
+    carb:'~180g quality carbs today',
+    carbClass:'gym',
+    ctxClass:'gym',
+    quote:'Protein first. Carbs to fuel. Every rep is a deposit.'
+  },
+  rest: {
+    btn:'rest-on',
+    title:'🌿 Rest Mode — Recover · Burn · Reset',
+    titleClass:'rest',
+    body:'Strict 6:30 AM – 2:30 PM window. Walk 30 min. Fewer carbs today — your body will burn more fat. Protein anchor every meal.',
+    carb:'~120g quality carbs today',
+    carbClass:'rest',
+    ctxClass:'rest',
+    quote:'Rest days are when fat is lost. The window is your weapon.'
+  },
+  nomad: {
+    btn:'nomad-on',
+    title:'✈️ Nomad Mode — Adapt · Execute · Win',
+    titleClass:'nomad',
+    body:'Protein anchor at every meal — eggs, grilled protein, Greek yogurt, or a Born Winner bar. Window best effort. You operate anywhere.',
+    carb:'Quality carbs where available',
+    carbClass:'nomad',
+    ctxClass:'nomad',
+    quote:'Nomads are lean by nature. You adapt. You execute. You win.'
+  }
+};
+
+function setMode(mode) {
+  sv(tk('daymode'), mode);
+  renderMode(mode);
+  const q = MODE_DATA[mode].quote;
+  const qt = document.getElementById('quote-text');
+  if(qt) qt.textContent = q;
+  toast(mode === 'gym' ? '🏋️ Gym Mode activated' : mode === 'rest' ? '🌿 Rest Mode activated' : '✈️ Nomad Mode activated');
+}
+
+function renderMode(mode) {
+  // Clear all button states
+  ['gym','rest','nomad'].forEach(m => {
+    const b = document.getElementById('mbtn-' + m);
+    if(b) b.className = 'mbtn';
+  });
+  // Set active button
+  const active = document.getElementById('mbtn-' + mode);
+  if(active && MODE_DATA[mode]) active.classList.add(MODE_DATA[mode].btn);
+
+  // Show context banner
+  const ctx = document.getElementById('mode-ctx');
+  const title = document.getElementById('mctx-title');
+  const body = document.getElementById('mctx-body');
+  const carb = document.getElementById('mctx-carb');
+  if(!ctx || !MODE_DATA[mode]) return;
+  const d = MODE_DATA[mode];
+  ctx.className = 'mode-ctx show ' + d.ctxClass;
+  title.className = 'mctx-title ' + d.titleClass;
+  title.textContent = d.title;
+  body.textContent = d.body;
+  carb.className = 'mctx-carb ' + d.carbClass;
+  carb.textContent = d.carb;
+}
+
+function restoreMode() {
+  const saved = ld(tk('daymode'), null);
+  if(saved && MODE_DATA[saved]) renderMode(saved);
+}
+
 /* TOAST */
 .toast { position:fixed; bottom:calc(var(--nav-h) + env(safe-area-inset-bottom,0px) + 12px); left:50%; transform:translateX(-50%) translateY(10px); background:var(--navy); color:#fff; padding:10px 20px; border-radius:30px; font-size:13px; font-weight:600; white-space:nowrap; opacity:0; transition:opacity .25s, transform .25s; z-index:999; pointer-events:none; box-shadow:0 4px 20px rgba(0,0,0,.2); }
 .toast.on { opacity:1; transform:translateX(-50%) translateY(0); }
@@ -560,6 +634,42 @@ function renderPrediction(ws){
 .cal-ev-del:hover{color:var(--red);}
 .cal-ev.custom{border-left:2px solid var(--gold);padding-left:10px;}
 
+
+/* ── DAY MODE SELECTOR ── */
+.mode-bar { padding:0 18px 14px; }
+.mode-label { font-size:9px; font-weight:700; letter-spacing:1.2px; text-transform:uppercase; color:rgba(255,255,255,.35); margin-bottom:8px; }
+.mode-btns { display:grid; grid-template-columns:1fr 1fr 1fr; gap:6px; }
+.mbtn { border:none; border-radius:12px; padding:10px 6px; cursor:pointer; font-family:var(--font); transition:all .2s; display:flex; flex-direction:column; align-items:center; gap:3px; background:rgba(255,255,255,.06); }
+.mbtn:active { transform:scale(.96); }
+.mbtn-icon { font-size:18px; line-height:1; }
+.mbtn-name { font-size:10px; font-weight:700; letter-spacing:.3px; color:rgba(255,255,255,.4); }
+.mbtn-sub { font-size:8px; color:rgba(255,255,255,.25); font-weight:500; }
+.mbtn.gym-on { background:rgba(200,134,10,.25); border:1.5px solid rgba(200,134,10,.5); }
+.mbtn.gym-on .mbtn-name { color:var(--gold2); }
+.mbtn.gym-on .mbtn-sub { color:rgba(200,134,10,.6); }
+.mbtn.rest-on { background:rgba(30,120,60,.2); border:1.5px solid rgba(30,120,60,.4); }
+.mbtn.rest-on .mbtn-name { color:#4CAF7D; }
+.mbtn.rest-on .mbtn-sub { color:rgba(76,175,125,.55); }
+.mbtn.nomad-on { background:rgba(91,155,212,.2); border:1.5px solid rgba(91,155,212,.4); }
+.mbtn.nomad-on .mbtn-name { color:#82C4F8; }
+.mbtn.nomad-on .mbtn-sub { color:rgba(130,196,248,.55); }
+
+/* Mode context banner under window pill */
+.mode-ctx { margin:0 18px 8px; border-radius:12px; padding:10px 14px; display:none; }
+.mode-ctx.show { display:block; }
+.mode-ctx.gym { background:rgba(200,134,10,.08); border:1px solid rgba(200,134,10,.2); }
+.mode-ctx.rest { background:rgba(30,120,60,.07); border:1px solid rgba(30,120,60,.2); }
+.mode-ctx.nomad { background:rgba(91,155,212,.08); border:1px solid rgba(91,155,212,.2); }
+.mctx-title { font-size:11px; font-weight:700; margin-bottom:4px; }
+.mctx-title.gym { color:var(--gold); }
+.mctx-title.rest { color:#2E8B4A; }
+.mctx-title.nomad { color:#4A90D9; }
+.mctx-body { font-size:11px; color:var(--ink2); line-height:1.55; }
+.mctx-carb { display:inline-block; font-size:10px; font-weight:700; padding:2px 8px; border-radius:6px; margin-top:5px; }
+.mctx-carb.gym { background:rgba(200,134,10,.12); color:var(--gold); }
+.mctx-carb.rest { background:rgba(30,120,60,.1); color:#2E8B4A; }
+.mctx-carb.nomad { background:rgba(91,155,212,.12); color:#4A90D9; }
+
 </style>
 </head>
 <body>
@@ -622,6 +732,28 @@ function renderPrediction(ws){
   </div>
 </div>
 
+<!-- Day Mode Selector -->
+<div class="mode-bar">
+  <div class="mode-label">Today's Mode</div>
+  <div class="mode-btns">
+    <button class="mbtn" id="mbtn-gym" onclick="setMode('gym')">
+      <span class="mbtn-icon">🏋️</span>
+      <span class="mbtn-name">Gym Mode</span>
+      <span class="mbtn-sub">Build · Fuel · Perform</span>
+    </button>
+    <button class="mbtn" id="mbtn-rest" onclick="setMode('rest')">
+      <span class="mbtn-icon">🌿</span>
+      <span class="mbtn-name">Rest Mode</span>
+      <span class="mbtn-sub">Recover · Burn · Reset</span>
+    </button>
+    <button class="mbtn" id="mbtn-nomad" onclick="setMode('nomad')">
+      <span class="mbtn-icon">✈️</span>
+      <span class="mbtn-name">Nomad Mode</span>
+      <span class="mbtn-sub">Adapt · Execute · Win</span>
+    </button>
+  </div>
+</div>
+
 <!-- Quote -->
 <div class="diet-warn" id="diet-warn">
   <div class="diet-warn-title">⚠️ Diet Compliance Alert</div>
@@ -639,6 +771,13 @@ function renderPrediction(ws){
     <div class="win-sub" id="win-sub">6:30 AM – 2:30 PM</div>
   </div>
   <div class="win-countdown" id="win-cd">–</div>
+</div>
+
+<!-- Mode context banner -->
+<div class="mode-ctx" id="mode-ctx">
+  <div class="mctx-title" id="mctx-title"></div>
+  <div class="mctx-body" id="mctx-body"></div>
+  <span class="mctx-carb" id="mctx-carb"></span>
 </div>
 
 <div class="pad">
@@ -1695,7 +1834,7 @@ function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t
 
 /* INIT */
 window.addEventListener('DOMContentLoaded',()=>{
-  init();renderSupps();renderWater();restoreHabits();restoreNote();
+  init();renderSupps();renderWater();restoreHabits();restoreNote();restoreMode();
   restoreR();restoreSWC();restoreME();updateWin();renderGoals();
   renderFoodPresets();renderFoodLog();renderCalendar();
   setTimeout(calcScore,400);
@@ -1722,6 +1861,8 @@ const FOOD_PRESETS=[
   {n:'Banana',cal:90,p:1,c:23,f:0},
   {n:'Sweet Potato 150g',cal:140,p:3,c:32,f:0},
   {n:'Almonds 15g',cal:90,p:3,c:3,f:8},
+  {n:'Born Winner Bar',cal:220,p:20,c:33,f:5},
+  {n:'Quest Bar',cal:190,p:21,c:22,f:7},
   {n:'Freekeh 150g',cal:180,p:6,c:36,f:1},
 ];
 const F_TARGETS={cal:1750,p:155,c:155,f:57};
