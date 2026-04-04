@@ -308,6 +308,74 @@ canvas { width:100%; height:110px; display:block; }
 .mu { font-size:12px; color:var(--ink3); }
 .mlab { font-size:9px; font-weight:700; letter-spacing:.6px; text-transform:uppercase; color:var(--gold); margin-top:3px; }
 
+
+/* ENHANCED PREDICTION — weight trend + diet compliance factor */
+function renderPrediction(ws){
+  const card=document.getElementById('pred-card');if(!card)return;
+  if(!ws||ws.length<2){card.style.display='none';return;}
+  card.style.display='block';
+  // Linear regression on actual weights
+  const n=ws.length;
+  const xs=ws.map((_,i)=>i);const ys=ws.map(w=>w.w);
+  const mx=xs.reduce((a,b)=>a+b,0)/n;const my=ys.reduce((a,b)=>a+b,0)/n;
+  const num=xs.reduce((a,x,i)=>a+(x-mx)*(ys[i]-my),0);
+  const den=xs.reduce((a,x)=>a+(x-mx)*(x-mx),0);
+  const slope=den!==0?num/den:0;
+  const intercept=my-slope*mx;
+  const first=new Date(ws[0].d);const grad=new Date('2026-07-20');
+  const totalDays=Math.round((grad-first)/86400000);
+  const entryInterval=ws.length>1?Math.round((new Date(ws[ws.length-1].d)-first)/86400000)/(ws.length-1):1;
+  const projSteps=totalDays/(entryInterval||1);
+  let projW=Math.round((intercept+slope*projSteps)*10)/10;
+
+  // Diet compliance adjustment
+  const start=new Date('2026-04-01');
+  const today=new Date();today.setHours(0,0,0,0);
+  const days=Math.max(1,Math.floor((today-start)/86400000)+1);
+  let dietHits=0;
+  for(let i=0;i<days;i++){
+    const d=new Date(start);d.setDate(d.getDate()+i);
+    if(ld('s_'+fmtDate(d)+'_m4','')  ==='hit')dietHits++;
+  }
+  const dietRate=days>0?dietHits/days:null;
+  let adjustNote='';
+  let adjustedW=projW;
+  if(dietRate!==null&&days>=3){
+    if(dietRate<0.70){
+      const penaltyKg=Math.round((0.70-dietRate)*9*10)/10;
+      adjustedW=Math.round((projW+penaltyKg)*10)/10;
+      adjustNote=`Diet compliance ${Math.round(dietRate*100)}% — adjusted +${penaltyKg} kg`;
+    } else if(dietRate>=0.90){
+      adjustNote=`Diet compliance ${Math.round(dietRate*100)}% — excellent ✓`;
+    } else {
+      adjustNote=`Diet compliance ${Math.round(dietRate*100)}%`;
+    }
+  }
+
+  const target=77;
+  const daysLeft=Math.max(0,Math.round((grad-new Date())/86400000));
+  const prog=Math.min(100,Math.max(0,Math.round(((86-ws[ws.length-1].w)/(86-77))*100)));
+
+  const predVal=document.getElementById('pred-val');
+  const predSub=document.getElementById('pred-sub');
+  const predBadge=document.getElementById('pred-badge');
+  const predFill=document.getElementById('pred-fill');
+  if(predVal)predVal.textContent=adjustedW+' kg';
+  if(predSub)predSub.textContent=daysLeft+' days to go · weight trend: '+projW+' kg';
+  if(predFill)predFill.style.width=prog+'%';
+
+  // Inject adjustment note
+  let adjEl=document.getElementById('pred-adjust');
+  if(!adjEl){adjEl=document.createElement('div');adjEl.id='pred-adjust';adjEl.className='proj-adjust';document.getElementById('pred-card').appendChild(adjEl);}
+  adjEl.textContent=adjustNote;
+
+  if(predBadge){
+    if(adjustedW<=77.5){predBadge.textContent='✓ On Track';predBadge.className='pred-badge pred-ok';}
+    else if(adjustedW<=79){predBadge.textContent='⚠️ Close';predBadge.className='pred-badge pred-warn';}
+    else{predBadge.textContent='↑ Adjust Plan';predBadge.className='pred-badge pred-warn';}
+  }
+}
+
 /* TOAST */
 .toast { position:fixed; bottom:calc(var(--nav-h) + env(safe-area-inset-bottom,0px) + 12px); left:50%; transform:translateX(-50%) translateY(10px); background:var(--navy); color:#fff; padding:10px 20px; border-radius:30px; font-size:13px; font-weight:600; white-space:nowrap; opacity:0; transition:opacity .25s, transform .25s; z-index:999; pointer-events:none; box-shadow:0 4px 20px rgba(0,0,0,.2); }
 .toast.on { opacity:1; transform:translateX(-50%) translateY(0); }
@@ -415,6 +483,83 @@ canvas { width:100%; height:110px; display:block; }
 .cal-ev-det{font-size:11px;color:var(--ink3);line-height:1.4;}
 .cal-close{width:100%;padding:12px;background:var(--bg2);border:none;border-radius:12px;font-family:var(--font);font-size:13px;font-weight:700;color:var(--ink3);cursor:pointer;margin-top:14px;}
 
+
+/* ── TRACK: ✓/✗ HABIT ROWS ── */
+.habit-row { display:flex; align-items:center; gap:10px; padding:12px 0; border-bottom:1px solid var(--border); }
+.habit-row:last-child { border-bottom:none; }
+.habit-row:first-child { padding-top:0; }
+.habit-label { flex:1; font-size:14px; font-weight:600; color:var(--ink); }
+.habit-btns { display:flex; gap:5px; flex-shrink:0; }
+.hbtn { width:38px; height:32px; border-radius:8px; border:1.5px solid var(--border2); background:var(--bg); font-size:14px; font-weight:800; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:all .2s; -webkit-user-select:none; user-select:none; }
+.hbtn-hit { border-color:rgba(30,120,60,.3); background:rgba(30,120,60,.08); color:#1E7840; }
+.hbtn-hit.active { background:#1E7840; border-color:#1E7840; color:#fff; transform:scale(1.08); }
+.hbtn-miss { border-color:rgba(184,48,32,.3); background:rgba(184,48,32,.05); color:var(--red); }
+.hbtn-miss.active { background:var(--red); border-color:var(--red); color:#fff; transform:scale(1.08); }
+.habit-status { width:8px; height:8px; border-radius:50%; background:var(--border2); flex-shrink:0; }
+.habit-status.hit { background:#1E7840; }
+.habit-status.miss { background:var(--red); }
+
+/* ── COMMITMENT SUMMARY CARDS ── */
+.commit-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:10px; }
+.commit-card { background:var(--white); border-radius:var(--r2); border:1px solid var(--border); padding:16px 14px; box-shadow:var(--shadow); }
+.commit-card.green-border { border-color:rgba(30,120,60,.25); }
+.commit-card.amber-border { border-color:rgba(200,134,10,.3); }
+.commit-card.red-border   { border-color:rgba(184,48,32,.25); }
+.cc-icon { font-size:20px; margin-bottom:6px; }
+.cc-label { font-size:9px; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:var(--ink3); margin-bottom:8px; }
+.cc-count { font-size:26px; font-weight:800; color:var(--ink); line-height:1; letter-spacing:-1px; }
+.cc-count span { font-size:13px; font-weight:500; color:var(--ink3); letter-spacing:0; }
+.cc-over { color:var(--gold); font-size:11px; font-weight:700; margin-top:1px; }
+.cc-pct { font-size:10px; font-weight:700; margin-top:4px; }
+.cc-pct.green { color:#1E7840; }
+.cc-pct.amber { color:var(--gold); }
+.cc-pct.red   { color:var(--red); }
+.cc-dots { display:flex; gap:3px; margin-top:8px; flex-wrap:wrap; }
+.cc-dot { width:20px; height:20px; border-radius:4px; display:flex; align-items:center; justify-content:center; font-size:9px; font-weight:700; }
+.cc-dot.hit  { background:rgba(30,120,60,.12); color:#1E7840; }
+.cc-dot.miss { background:rgba(184,48,32,.08); color:var(--red); }
+.cc-dot.none { background:var(--bg2); color:var(--ink4); }
+.cc-dot.over { background:rgba(200,134,10,.15); color:var(--gold); }
+
+/* PROGRAM TOTALS BAR */
+.prog-total-card { background:var(--white); border-radius:var(--r2); border:1px solid var(--border); padding:18px; margin-bottom:10px; box-shadow:var(--shadow); }
+.ptc-title { font-size:10px; font-weight:700; letter-spacing:1.2px; text-transform:uppercase; color:var(--ink3); margin-bottom:14px; }
+.ptc-row { display:flex; align-items:center; gap:10px; margin-bottom:10px; }
+.ptc-row:last-child { margin-bottom:0; }
+.ptc-icon { font-size:16px; width:28px; text-align:center; flex-shrink:0; }
+.ptc-meta { flex:1; }
+.ptc-name { font-size:12px; font-weight:700; color:var(--ink2); margin-bottom:3px; }
+.ptc-bar-wrap { height:5px; background:var(--bg2); border-radius:3px; overflow:hidden; }
+.ptc-bar { height:100%; border-radius:3px; transition:width .6s ease; }
+.ptc-stats { text-align:right; flex-shrink:0; }
+.ptc-num { font-family:var(--mono); font-size:13px; font-weight:700; }
+.ptc-num.green { color:#1E7840; }
+.ptc-num.amber { color:var(--gold); }
+.ptc-num.red   { color:var(--red); }
+.ptc-pct { font-size:9px; color:var(--ink3); font-weight:600; }
+
+/* PROJECTION UPGRADE */
+.proj-detail { font-size:11px; color:rgba(255,255,255,.5); margin-top:6px; line-height:1.5; }
+.proj-adjust { font-size:11px; color:var(--gold2); margin-top:4px; font-weight:600; }
+
+/* DIET WARNING BANNER */
+.diet-warn { margin:0 18px 10px; padding:12px 16px; background:rgba(184,48,32,.08); border:1.5px solid rgba(184,48,32,.3); border-radius:12px; display:none; }
+.diet-warn.show { display:block; }
+.diet-warn-title { font-size:11px; font-weight:800; color:var(--red); letter-spacing:.5px; text-transform:uppercase; margin-bottom:3px; }
+.diet-warn-body { font-size:12px; color:var(--ink2); line-height:1.4; }
+
+
+/* ── DYNAMIC CALENDAR ── */
+.cal-add-btn{width:100%;margin-top:14px;padding:10px;background:var(--golddim);border:1.5px solid var(--goldbr);border-radius:10px;font-family:var(--font);font-size:13px;font-weight:600;color:var(--gold);cursor:pointer;}
+.cal-add-form{margin-top:12px;display:none;flex-direction:column;gap:8px;}
+.cal-add-form.open{display:flex;}
+.cal-inp{width:100%;padding:9px 12px;border:1px solid var(--border2);border-radius:8px;font-family:var(--font);font-size:13px;background:var(--bg);color:var(--ink);}
+.cal-sel{width:100%;padding:9px 12px;border:1px solid var(--border2);border-radius:8px;font-family:var(--font);font-size:13px;background:var(--bg);color:var(--ink);}
+.cal-save-btn{padding:9px;background:var(--navy);color:#fff;border:none;border-radius:8px;font-family:var(--font);font-size:13px;font-weight:600;cursor:pointer;}
+.cal-ev-del{margin-left:auto;background:none;border:none;color:var(--ink3);font-size:16px;cursor:pointer;padding:0 4px;flex-shrink:0;}
+.cal-ev-del:hover{color:var(--red);}
+.cal-ev.custom{border-left:2px solid var(--gold);padding-left:10px;}
+
 </style>
 </head>
 <body>
@@ -478,6 +623,10 @@ canvas { width:100%; height:110px; display:block; }
 </div>
 
 <!-- Quote -->
+<div class="diet-warn" id="diet-warn">
+  <div class="diet-warn-title">⚠️ Diet Compliance Alert</div>
+  <div class="diet-warn-body" id="diet-warn-body">Your eating window compliance has dropped. This directly impacts your −561 kcal deficit and graduation projection.</div>
+</div>
 <div class="quote-bar">
   <div class="quote-text" id="quote-text">The plan is the medicine — food, training, sleep, consistency.</div>
 </div>
@@ -644,7 +793,7 @@ canvas { width:100%; height:110px; display:block; }
   <button class="lbtn" onclick="locT(this,'la')">🏜️ AlUla</button>
 </div>
 <div id="lr">
-<div class="mday" id="b-sun"><div class="mhdr" onclick="md('sun')"><div><div class="mname">Sunday — Gym Day</div><div class="mcal">~1,730 kcal</div></div><svg class="mchev" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div><div class="mbody" id="c-sun">
+<div class="mday" id="b-sun"><div class="mhdr" onclick="md('sun')"><div><div class="mname">Sunday — Gym + Flight ✈️</div><div class="mcal">~1,730 kcal</div></div><svg class="mchev" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div><div class="mbody" id="c-sun">
 <div class="mrow"><div class="mtime">06:30</div><div><div class="mfood">Levantine Breakfast Board</div><div class="mdesc">2 boiled eggs, 80g labneh + olive oil + zaatar, handful of olives, 1 slice grilled halloumi</div><div class="mkcal">420 kcal · 28g P / 8g C / 30g F</div></div></div>
 <div class="mrow"><div class="mtime">10:00</div><div><div class="mfood">Whey Shake + Banana</div><div class="mdesc">1.5 scoops Healthy Chef WPI vanilla + 1 banana — pre-gym</div><div class="mkcal">310 kcal · 35g P / 32g C / 4g F</div></div></div>
 <div class="mrow"><div class="mtime">13:00</div><div><div class="mfood">Grilled Kabab + Brown Rice</div><div class="mdesc">200g lean beef kabab, 150g brown rice, fattoush (no croutons), lemon</div><div class="mkcal">650 kcal · 48g P / 52g C / 18g F</div></div></div>
@@ -656,8 +805,10 @@ canvas { width:100%; height:110px; display:block; }
 <div class="mrow"><div class="mtime">13:00</div><div><div class="mfood">Grilled Chicken + Sweet Potato</div><div class="mdesc">200g chicken breast, 150g sweet potato, green salad, lemon + olive oil</div><div class="mkcal">600 kcal · 50g P / 42g C / 16g F</div></div></div>
 <div class="mrow"><div class="mtime">≤14:30</div><div><div class="mfood">Greek Yogurt + 2 Dates</div><div class="mdesc">200g Greek yogurt, exactly 2 Medjool dates</div><div class="mkcal">350 kcal · 16g P / 48g C / 9g F</div></div></div>
 </div></div>
-<div class="mday" id="b-fri"><div class="mhdr" onclick="md('fri')"><div><div class="mname">Friday — Gym Day</div><div class="mcal">~1,720 kcal</div></div><svg class="mchev" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div><div class="mbody" id="c-fri">
-<div class="mrow"><div class="mtime">06:30</div><div><div class="mfood">Levantine Breakfast + Oats</div><div class="mdesc">2 boiled eggs, 60g labneh + zaatar, olives, 40g oatmeal with cinnamon</div><div class="mkcal">440 kcal · 28g P / 38g C / 20g F</div></div></div>
+<div class="mday" id="b-fri"><div class="mhdr" onclick="md('fri')"><div><div class="mname">Friday — Gym Day 💪</div><div class="mcal">~1,720 kcal</div></div><svg class="mchev" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div><div class="mbody" id="c-fri">
+<div class="mrow"><div class="mtime">06:30</div><div><div class="mfood">Pre-workout primer — ½ WPI + banana 🏋️</div><div class="mdesc">Half scoop WPI + 1 banana in water. 20g protein, 27g carbs. Train 45–60 min later. Lightly fed = better muscle synthesis than fasted.</div><div class="mkcal">155 kcal · 20g P / 27g C / 2g F</div></div></div>
+<div class="mrow"><div class="mtime">07:30</div><div><div class="mfood">Gym — Oxygen Gym (compound lifts)</div><div class="mdesc">Progressive overload. Heavy compounds. Friday = best muscle day of the week.</div><div class="mkcal">—</div></div></div>
+<div class="mrow"><div class="mtime">09:00</div><div><div class="mfood">Post-workout: Levantine Breakfast</div><div class="mdesc">2 boiled eggs, 60g labneh + zaatar, olives, 40g oatmeal with cinnamon. Eat within 30 min of finishing gym.</div><div class="mkcal">440 kcal · 28g P / 38g C / 20g F</div></div></div>
 <div class="mrow"><div class="mtime">10:00</div><div><div class="mfood">Whey + Banana Shake</div><div class="mdesc">1.5 scoops WPI, 1 banana, 200ml almond milk — pre-gym</div><div class="mkcal">310 kcal · 35g P / 32g C / 4g F</div></div></div>
 <div class="mrow"><div class="mtime">13:00</div><div><div class="mfood">Grilled Chicken + Brown Rice</div><div class="mdesc">200g chicken breast, 150g brown rice, fattoush, lemon + olive oil</div><div class="mkcal">620 kcal · 50g P / 52g C / 16g F</div></div></div>
 <div class="mrow"><div class="mtime">≤14:30</div><div><div class="mfood">Greek Yogurt + 2 Dates</div><div class="mdesc">200g full-fat Greek yogurt, exactly 2 Medjool dates</div><div class="mkcal">350 kcal · 16g P / 48g C / 9g F</div></div></div>
@@ -728,10 +879,10 @@ canvas { width:100%; height:110px; display:block; }
 <!-- TIMELINE -->
 <div class="psec" id="ptl">
 <div class="card">
-<div class="tl-item" id="tl1"><div class="tl-left"><div class="tldot"></div><div class="tlline"></div></div><div class="tl-right"><div class="tlwk">WEEKS 1–2 · Apr 1–13</div><div class="tltitle">The Flush</div><div class="tldesc">Water + glycogen release. Body adapts to eTRE.</div><div class="tlkg">~83–84 kg</div></div></div>
-<div class="tl-item" id="tl2"><div class="tl-left"><div class="tldot"></div><div class="tlline"></div></div><div class="tl-right"><div class="tlwk">WEEKS 3–6 · Apr 14–May 11</div><div class="tltitle">True Fat Loss</div><div class="tldesc">0.5–1 kg/week. Muscle memory kicks in.</div><div class="tlkg">~80–82 kg</div></div></div>
-<div class="tl-item" id="tl3"><div class="tl-left"><div class="tldot"></div><div class="tlline"></div></div><div class="tl-right"><div class="tlwk">WEEKS 7–10 · May 12–Jun 8</div><div class="tltitle">Plateau Zone</div><div class="tldesc">If stalls 10+ days: −20g carbs + extra walk.</div><div class="tlkg">~78–80 kg</div></div></div>
-<div class="tl-item" id="tl4"><div class="tl-left"><div class="tldot"></div></div><div class="tl-right"><div class="tlwk">WEEKS 11–16 · Jun 9–Jul 20</div><div class="tltitle">Transformation ✈️</div><div class="tldesc">0.5–0.75 kg/week. Face, waist, chest most visible.</div><div class="tlkg">~77 kg at LSE 🎓</div></div></div>
+<div class="tl-item" id="tl1"><div class="tl-left"><div class="tldot"></div><div class="tlline"></div></div><div class="tl-right"><div class="tlwk">WEEKS 1–2 · Apr 4–17</div><div class="tltitle">The Foundation</div><div class="tldesc">Hybrid protocol established. AlUla eTRE strict. Riyadh gym days: pre-workout primer + immediate post-workout protein.</div><div class="tlkg">~80–81 kg</div></div></div>
+<div class="tl-item" id="tl2"><div class="tl-left"><div class="tldot"></div><div class="tlline"></div></div><div class="tl-right"><div class="tlwk">WEEKS 3–6 · Apr 18–May 16</div><div class="tltitle">True Fat Loss</div><div class="tldesc">0.5–0.75 kg/week real fat loss. Visceral fat level dropping. Body recomposition in progress.</div><div class="tlkg">~78–80 kg</div></div></div>
+<div class="tl-item" id="tl3"><div class="tl-left"><div class="tldot"></div><div class="tlline"></div></div><div class="tl-right"><div class="tlwk">WEEKS 7–10 · May 17–Jun 13</div><div class="tltitle">Plateau Zone</div><div class="tldesc">If stalls 10+ days: drop AlUla carbs to 100g + extra walk. InBody scan recommended Week 6.</div><div class="tlkg">~76–78 kg</div></div></div>
+<div class="tl-item" id="tl4"><div class="tl-left"><div class="tldot"></div></div><div class="tl-right"><div class="tlwk">WEEKS 11–15 · Jun 14–Jul 20</div><div class="tltitle">Transformation ✈️</div><div class="tldesc">Final push. Protein obsessively 155g. Progressive overload in gym. Last kilos most visible: face, waist, chest.</div><div class="tlkg">75.9 kg at LSE 🎓</div></div></div>
 </div>
 </div>
 </div></div><!-- plan pad + page -->
@@ -740,30 +891,153 @@ canvas { width:100%; height:110px; display:block; }
 <div class="page" id="p3">
 <div style="padding:20px 18px 8px"><div class="pg-title">Track</div><div class="pg-sub" id="tdate"></div></div>
 <div class="pad" style="padding-top:12px">
-<div class="card"><div class="label">Meals</div>
-<div class="tick" onclick="tick(this,'m1')" data-k="m1"><div class="tbox"><svg viewBox="0 0 14 14"><polyline points="2 7 6 11 12 3"/></svg></div><div class="tlbl">Breakfast (6:30–7:30 AM)</div></div>
-<div class="tick" onclick="tick(this,'m2')" data-k="m2"><div class="tbox"><svg viewBox="0 0 14 14"><polyline points="2 7 6 11 12 3"/></svg></div><div class="tlbl">Mid-morning shake (10:00 AM)</div></div>
-<div class="tick" onclick="tick(this,'m3')" data-k="m3"><div class="tbox"><svg viewBox="0 0 14 14"><polyline points="2 7 6 11 12 3"/></svg></div><div class="tlbl">Lunch (1:00–2:00 PM)</div></div>
-<div class="tick" onclick="tick(this,'m4')" data-k="m4"><div class="tbox"><svg viewBox="0 0 14 14"><polyline points="2 7 6 11 12 3"/></svg></div><div class="tlbl">Window closed by 2:30 PM ✊</div></div>
+
+<div class="card">
+  <div class="label">🍽️ Diet — Window &amp; Meals</div>
+  <div class="habit-row">
+    <div class="habit-status" id="hs-m4"></div>
+    <div class="habit-label">Eating window closed by 2:30 PM</div>
+    <div class="habit-btns">
+      <button class="hbtn hbtn-hit" id="hb-m4-hit" onclick="setHabit('m4','hit')">✓</button>
+      <button class="hbtn hbtn-miss" id="hb-m4-miss" onclick="setHabit('m4','miss')">✗</button>
+    </div>
+  </div>
+  <div class="habit-row">
+    <div class="habit-status" id="hs-m1"></div>
+    <div class="habit-label">Breakfast eaten (6:30–7:30 AM)</div>
+    <div class="habit-btns">
+      <button class="hbtn hbtn-hit" id="hb-m1-hit" onclick="setHabit('m1','hit')">✓</button>
+      <button class="hbtn hbtn-miss" id="hb-m1-miss" onclick="setHabit('m1','miss')">✗</button>
+    </div>
+  </div>
+  <div class="habit-row">
+    <div class="habit-status" id="hs-m2"></div>
+    <div class="habit-label">Mid-morning shake (10:00 AM)</div>
+    <div class="habit-btns">
+      <button class="hbtn hbtn-hit" id="hb-m2-hit" onclick="setHabit('m2','hit')">✓</button>
+      <button class="hbtn hbtn-miss" id="hb-m2-miss" onclick="setHabit('m2','miss')">✗</button>
+    </div>
+  </div>
+  <div class="habit-row">
+    <div class="habit-status" id="hs-m3"></div>
+    <div class="habit-label">Lunch eaten (1:00–2:00 PM)</div>
+    <div class="habit-btns">
+      <button class="hbtn hbtn-hit" id="hb-m3-hit" onclick="setHabit('m3','hit')">✓</button>
+      <button class="hbtn hbtn-miss" id="hb-m3-miss" onclick="setHabit('m3','miss')">✗</button>
+    </div>
+  </div>
 </div>
-<div class="card"><div class="label">Supplements</div>
-<div class="tick" onclick="tick(this,'s1')" data-k="s1"><div class="tbox"><svg viewBox="0 0 14 14"><polyline points="2 7 6 11 12 3"/></svg></div><div class="tlbl">Morning stack (D3, C, Creatine, Probio, NAD+)</div></div>
-<div class="tick" onclick="tick(this,'s2')" data-k="s2"><div class="tbox"><svg viewBox="0 0 14 14"><polyline points="2 7 6 11 12 3"/></svg></div><div class="tlbl">Omega-3 with lunch</div></div>
-<div class="tick" onclick="tick(this,'s3')" data-k="s3"><div class="tbox"><svg viewBox="0 0 14 14"><polyline points="2 7 6 11 12 3"/></svg></div><div class="tlbl">Bedtime stack (Mag, L-Theanine, Glycine)</div></div>
+
+<div class="card">
+  <div class="label">🏋️ Movement — Gym &amp; Walk</div>
+  <div class="habit-row">
+    <div class="habit-status" id="hs-gym"></div>
+    <div class="habit-label">Gym session today</div>
+    <div class="habit-btns">
+      <button class="hbtn hbtn-hit" id="hb-gym-hit" onclick="setHabit('gym','hit')">✓</button>
+      <button class="hbtn hbtn-miss" id="hb-gym-miss" onclick="setHabit('gym','miss')">✗</button>
+    </div>
+  </div>
+  <div class="habit-row">
+    <div class="habit-status" id="hs-walk"></div>
+    <div class="habit-label">Walk 30+ min (non-gym days)</div>
+    <div class="habit-btns">
+      <button class="hbtn hbtn-hit" id="hb-walk-hit" onclick="setHabit('walk','hit')">✓</button>
+      <button class="hbtn hbtn-miss" id="hb-walk-miss" onclick="setHabit('walk','miss')">✗</button>
+    </div>
+  </div>
 </div>
-<div class="card"><div class="label">Habits</div>
-<div class="tick" onclick="tick(this,'h1')" data-k="h1"><div class="tbox"><svg viewBox="0 0 14 14"><polyline points="2 7 6 11 12 3"/></svg></div><div class="tlbl">Fajr 500ml water ✓</div></div>
-<div class="tick" onclick="tick(this,'h2')" data-k="h2"><div class="tbox"><svg viewBox="0 0 14 14"><polyline points="2 7 6 11 12 3"/></svg></div><div class="tlbl">Gym session or 30-min walk</div></div>
-<div class="tick" onclick="tick(this,'h3')" data-k="h3"><div class="tbox"><svg viewBox="0 0 14 14"><polyline points="2 7 6 11 12 3"/></svg></div><div class="tlbl">Whoop on wrist all day</div></div>
-<div class="tick" onclick="tick(this,'h4')" data-k="h4"><div class="tbox"><svg viewBox="0 0 14 14"><polyline points="2 7 6 11 12 3"/></svg></div><div class="tlbl">No coffee after 12 PM ☕</div></div>
-<div class="tick" onclick="tick(this,'h5')" data-k="h5"><div class="tbox"><svg viewBox="0 0 14 14"><polyline points="2 7 6 11 12 3"/></svg></div><div class="tlbl">Phone out of bedroom by 10:30 PM</div></div>
+
+<div class="card">
+  <div class="label">😴 Sleep</div>
+  <div class="habit-row">
+    <div class="habit-status" id="hs-sleep"></div>
+    <div class="habit-label">Sleep 7–8 hours (logged in Today)</div>
+    <div class="habit-btns">
+      <button class="hbtn hbtn-hit" id="hb-sleep-hit" onclick="setHabit('sleep','hit')">✓</button>
+      <button class="hbtn hbtn-miss" id="hb-sleep-miss" onclick="setHabit('sleep','miss')">✗</button>
+    </div>
+  </div>
+  <div class="habit-row">
+    <div class="habit-status" id="hs-cpap"></div>
+    <div class="habit-label">CPAP used all night</div>
+    <div class="habit-btns">
+      <button class="hbtn hbtn-hit" id="hb-cpap-hit" onclick="setHabit('cpap','hit')">✓</button>
+      <button class="hbtn hbtn-miss" id="hb-cpap-miss" onclick="setHabit('cpap','miss')">✗</button>
+    </div>
+  </div>
 </div>
+
+<div class="card">
+  <div class="label">💊 Supplements</div>
+  <div class="habit-row">
+    <div class="habit-status" id="hs-s1"></div>
+    <div class="habit-label">Morning stack (D3, C, Creatine, Probio, NAD+)</div>
+    <div class="habit-btns">
+      <button class="hbtn hbtn-hit" id="hb-s1-hit" onclick="setHabit('s1','hit')">✓</button>
+      <button class="hbtn hbtn-miss" id="hb-s1-miss" onclick="setHabit('s1','miss')">✗</button>
+    </div>
+  </div>
+  <div class="habit-row">
+    <div class="habit-status" id="hs-s2"></div>
+    <div class="habit-label">Omega-3 with lunch</div>
+    <div class="habit-btns">
+      <button class="hbtn hbtn-hit" id="hb-s2-hit" onclick="setHabit('s2','hit')">✓</button>
+      <button class="hbtn hbtn-miss" id="hb-s2-miss" onclick="setHabit('s2','miss')">✗</button>
+    </div>
+  </div>
+  <div class="habit-row">
+    <div class="habit-status" id="hs-s3"></div>
+    <div class="habit-label">Bedtime stack (Mag, L-Theanine, Glycine)</div>
+    <div class="habit-btns">
+      <button class="hbtn hbtn-hit" id="hb-s3-hit" onclick="setHabit('s3','hit')">✓</button>
+      <button class="hbtn hbtn-miss" id="hb-s3-miss" onclick="setHabit('s3','miss')">✗</button>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="label">Other Habits</div>
+  <div class="habit-row">
+    <div class="habit-status" id="hs-h1"></div>
+    <div class="habit-label">Fajr + 500ml water on waking</div>
+    <div class="habit-btns">
+      <button class="hbtn hbtn-hit" id="hb-h1-hit" onclick="setHabit('h1','hit')">✓</button>
+      <button class="hbtn hbtn-miss" id="hb-h1-miss" onclick="setHabit('h1','miss')">✗</button>
+    </div>
+  </div>
+  <div class="habit-row">
+    <div class="habit-status" id="hs-h3"></div>
+    <div class="habit-label">Whoop on wrist all day</div>
+    <div class="habit-btns">
+      <button class="hbtn hbtn-hit" id="hb-h3-hit" onclick="setHabit('h3','hit')">✓</button>
+      <button class="hbtn hbtn-miss" id="hb-h3-miss" onclick="setHabit('h3','miss')">✗</button>
+    </div>
+  </div>
+  <div class="habit-row">
+    <div class="habit-status" id="hs-h4"></div>
+    <div class="habit-label">No coffee after 12 PM ☕</div>
+    <div class="habit-btns">
+      <button class="hbtn hbtn-hit" id="hb-h4-hit" onclick="setHabit('h4','hit')">✓</button>
+      <button class="hbtn hbtn-miss" id="hb-h4-miss" onclick="setHabit('h4','miss')">✗</button>
+    </div>
+  </div>
+  <div class="habit-row">
+    <div class="habit-status" id="hs-h5"></div>
+    <div class="habit-label">Phone out of bedroom by 10:30 PM</div>
+    <div class="habit-btns">
+      <button class="hbtn hbtn-hit" id="hb-h5-hit" onclick="setHabit('h5','hit')">✓</button>
+      <button class="hbtn hbtn-miss" id="hb-h5-miss" onclick="setHabit('h5','miss')">✗</button>
+    </div>
+  </div>
+</div>
+
 <div class="card"><div class="label">Notes</div><textarea class="tnote" id="tnote" placeholder="How did today feel?..."></textarea><div style="text-align:right;margin-top:8px"><button class="ghost-btn" onclick="saveNote()">Save</button></div></div>
 </div></div>
 
 <!-- ══ PAGE 4: PROGRESS ══ -->
 <div class="page" id="p4">
-<div style="padding:20px 18px 8px"><div class="pg-title">Progress</div><div class="pg-sub">86 → 77 kg · April 1 → July 20</div></div>
+<div style="padding:20px 18px 8px"><div class="pg-title">Progress</div><div class="pg-sub">82.9 → 75.9 kg · April 4 → July 20</div></div>
 <div class="pad" style="padding-top:12px">
 <div class="pg">
   <div class="pbox"><div class="pbig">86<span class="pu">kg</span></div><div class="plbl">Start</div></div>
@@ -778,6 +1052,43 @@ canvas { width:100%; height:110px; display:block; }
   </div>
   <div class="pred-bar"><div class="pred-fill" id="pred-fill" style="width:0%"></div></div>
 </div>
+<!-- InBody Baseline Card -->
+<div class="card" style="margin-bottom:10px;border-left:3px solid var(--gold)">
+  <div class="label">📋 InBody Baseline — April 4, 2026</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:10px">
+    <div style="background:var(--bg2);border-radius:8px;padding:10px;text-align:center">
+      <div style="font-size:22px;font-weight:800;color:var(--navy);letter-spacing:-1px">82.9<span style="font-size:12px;font-weight:500;color:var(--ink3)">kg</span></div>
+      <div style="font-size:10px;color:var(--ink3);font-weight:600;text-transform:uppercase;letter-spacing:.8px">Start Weight</div>
+    </div>
+    <div style="background:var(--bg2);border-radius:8px;padding:10px;text-align:center">
+      <div style="font-size:22px;font-weight:800;color:var(--gold);letter-spacing:-1px">28.0<span style="font-size:12px;font-weight:500;color:var(--ink3)">%</span></div>
+      <div style="font-size:10px;color:var(--ink3);font-weight:600;text-transform:uppercase;letter-spacing:.8px">Body Fat</div>
+    </div>
+    <div style="background:var(--bg2);border-radius:8px;padding:10px;text-align:center">
+      <div style="font-size:22px;font-weight:800;color:var(--navy);letter-spacing:-1px">34.0<span style="font-size:12px;font-weight:500;color:var(--ink3)">kg</span></div>
+      <div style="font-size:10px;color:var(--ink3);font-weight:600;text-transform:uppercase;letter-spacing:.8px">Skeletal Muscle</div>
+    </div>
+    <div style="background:rgba(184,48,32,.07);border-radius:8px;padding:10px;text-align:center;border:1px solid rgba(184,48,32,.2)">
+      <div style="font-size:22px;font-weight:800;color:var(--red);letter-spacing:-1px">10<span style="font-size:12px;font-weight:500;color:var(--ink3)">lvl</span></div>
+      <div style="font-size:10px;color:var(--red);font-weight:600;text-transform:uppercase;letter-spacing:.8px">Visceral Fat ⚠️</div>
+    </div>
+  </div>
+  <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--ink3);padding:6px 0;border-top:1px solid var(--border)">
+    <span>BMR: <b style="color:var(--ink)">1,660 kcal</b></span>
+    <span>InBody Score: <b style="color:var(--ink)">73/100</b></span>
+    <span>WHR: <b style="color:var(--ink)">0.98</b></span>
+  </div>
+  <div style="margin-top:8px;font-size:11px;color:var(--ink3);line-height:1.5">Visceral fat Level 10 is at the upper boundary of normal (was Level 7 in June 2025). eTRE protocol directly targets this. Next InBody: Week 6 check (May 16).</div>
+</div>
+<!-- COMMITMENT SUMMARY -->
+<div class="card" style="margin-bottom:10px;">
+  <div class="label">This Week — Commitment</div>
+  <div class="commit-grid" id="commit-grid"></div>
+</div>
+<div class="prog-total-card" id="prog-total-card">
+  <div class="ptc-title">Program Total — Since April 1</div>
+  <div id="prog-totals-content"></div>
+</div>
 <div class="chart-card"><div class="ctitle">Weight Journey</div><div class="csub" id="cr2">Log weight on Today tab to start</div><canvas id="wc"></canvas></div>
 <div class="card"><div class="label">Weight Log</div><div id="wlog"><div style="text-align:center;padding:16px;color:var(--ink3);font-size:13px">No entries yet.</div></div><div style="text-align:right;margin-top:8px"><button class="ghost-btn" onclick="clearWL()">Clear log</button></div></div>
 <div class="card"><div class="label">7-Day Consistency</div>
@@ -791,7 +1102,7 @@ canvas { width:100%; height:110px; display:block; }
 <div class="card"><div class="label">Daily Targets</div>
 <div class="mrow2"><div class="mbox mp"><div class="mnum">155<span class="mu">g</span></div><div class="mlab">Protein</div></div><div class="mbox mc"><div class="mnum">155<span class="mu">g</span></div><div class="mlab">Carbs</div></div><div class="mbox mf"><div class="mnum">57<span class="mu">g</span></div><div class="mlab">Fat</div></div></div>
 <div style="text-align:center;font-size:30px;font-weight:800;color:var(--ink);letter-spacing:-1px">1,750 <span style="font-size:16px;color:var(--ink3);font-weight:500">kcal /day</span></div>
-<div style="text-align:center;font-size:12px;color:var(--ink3);margin-top:4px">−561 deficit · TDEE 2,311 kcal</div>
+<div style="text-align:center;font-size:12px;color:var(--ink3);margin-top:4px">−533 deficit · TDEE 2,283 kcal</div>
 </div>
 </div></div>
 
@@ -817,6 +1128,19 @@ canvas { width:100%; height:110px; display:block; }
     <div class="cal-m-date" id="cal-m-date">–</div>
     <div class="cal-m-week" id="cal-m-week">–</div>
     <div id="cal-m-events"></div>
+    <button class="cal-add-btn" onclick="openAddForm()">＋ Add Event</button>
+    <div class="cal-add-form" id="cal-add-form">
+      <select class="cal-sel" id="caf-type">
+        <option value="personal">Personal</option>
+        <option value="special">Milestone</option>
+        <option value="gym">Gym</option>
+        <option value="alula">AlUla</option>
+        <option value="holiday">Holiday</option>
+      </select>
+      <input class="cal-inp" id="caf-label" placeholder="Event title (e.g. Doctor appointment)" />
+      <input class="cal-inp" id="caf-detail" placeholder="Details (optional)" />
+      <button class="cal-save-btn" onclick="saveCustomEvent()">Save Event</button>
+    </div>
     <button class="cal-close" onclick="document.getElementById('cal-ov').classList.remove('open')">Close</button>
   </div>
 </div>
@@ -836,10 +1160,10 @@ canvas { width:100%; height:110px; display:block; }
 
 <script>
 const GOALS=[
-  {id:'lse',emoji:'🎓',name:'LSE Graduation',desc:'Body transformation for graduation ceremony',start:'2026-04-01',end:'2026-07-20',from:86,to:77},
-  {id:'lon',emoji:'✈️',name:'London & LA Trip',desc:'Maintain weight · celebrate the achievement',start:'2026-07-20',end:'2026-07-25',from:77,to:77},
-  {id:'post',emoji:'⚖️',name:'Post-Graduation Baseline',desc:'Solidify your new weight and lifestyle habits',start:'2026-07-25',end:'2026-12-31',from:77,to:75},
-  {id:'rec',emoji:'💪',name:'Body Recomposition 2027',desc:'Build muscle, reduce body fat further',start:'2027-01-01',end:'2027-06-30',from:77,to:74},
+  {id:'lse',emoji:'🎓',name:'LSE Graduation',desc:'Body transformation for graduation ceremony — InBody baseline April 4, 2026',start:'2026-04-04',end:'2026-07-20',from:82.9,to:75.9},
+  {id:'lon',emoji:'✈️',name:'London & LA Trip',desc:'Maintain weight · celebrate the achievement',start:'2026-07-20',end:'2026-07-25',from:75.9,to:75.9},
+  {id:'post',emoji:'⚖️',name:'Post-Graduation Baseline',desc:'Solidify new weight · reduce body fat further from 28%',start:'2026-07-25',end:'2026-12-31',from:75.9,to:74},
+  {id:'rec',emoji:'💪',name:'Body Recomposition 2027',desc:'Build muscle, reduce body fat below 20%',start:'2027-01-01',end:'2027-06-30',from:74,to:72},
   {id:'ann',emoji:'🏆',name:'Annual Peak Performance',desc:'Sustained lifestyle of health and performance',start:'2027-07-01',end:'2027-12-31',from:74,to:72}
 ];
 const SUPPS=[
@@ -868,9 +1192,12 @@ const QUOTES=[
   "Each day is a deposit. July 20 is the withdrawal.",
   "Fajr is a gift. It starts your day before everyone else.",
   "Faith. Discipline. Patience. In that order.",
-  "The goal is not just lighter. The goal is better."
+  "The goal is not just lighter. The goal is better.",
+  "Eat within the window. Train within your limits. Sleep without compromise.",
+  "Fasted training is fine. Delayed post-workout protein is not. Eat immediately.",
+  "Gym carbs: 180g. Rest day carbs: 120g. Bad carbs: always zero."
 ];
-const SW=86,GW=77,TOTAL=112;
+const SW=82.9,GW=75.9,TOTAL=107;
 const END=new Date('2026-07-20');
 
 const td=()=>{const d=new Date();return`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`};
@@ -883,7 +1210,7 @@ function gp(i,btn){
   document.querySelectorAll('.page').forEach((p,j)=>p.classList.toggle('on',j===i));
   document.querySelectorAll('.nb').forEach(b=>b.classList.remove('on'));
   btn.classList.add('on');
-  if(i===4)setTimeout(renderProg,80);
+  if(i===4){setTimeout(renderProg,80);setTimeout(renderCommitment,100);}
   if(i===1)renderGoals();
   if(i===5)renderCalendar();
 }
@@ -895,14 +1222,14 @@ function init(){
   const now=new Date();now.setHours(0,0,0,0);
   const end2=new Date(END);end2.setHours(0,0,0,0);
   const dl=Math.max(0,Math.round((end2-now)/86400000));
-  const dn=Math.max(1,TOTAL-dl+1);
+  const progStart=new Date('2026-04-04');const nowD=new Date();nowD.setHours(0,0,0,0);const dn=Math.max(1,Math.floor((nowD-progStart)/86400000)+1);
   document.getElementById('hero-days').textContent=dl+' days';
   document.getElementById('hero-day').textContent=now.toLocaleDateString('en-US',{weekday:'short'});
   document.getElementById('hero-date-str').textContent=now.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
   document.getElementById('quote-text').textContent=QUOTES[dn%QUOTES.length];
   document.getElementById('tdate').textContent=now.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'});
   // Timeline
-  const wk=Math.ceil((new Date()-new Date('2026-04-01'))/(7*86400000));
+  const wk=Math.ceil((new Date()-new Date('2026-04-04'))/(7*86400000));
   const tl=id=>document.getElementById(id);
   ['tl1','tl2','tl3','tl4'].forEach(id=>{const el=tl(id);if(el)el.classList.remove('act','done');});
   if(tl('tl1')){
@@ -1115,16 +1442,195 @@ function ptab(btn,id){document.querySelectorAll('.ptab').forEach(b=>b.classList.
 function locT(btn,id){document.querySelectorAll('.lbtn').forEach(b=>b.classList.remove('on'));['lr','la'].forEach(i=>{const el=document.getElementById(i);if(el)el.style.display='none';});btn.classList.add('on');document.getElementById(id).style.display='block';}
 function md(id){const el=document.getElementById('b-'+id);if(el)el.classList.toggle('op');}
 
-/* TRACK */
-function restoreTicks(){document.querySelectorAll('.tick[data-k]').forEach(el=>el.classList.toggle('on',ld(tk(el.dataset.k),false)));}
-function tick(el,k){el.classList.toggle('on',!el.classList.contains('on'));sv(tk(k),el.classList.contains('on'));}
+/* TRACK — ✓/✗ system */
+const HABIT_KEYS=['m4','m1','m2','m3','gym','walk','sleep','cpap','s1','s2','s3','h1','h3','h4','h5'];
+
+function setHabit(k,val){
+  const stored=ld(tk(k),'');
+  const newVal=stored===val?'':val; // toggle off if same
+  sv(tk(k),newVal);
+  renderHabitRow(k,newVal);
+  if(k==='m4'||k==='m1'||k==='m2'||k==='m3')checkDietWarning();
+  toast(newVal==='hit'?'✓ Done':newVal==='miss'?'✗ Missed':'Cleared');
+}
+
+function renderHabitRow(k,val){
+  const hitBtn=document.getElementById('hb-'+k+'-hit');
+  const missBtn=document.getElementById('hb-'+k+'-miss');
+  const status=document.getElementById('hs-'+k);
+  if(!hitBtn)return;
+  hitBtn.classList.toggle('active',val==='hit');
+  missBtn.classList.toggle('active',val==='miss');
+  if(status){status.className='habit-status'+(val==='hit'?' hit':val==='miss'?' miss':'');}
+}
+
+function restoreHabits(){
+  HABIT_KEYS.forEach(k=>{
+    const v=ld(tk(k),'');
+    renderHabitRow(k,v);
+  });
+  checkDietWarning();
+}
+
+/* backward compat: old boolean ticks read as 'hit' */
+function legacyRead(k){
+  const v=ld(tk(k),'');
+  if(v===true||v==='hit')return'hit';
+  if(v===false&&v!=='')return'miss';
+  return v||'';
+}
+
 function restoreNote(){document.getElementById('tnote').value=ld(tk('note'),'');}
 function saveNote(){sv(tk('note'),document.getElementById('tnote').value);toast('Note saved ✓');}
+
+function checkDietWarning(){
+  // Check last 7 days diet compliance
+  const days7=[];
+  for(let i=0;i<7;i++){
+    const d=new Date();d.setDate(d.getDate()-i);
+    const ds=fmtDate(d);
+    const v=ld('s_'+ds+'_m4','');
+    if(v==='hit')days7.push(1);
+    else if(v==='miss')days7.push(0);
+  }
+  if(days7.length<3)return; // not enough data
+  const rate=days7.reduce((a,b)=>a+b,0)/days7.length;
+  const warn=document.getElementById('diet-warn');
+  const body=document.getElementById('diet-warn-body');
+  if(warn){
+    if(rate<0.70){
+      warn.classList.add('show');
+      const missed=days7.filter(d=>d===0).length;
+      const kgLost=(missed*0.08).toFixed(1);
+      if(body)body.textContent=`Window missed ${missed} of last ${days7.length} days. This accounts for ~${kgLost} kg of lost deficit. Your graduation projection has been adjusted.`;
+    } else {
+      warn.classList.remove('show');
+    }
+  }
+}
+
+/* Helper */
+function fmtDate(d){
+  return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+}
+
+/* COMMITMENT CARDS — weekly view */
+function renderCommitment(){
+  const grid=document.getElementById('commit-grid');
+  if(!grid)return;
+
+  // Targets per week
+  const TARGETS={gym:4,walk:3,diet:7,sleep:7};
+
+  // Build last 7 days data
+  const days=[];
+  for(let i=6;i>=0;i--){
+    const d=new Date();d.setDate(d.getDate()-i);
+    const ds=fmtDate(d);
+    const prefix='s_'+ds+'_';
+    days.push({
+      ds,
+      label:d.toLocaleDateString('en-US',{weekday:'short'}).slice(0,1),
+      gym:ld(prefix+'gym',''),
+      walk:ld(prefix+'walk',''),
+      diet:ld(prefix+'m4',''),
+      sleep:ld(prefix+'sleep','')
+    });
+  }
+
+  const metrics=[
+    {key:'gym',  icon:'🏋️',label:'GYM',target:TARGETS.gym,  color:'#C8860A'},
+    {key:'walk', icon:'🚶',label:'WALK',target:TARGETS.walk, color:'#5B9BD4'},
+    {key:'diet', icon:'🥗',label:'DIET',target:TARGETS.diet, color:'#1E7840'},
+    {key:'sleep',icon:'😴',label:'SLEEP',target:TARGETS.sleep,color:'#8244C8'},
+  ];
+
+  grid.innerHTML=metrics.map(m=>{
+    const hits=days.filter(d=>d[m.key]==='hit').length;
+    const misses=days.filter(d=>d[m.key]==='miss').length;
+    const logged=hits+misses;
+    const over=hits>m.target;
+    const pct=logged>0?Math.round((hits/Math.max(logged,m.target))*100):null;
+    const borderClass=pct===null?'':pct>=80?'green-border':pct>=60?'amber-border':'red-border';
+    const pctClass=pct===null?'':pct>=80?'green':pct>=60?'amber':'red';
+    const dotsHtml=days.map(d=>{
+      const v=d[m.key];
+      const isOver=m.key==='gym'&&v==='hit'&&hits>m.target;
+      const cls=v==='hit'?(isOver?'over':'hit'):v==='miss'?'miss':'none';
+      const ch=v==='hit'?'✓':v==='miss'?'✗':d.label;
+      return`<div class="cc-dot ${cls}">${ch}</div>`;
+    }).join('');
+
+    return`<div class="commit-card ${borderClass}">
+      <div class="cc-icon">${m.icon}</div>
+      <div class="cc-label">${m.label}</div>
+      <div class="cc-count">${hits}<span>/${m.target}</span></div>
+      ${over?`<div class="cc-over">+${hits-m.target} over target ↑</div>`:''}
+      ${pct!==null?`<div class="cc-pct ${pctClass}">${pct}% this week</div>`:'<div class="cc-pct" style="color:var(--ink4)">Not yet logged</div>'}
+      <div class="cc-dots">${dotsHtml}</div>
+    </div>`;
+  }).join('');
+
+  renderProgramTotals();
+}
+
+/* PROGRAM TOTALS — since April 1 */
+function renderProgramTotals(){
+  const el=document.getElementById('prog-totals-content');
+  if(!el)return;
+
+  const start=new Date('2026-04-01');
+  const today=new Date();today.setHours(0,0,0,0);
+  const daysSinceStart=Math.max(1,Math.floor((today-start)/86400000)+1);
+
+  // Week-based targets
+  const weeksElapsed=Math.max(1,Math.ceil(daysSinceStart/7));
+  const gymTarget=weeksElapsed*4;
+  const walkTarget=weeksElapsed*3;
+  const dietTarget=daysSinceStart;
+  const sleepTarget=daysSinceStart;
+
+  let gymHits=0,walkHits=0,dietHits=0,sleepHits=0;
+  for(let i=0;i<daysSinceStart;i++){
+    const d=new Date(start);d.setDate(d.getDate()+i);
+    const ds=fmtDate(d);
+    const p='s_'+ds+'_';
+    if(ld(p+'gym','')  ==='hit')gymHits++;
+    if(ld(p+'walk','') ==='hit')walkHits++;
+    if(ld(p+'m4','')   ==='hit')dietHits++;
+    if(ld(p+'sleep','')==='hit')sleepHits++;
+  }
+
+  const rows=[
+    {icon:'🏋️',name:'Gym sessions',hits:gymHits,target:gymTarget,color:'#C8860A'},
+    {icon:'🚶',name:'Walking days',hits:walkHits,target:walkTarget,color:'#5B9BD4'},
+    {icon:'🥗',name:'Diet window kept',hits:dietHits,target:dietTarget,color:'#1E7840'},
+    {icon:'😴',name:'Nights 7–8h sleep',hits:sleepHits,target:sleepTarget,color:'#8244C8'},
+  ];
+
+  el.innerHTML=rows.map(r=>{
+    const over=r.hits>r.target;
+    const pct=Math.min(100,r.target>0?Math.round((r.hits/r.target)*100):0);
+    const cls=pct>=80?'green':pct>=60?'amber':'red';
+    const display=over?`${r.hits}/${r.target} ↑`:`${r.hits}/${r.target}`;
+    return`<div class="ptc-row">
+      <div class="ptc-icon">${r.icon}</div>
+      <div class="ptc-meta">
+        <div class="ptc-name">${r.name}</div>
+        <div class="ptc-bar-wrap"><div class="ptc-bar" style="width:${pct}%;background:${r.color}"></div></div>
+      </div>
+      <div class="ptc-stats">
+        <div class="ptc-num ${over?'amber':cls}">${display}</div>
+        <div class="ptc-pct">${pct}%</div>
+      </div>
+    </div>`;
+  }).join('');
+}
 
 /* PROGRESS */
 function renderProg(){
   const ws=ld('s_weights',[]);
-  if(!ws.length){document.getElementById('pcur').innerHTML='–<span class="pu">kg</span>';document.getElementById('pdelta').innerHTML='';document.getElementById('prem').innerHTML='9<span class="pu">kg</span>';document.getElementById('cr2').textContent='Log weight on Today tab to start';renderWLog([]);drawChart([]);renderCons();return;}
+  if(!ws.length){document.getElementById('pcur').innerHTML='–<span class="pu">kg</span>';document.getElementById('pdelta').innerHTML='';document.getElementById('prem').innerHTML='9<span class="pu">kg</span>';document.getElementById('cr2').textContent='Log weight on Today tab to start';renderWLog([]);drawChart([]);renderCons();renderCommitment();return;}
   const last=ws[ws.length-1];
   const diff=(last.w-SW).toFixed(1);const rem=Math.max(0,last.w-GW).toFixed(1);
   document.getElementById('pcur').innerHTML=`${last.w}<span class="pu">kg</span>`;
@@ -1132,7 +1638,7 @@ function renderProg(){
   document.getElementById('pdelta').innerHTML=`<span class="${dn2<=0?'dg':'dr'}">${dn2>0?'+':''}${diff} kg</span>`;
   document.getElementById('prem').innerHTML=`${rem}<span class="pu">kg</span>`;
   document.getElementById('cr2').textContent=`${ws[0].d.slice(5)} → ${last.d.slice(5)}`;
-  renderWLog(ws);drawChart(ws);renderCons();
+  renderWLog(ws);drawChart(ws);renderCons();renderCommitment();renderPrediction(ws);
 }
 function renderWLog(ws){
   const el=document.getElementById('wlog');
@@ -1189,7 +1695,7 @@ function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t
 
 /* INIT */
 window.addEventListener('DOMContentLoaded',()=>{
-  init();renderSupps();renderWater();restoreTicks();restoreNote();
+  init();renderSupps();renderWater();restoreHabits();restoreNote();
   restoreR();restoreSWC();restoreME();updateWin();renderGoals();
   renderFoodPresets();renderFoodLog();renderCalendar();
   setTimeout(calcScore,400);
@@ -1355,9 +1861,10 @@ const CAL_END=new Date('2026-07-25');
 const CE={};
 function ce(d,type,label,detail){if(!CE[d])CE[d]=[];CE[d].push({type,label,detail:detail||''});}
 // Key events
-ce('2026-04-01','special','🚀 Program Start','Day 1 of 16 weeks. 6:30 AM eating window begins. All supplements start today.');
-ce('2026-04-13','special','📊 Week 2 Check','Target: ~83–84 kg. Water weight flush complete. Take measurements.');
-ce('2026-05-11','special','📊 Week 6 Check','Target: ~80–82 kg. InBody scan recommended this week.');
+ce('2026-04-01','special','🚀 Program Start','Day 1 — supplements begin. Estimated start weight 82.9 kg pending InBody confirmation.');
+ce('2026-04-04','special','📋 InBody Baseline','OFFICIAL baseline: 82.9 kg · 28.0% body fat · 34.0 kg muscle · BMR 1,660 kcal · Visceral fat Level 10 · InBody Score 73/100. Program numbers confirmed.');
+ce('2026-04-17','special','📊 Week 2 Check','Target: ~80–81 kg. Hybrid protocol running. Check gym timing and pre-workout primer habit.');
+ce('2026-05-16','special','📊 Week 6 Check','Target: ~78–80 kg. InBody scan strongly recommended. Visceral fat Level 10 → target below 8.');
 ce('2026-05-24','holiday','🕌 Hajj Period','Hajj pilgrimage begins. Significant period spiritually.');
 ce('2026-05-26','holiday','🕋 Day of Arafat','Holiest day in Islamic calendar. Public holiday in Saudi Arabia.');
 ce('2026-05-27','holiday','🌙 Eid Al-Adha Day 1','High-risk food day. Stick to protein anchor. Exactly two dates.');
@@ -1365,11 +1872,11 @@ ce('2026-05-28','holiday','🌙 Eid Al-Adha Day 2','Family feasts. Apply 80/20 r
 ce('2026-05-29','holiday','🌙 Eid Al-Adha Day 3','');
 ce('2026-05-30','holiday','🌙 Eid Al-Adha Day 4','Last holiday day. Full plan resumes tomorrow.');
 ce('2026-06-01','special','📚 LSE Submission','High stress week. Rule 5: lower carbs, not more food.');
-ce('2026-06-08','special','📊 Week 10 Check','Target: ~78–80 kg. Push through plateau zone.');
+ce('2026-06-13','special','📊 Week 10 Check','Target: ~76–78 kg. Plateau should be breaking. If not: drop AlUla carbs to 100g.');
 ce('2026-06-26','special','🌙 Islamic New Year 1448','Muharram 1. Reflective day — review your progress chart.');
 ce('2026-07-05','special','🌙 Ashura','10 Muharram. Aligns well with your eating protocol.');
-ce('2026-07-13','special','📊 Final Week Check','Target: ~77–78 kg. Last gym sessions. Take final photos.');
-ce('2026-07-20','special','🎓 LSE Graduation!','Grand Connaught Rooms, London. 16 weeks of work on display.');
+ce('2026-07-13','special','📊 Final Week Check','Target: ~76–77 kg. Last gym sessions. Final photos. Sunday session: max 50 min — flight day.');
+ce('2026-07-20','special','🎓 LSE Graduation!','Grand Connaught Rooms, London. 15 weeks of work on display. Target: 75.9 kg.');
 ce('2026-07-20','london','✈️ London Trip Begins','NoMad London. You earned every moment of this.');
 ce('2026-07-21','london','🇬🇧 London Day 2','');
 ce('2026-07-22','london','🇬🇧 London Day 3','');
@@ -1391,6 +1898,7 @@ ce('2026-07-25','london','✈️ Virgin Atlantic to LA','Upper Class. The next c
 })();
 
 function renderCalendar(){
+  loadCustomEvents();
   const cont=document.getElementById('cal-container');if(!cont)return;
   const months=[{y:2026,m:3},{y:2026,m:4},{y:2026,m:5},{y:2026,m:6}];
   const mNames=['January','February','March','April','May','June','July','August'];
@@ -1426,7 +1934,7 @@ function showCalDay(ds){
   const mN=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
   const dN=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
   document.getElementById('cal-m-date').textContent=`${dN[dt.getDay()]} · ${dt.getDate()} ${mN[dt.getMonth()]} ${dt.getFullYear()}`;
-  const diff=Math.floor((dt-CAL_START)/86400000);
+  const PROG_START_DATE=new Date('2026-04-04');const diff=Math.floor((dt-PROG_START_DATE)/86400000);
   const wk=Math.max(1,Math.ceil((diff+1)/7));
   const inP=dt>=CAL_START&&dt<=CAL_END;
   document.getElementById('cal-m-week').textContent=inP?`Week ${wk} of 16`:dt<CAL_START?'Pre-Program':'Post-Graduation 🎓';
@@ -1441,6 +1949,54 @@ function showCalDay(ds){
   document.getElementById('cal-ov').classList.add('open');
 }
 function calCloseOv(e){if(e.target===document.getElementById('cal-ov'))document.getElementById('cal-ov').classList.remove('open');}
+
+/* DYNAMIC CALENDAR */
+let _calCurrentDs='';
+function openAddForm(){
+  const f=document.getElementById('cal-add-form');
+  if(f)f.classList.toggle('open');
+}
+function saveCustomEvent(){
+  const type=document.getElementById('caf-type').value;
+  const label=document.getElementById('caf-label').value.trim();
+  const detail=document.getElementById('caf-detail').value.trim();
+  if(!label){toast('Enter event label');return;}
+  const custom=ld('s_cal_custom',{});
+  if(!custom[_calCurrentDs])custom[_calCurrentDs]=[];
+  const id='c'+Date.now();
+  custom[_calCurrentDs].push({type,label,detail,_id:id,_custom:true});
+  sv('s_cal_custom',custom);
+  // Add to CE
+  if(!CE[_calCurrentDs])CE[_calCurrentDs]=[];
+  CE[_calCurrentDs].push({type,label,detail,_id:id,_custom:true});
+  renderCalendar();
+  // Close form and refresh day view
+  const f=document.getElementById('cal-add-form');if(f)f.classList.remove('open');
+  ['caf-label','caf-detail'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+  showCalDay(_calCurrentDs);
+  toast('Event added ✓');
+}
+function deleteCustomEvent(ds,id){
+  const custom=ld('s_cal_custom',{});
+  if(custom[ds]){
+    custom[ds]=custom[ds].filter(e=>e._id!==id);
+    if(custom[ds].length===0)delete custom[ds];
+  }
+  sv('s_cal_custom',custom);
+  if(CE[ds])CE[ds]=CE[ds].filter(e=>e._id!==id);
+  renderCalendar();
+  showCalDay(ds);
+  toast('Event removed');
+}
+function loadCustomEvents(){
+  const custom=ld('s_cal_custom',{});
+  Object.keys(custom).forEach(ds=>{
+    custom[ds].forEach(ev=>{
+      if(!CE[ds])CE[ds]=[];
+      if(!CE[ds].some(e=>e._id===ev._id))CE[ds].push(ev);
+    });
+  });
+}
 
 /* ── OVERRIDE renderProg to include prediction + gap ── */
 const _origRenderProg=renderProg;
